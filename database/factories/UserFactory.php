@@ -3,8 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -23,12 +21,27 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'username' => $this->faker->unique()->userName,
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'status' => $this->faker->numberBetween(0, 3),
+            'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'phone' => $this->faker->randomNumber(9, true),
+            'phone_verified' => now(),
+            'profile_picture_url' => $this->faker->imageUrl(640, 480),
+            'profile_short_description' => $this->faker->sentence,
+            'profile_description' => $this->faker->paragraph,
+            'gender' => $this->faker->randomElement(['male', 'female', 'other']),
+            'location' => $this->faker->city,
+            'password' => bcrypt('password'),
+            'birth_date' => $this->faker->date(),
+            'cv_path' => $this->faker->word,
+            'portfolio_url' => $this->faker->url,
+            'level' => $this->faker->numberBetween(1, 10),
+            'remember_token' => $this->faker->sha256,
         ];
     }
 
