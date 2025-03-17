@@ -4,10 +4,8 @@ namespace App\Services;
 
 use App\Helpers\ApiResponse;
 use App\Helpers\ValidationHelper;
-use App\Http\Filters\FilterRules\UserFilter;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Models\UserTemporaryBan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -73,7 +71,6 @@ class UserService
     {
         try {
             $user = User::where('id', $id);
-            $user->with('tags');
             $this->applyRelations($user, $request);
 
             $user = $user->first();

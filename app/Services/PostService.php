@@ -20,18 +20,7 @@ class PostService
     public function getAllPosts(Request $request)
     {
         try {
-            $query = Post::query()->with('tags');
-            $filter = new PostFilter;
-            $filters = $filter->transform($request);
-
-            foreach ($filters as $filter) {
-                $query->where(...$filter);
-            }
-
-            if ($request->has('with_comments') && $request->with_comments) {
-                $query->with('comments');
-            }
-
+            $query = Post::query();
             $perPage = min($request->get('per_page', self::POST_PER_PAGE), self::MAX_POSTS_PER_PAGE);
             $posts = $query->paginate($perPage);
 
@@ -68,10 +57,7 @@ class PostService
     public function getPostById(Request $request, $id)
     {
         try {
-            $query = Post::where('id', $id)->with('tags');
-            if ($request->has('with_comments') && $request->with_comments) {
-                $query->with('comments');
-            }
+            $query = Post::where('id', $id);
 
             $post = $query->first();
             if (! $post) {

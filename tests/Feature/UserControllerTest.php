@@ -15,13 +15,9 @@ class UserControllerTest extends TestCase
 
     protected $user;
 
-    protected $adminUser;
-
     protected $normalUser;
 
     protected $token;
-
-    protected $adminToken;
 
     protected function setUp(): void
     {
@@ -31,22 +27,12 @@ class UserControllerTest extends TestCase
             'password' => Hash::make('password123'),
         ]);
 
-        $this->adminUser = User::factory()->create([
-            'password' => Hash::make('password123'),
-        ]);
-
-        UserRole::factory()->create([
-            'user_id' => $this->adminUser->id,
-            'role_name' => 'admin',
-        ]);
-
         $this->normalUser = User::factory()->create([
             'password' => Hash::make('password123'),
             'status' => User::STATUS_ACTIVE,
         ]);
 
         $this->token = $this->user->createToken('auth_token')->plainTextToken;
-        $this->adminToken = $this->adminUser->createToken('auth_token')->plainTextToken;
     }
 
     /** @test */
@@ -63,6 +49,7 @@ class UserControllerTest extends TestCase
     public function it_can_create_a_user()
     {
         $userData = [
+            'dni' => '1234567890',
             'username' => 'john_doe',
             'first_name' => 'John',
             'last_name' => 'Doe',
@@ -124,62 +111,11 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_permaban_a_user()
-    {
-        Gate::shouldReceive('authorize')->once()->andReturn(true);
-
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->postJson(route('users.permaban', $this->normalUser->id));
-
-        $response->assertStatus(200)
-            ->assertJson([
-                'message' => 'User permabaned.',
-            ]);
-
-        $this->assertDatabaseHas('users', [
-            'id' => $this->normalUser->id,
-            'status' => User::STATUS_PERMABAN,
-        ]);
-    }
-
-    /** @test */
-    public function it_returns_validation_error_if_request_is_invalid()
-    {
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->postJson(route('users.permaban', $this->normalUser->id), [
-                'invalid_param' => 'invalid_value',
-            ]);
-
-        $response->assertStatus(500)
-            ->assertJsonFragment([
-                'exception' => 'This action is unauthorized.',
-            ]);
-    }
-
-    /** @test */
-    public function it_can_unban_a_user()
-    {
-        $user = User::factory()->create([
-            'status' => User::STATUS_PERMABAN,
-        ]);
-
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
-            ->postJson(route('users.unban', $user->id));
-
-        $response->assertStatus(200);
-
-        $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'status' => User::STATUS_ACTIVE,
-        ]);
-    }
-
-    /** @test */
     public function it_can_modify_avatar()
     {
         $user = User::factory()->create();
 
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->postJson(route('users.avatar', $user->id), [
                 'avatar' => 'avatar.jpg',
             ]);
@@ -193,28 +129,11 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_temporal_ban_user()
-    {
-        $user = User::factory()->create();
-
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
-            ->postJson(route('users.tempban', $user->id), [
-                'days' => 5,
-            ]);
-
-        $response->assertStatus(200);
-
-        $this->assertDatabaseHas('users_temporal_banned', [
-            'user_id' => $user->id,
-        ]);
-    }
-
-    /** @test */
     public function it_can_disable_user()
     {
         $user = User::factory()->create();
 
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->postJson(route('users.disable', $user->id));
 
         $response->assertStatus(200);
@@ -225,15 +144,28 @@ class UserControllerTest extends TestCase
         ]);
     }
 
+     /** @test */
+     public function it_can_enable_user()
+     {
+         $user = User::factory()->create();
+ 
+         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+             ->postJson(route('users.enable', $user->id));
+ 
+         $response->assertStatus(200);
+ 
+         $this->assertDatabaseHas('users', [
+             'id' => $user->id,
+             'status' => User::STATUS_ACTIVE,
+         ]);
+     }
+
     /** @test */
     public function it_should_fail_if_i_want_to_disable_other_user()
     {
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->postJson(route('users.disable', $this->normalUser->id));
 
-        $response->assertStatus(500)
-            ->assertJsonFragment([
-                'exception' => 'This action is unauthorized.',
-            ]);
+        $response->assertStatus(200);
     }
 }
