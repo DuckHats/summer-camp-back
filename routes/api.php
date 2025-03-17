@@ -49,10 +49,8 @@ Route::middleware('throttle:api')->group(function () {
         Route::delete('/users/{id}', 'UserController@destroy')->name('users.destroy')->middleware('auth:sanctum');
         Route::post('/users/{id}/avatar', [UserController::class, 'updateAvatar'])->name('users.avatar')->middleware('auth:sanctum');
 
-        Route::post('/users/{id}/tempban', [UserController::class, 'tempUserBan'])->name('users.tempban')->middleware('auth:sanctum');
-        Route::post('/users/{id}/permaban', [UserController::class, 'permaBan'])->name('users.permaban')->middleware('auth:sanctum');
-        Route::post('/users/{id}/reactivate', [UserController::class, 'unBan'])->name('users.unban')->middleware('auth:sanctum');
         Route::post('/users/{id}/disable', [UserController::class, 'disableUser'])->name('users.disable')->middleware('auth:sanctum');
+        Route::post('/users/{id}/enable', [UserController::class, 'enableUser'])->name('users.enable')->middleware('auth:sanctum');
 
         // Error routes
         Route::get('/errors', 'ErrorController@index')->name('errors.index')->middleware('auth:sanctum');

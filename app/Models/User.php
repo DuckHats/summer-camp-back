@@ -14,10 +14,6 @@ class User extends Authenticatable
 
     const STATUS_ACTIVE = 1;
 
-    const STATUS_PERMABAN = 2;
-
-    const STATUS_TIMEOUT = 3;
-
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -26,6 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'dni',
         'username',
         'first_name',
         'last_name',
@@ -34,14 +31,9 @@ class User extends Authenticatable
         'password',
         'phone',
         'profile_picture_url',
-        'profile_short_description',
-        'profile_description',
+        'profile_extra_info',
         'gender',
-        'location',
         'birth_date',
-        'cv_path',
-        'portfolio_url',
-        'level',
     ];
 
     /**
@@ -60,9 +52,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'phone_verified' => 'datetime',
         'birth_date' => 'date',
     ];
 
@@ -76,21 +66,15 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    
-
     public function settings()
     {
         return $this->hasMany(UserSetting::class);
     }
 
-    
-
     public function policies()
     {
         return $this->hasMany(Policy::class);
     }
-
-    
 
     public function notifications()
     {

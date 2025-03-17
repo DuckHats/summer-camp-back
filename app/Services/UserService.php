@@ -207,90 +207,6 @@ class UserService
         }
     }
 
-    public function permaBan(Request $request, $id)
-    {
-        $placeholders = ['id' => $id];
-        $validatedData = ValidationHelper::validateRequest($request, 'users', 'permaBan', $placeholders);
-
-        if (! $validatedData['success']) {
-            return ApiResponse::error(
-                'VALIDATION_ERROR',
-                'Invalid parameters provided.',
-                $validatedData['errors'],
-                ApiResponse::INVALID_PARAMETERS_STATUS
-            );
-        }
-
-        try {
-            $user = User::find($id);
-            if (! $user) {
-                return ApiResponse::error(
-                    'NOT_FOUND',
-                    'User not found.',
-                    [],
-                    ApiResponse::NOT_FOUND_STATUS
-                );
-            }
-
-            $adminUser = $request->user();
-
-            Gate::authorize('permaBan', $adminUser);
-
-            $user->status = User::STATUS_PERMABAN;
-            $user->save();
-
-            return ApiResponse::success(new UserResource($user), 'User permabaned.', ApiResponse::OK_STATUS);
-        } catch (\Throwable $e) {
-            return ApiResponse::error(
-                'UPDATE_FAILED',
-                'Error while banning user.',
-                ['exception' => $e->getMessage()],
-                ApiResponse::INTERNAL_SERVER_ERROR_STATUS
-            );
-        }
-    }
-
-    public function unBan(Request $request, $id)
-    {
-        $placeholders = ['id' => $id];
-        $validatedData = ValidationHelper::validateRequest($request, 'users', 'unbanUser', $placeholders);
-
-        if (! $validatedData['success']) {
-            return ApiResponse::error(
-                'VALIDATION_ERROR',
-                'Invalid parameters provided.',
-                $validatedData['errors'],
-                ApiResponse::INVALID_PARAMETERS_STATUS
-            );
-        }
-
-        try {
-            $adminUser = $request->user();
-            Gate::authorize('unBan', $adminUser);
-            $user = User::find($id);
-            if (! $user) {
-                return ApiResponse::error(
-                    'NOT_FOUND',
-                    'User not found.',
-                    [],
-                    ApiResponse::NOT_FOUND_STATUS
-                );
-            }
-
-            $user->status = User::STATUS_ACTIVE;
-            $user->save();
-
-            return ApiResponse::success(new UserResource($user), 'User reactivated successfully.', ApiResponse::OK_STATUS);
-        } catch (\Throwable $e) {
-            return ApiResponse::error(
-                'UPDATE_FAILED',
-                'Error while reactivating user.',
-                ['exception' => $e->getMessage()],
-                ApiResponse::INTERNAL_SERVER_ERROR_STATUS
-            );
-        }
-    }
-
     public function updateAvatar(Request $request, $id, $authUser)
     {
         $placeholders = ['id' => $id];
@@ -324,6 +240,86 @@ class UserService
             return ApiResponse::error(
                 'UPDATE_FAILED',
                 'Error while updating user.',
+                ['exception' => $e->getMessage()],
+                ApiResponse::INTERNAL_SERVER_ERROR_STATUS
+            );
+        }
+    }
+
+    public function disableUser(Request $request, $id)
+    {
+        $placeholders = ['id' => $id];
+        $validatedData = ValidationHelper::validateRequest($request, 'users', 'disableUser', $placeholders);
+        if (! $validatedData['success']) {
+            return ApiResponse::error(
+                'VALIDATION_ERROR',
+                'Invalid parameters provided.',
+                $validatedData['errors'],
+                ApiResponse::INVALID_PARAMETERS_STATUS
+            );
+        }
+
+        try {
+            $requestUser = $request->user();
+
+            $user = User::find($id);
+            if (! $user) {
+                return ApiResponse::error(
+                    'NOT_FOUND',
+                    'User not found.',
+                    [],
+                    ApiResponse::NOT_FOUND_STATUS
+                );
+            }
+            Gate::authorize('disable', $user, $requestUser);
+            $user->status = User::STATUS_INACTIVE;
+            $user->save();
+
+            return ApiResponse::success(new UserResource($user), 'User disabled successfully.', ApiResponse::OK_STATUS);
+        } catch (\Throwable $e) {
+            return ApiResponse::error(
+                'UPDATE_FAILED',
+                'Error while banning user.',
+                ['exception' => $e->getMessage()],
+                ApiResponse::INTERNAL_SERVER_ERROR_STATUS
+            );
+        }
+    }
+
+    public function enableUser(Request $request, $id)
+    {
+        $placeholders = ['id' => $id];
+        $validatedData = ValidationHelper::validateRequest($request, 'users', 'enableUser', $placeholders);
+        if (! $validatedData['success']) {
+            return ApiResponse::error(
+                'VALIDATION_ERROR',
+                'Invalid parameters provided.',
+                $validatedData['errors'],
+                ApiResponse::INVALID_PARAMETERS_STATUS
+            );
+        }
+
+        try {
+            $requestUser = $request->user();
+
+            $user = User::find($id);
+            if (! $user) {
+                return ApiResponse::error(
+                    'NOT_FOUND',
+                    'User not found.',
+                    [],
+                    ApiResponse::NOT_FOUND_STATUS
+                );
+            }
+            Gate::authorize('disable', $user, $requestUser);
+            $user->status = User::STATUS_ACTIVE;
+            $user->save();
+
+            return ApiResponse::success(new UserResource($user), 'User enabled successfully.', ApiResponse::OK_STATUS);
+        } catch (\Throwable $e) {
+            return ApiResponse::error(
+                'UPDATE_FAILED',
+                'Error while banning user.',
                 ['exception' => $e->getMessage()],
                 ApiResponse::INTERNAL_SERVER_ERROR_STATUS
             );

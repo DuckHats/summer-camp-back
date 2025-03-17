@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\UserRole;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,6 +14,7 @@ class SetupController extends Controller
 
         if (! $user) {
             $user = User::create([
+                'dni' => '1234567890',
                 'username' => 'AdminSetup',
                 'first_name' => 'AdminSetup',
                 'last_name' => 'AdminSetup',
@@ -22,6 +22,7 @@ class SetupController extends Controller
                 'password' => Hash::make('password123'),
                 'phone' => '1234567890',
                 'profile_picture_url' => 'http://example.com/profile.jpg',
+                'profile_extra_info' => 'Admin extra info',
                 'gender' => 'male',
                 'location' => 'Admin City',
                 'birth_date' => '1990-01-01',

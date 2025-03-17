@@ -78,27 +78,6 @@ class UserController extends Controller
         return $this->userService->deleteUser($id);
     }
 
-    /**
-     * Permanent ban a user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function permaBan(Request $request, $id)
-    {
-        return $this->userService->permaBan($request, $id);
-    }
-
-    /**
-     * Unban a user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function unBan(Request $request, $id)
-    {
-        return $this->userService->unBan($request, $id);
-    }
 
     /**
      * Return Current authenticate user information.
@@ -127,17 +106,6 @@ class UserController extends Controller
     }
 
     /**
-     * Allow to temporary ban user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function tempUserBan(Request $request, $id)
-    {
-        return $this->userService->tempBanUser($request, $id);
-    }
-
-    /**
      * Allow to desactivate user.
      *
      * @param  int  $id
@@ -146,5 +114,16 @@ class UserController extends Controller
     public function disableUser(Request $request, $id)
     {
         return $this->userService->disableUser($request, $id);
+    }
+
+    /**
+     * Enable a user.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function enableUser(Request $request, $id)
+    {
+        return $this->userService->enableUser($request, $id);
     }
 }

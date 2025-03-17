@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('dni')->unique();
             $table->string('username')->unique();
             $table->string('first_name');
             $table->string('last_name');
@@ -20,17 +21,10 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->bigInteger('phone')->nullable();
-            $table->timestamp('phone_verified')->nullable();
             $table->string('profile_picture_url')->nullable();
-            $table->string('profile_short_description')->nullable();
-            $table->text('profile_description')->nullable();
+            $table->text('profile_extra_info')->nullable();
             $table->string('gender', 50)->nullable();
-            $table->string('location')->nullable();
-            $table->string('cv_path', 255)->nullable();
-            $table->string('portfolio_url', 255)->nullable();
-            $table->integer('level')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
