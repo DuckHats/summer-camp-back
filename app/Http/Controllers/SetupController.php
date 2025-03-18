@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,6 +27,12 @@ class SetupController extends Controller
                 'gender' => 'male',
                 'location' => 'Admin City',
                 'birth_date' => '1990-01-01',
+            ]);
+
+            UserSetting::create([
+                'user_id' => $user->id,
+                'value' => 'role',
+                'key' => 'admin',
             ]);
         }
 
