@@ -10,19 +10,12 @@ return [
             'password' => 'required',
         ],
         'register' => [
-            'dni' => 'required|string|max:255|unique:users',
             'username' => 'required|string|max:255|unique:users',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             // Modificar especificacions de password
             'password' => 'required|confirmed|min:8',
             'password_confirmation' => 'required',
             'phone' => 'nullable|string|max:20',
-            'profile_picture_url' => 'nullable|url',
-            'gender' => 'nullable|string|in:male,female,other',
-            'birth_date' => 'nullable|date',
-            'profile_extra_info' => 'nullable|string',
         ],
         'reset_password' => [
             'email' => 'required|email|exists:users,email',
@@ -50,46 +43,25 @@ return [
     ],
     'users' => [
         'store' => [
-            'dni' => 'required|string|max:255|unique:users',
             'username' => 'required|string|max:255|unique:users',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             // Modificar especificacions de password
             'password' => 'required|string|min:8',
             'phone' => 'nullable|string',
-            'profile_picture_url' => 'nullable|url',
-            'profile_extra_info' => 'nullable|string',
-            'gender' => 'nullable|string',
-            'birth_date' => 'nullable|date',
         ],
         'update' => [
-            'dni' => 'nullable|string|max:255|unique:users',
             'username' => 'required|string|max:255|unique:users,username,{id}',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,{id}',
             // Modificar especificacions de password
             'password' => 'nullable|string|min:8',
             'phone' => 'nullable|string',
-            'profile_picture_url' => 'nullable|url',
-            'profile_extra_info' => 'nullable|string',
-            'gender' => 'nullable|string',
-            'birth_date' => 'nullable|date',
         ],
         'patch' => [
-            'dni' => 'nullable|string|max:255|unique:users',
             'username' => 'nullable|string|max:255|unique:users,username,{id}',
-            'first_name' => 'nullable|string|max:255',
-            'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|string|email|max:255|unique:users,email,{id}',
             // Modificar especificacions de password
             'password' => 'nullable|string|min:8',
             'phone' => 'nullable|string',
-            'profile_picture_url' => 'nullable|url',
-            'profile_extra_info' => 'nullable|string',
-            'gender' => 'nullable|string',
-            'birth_date' => 'nullable|date',
         ],
         'unBan' => [
             'reason' => 'nullable|string',

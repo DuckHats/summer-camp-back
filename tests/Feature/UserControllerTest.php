@@ -91,13 +91,13 @@ class UserControllerTest extends TestCase
     /** @test */
     public function it_can_patch_a_user()
     {
-        $updatedData = ['first_name' => 'Updated Name'];
+        $updatedData = ['username' => 'Updated Name'];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->patchJson(route('users.patch', $this->user->id), $updatedData);
 
         $response->assertStatus(200);
-        $this->assertDatabaseHas('users', ['first_name' => 'Updated Name']);
+        $this->assertDatabaseHas('users', ['username' => 'Updated Name']);
     }
 
     /** @test */
@@ -108,24 +108,6 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(204);
         $this->assertDatabaseMissing('users', ['id' => $this->user->id]);
-    }
-
-    /** @test */
-    public function it_can_modify_avatar()
-    {
-        $user = User::factory()->create();
-
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->postJson(route('users.avatar', $user->id), [
-                'avatar' => 'avatar.jpg',
-            ]);
-
-        $response->assertStatus(200);
-
-        $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'profile_picture_url' => 'avatar.jpg',
-        ]);
     }
 
     /** @test */

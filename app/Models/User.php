@@ -22,18 +22,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'dni',
         'username',
-        'first_name',
-        'last_name',
-        'status',
-        'email',
-        'password',
         'phone',
-        'profile_picture_url',
-        'profile_extra_info',
-        'gender',
-        'birth_date',
+        'email',
+        'status',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -53,13 +47,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'password' => 'hashed',
-        'birth_date' => 'date',
     ];
 
-    // public function setPasswordAttribute($value)
-    // {
-    //     $this->attributes['password'] = bcrypt($value);
-    // }
+    public function sons()
+    {
+        return $this->hasMany(Son::class);
+    }
 
     public function posts()
     {
