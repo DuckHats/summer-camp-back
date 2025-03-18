@@ -2,9 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\EmailVerification;
 use App\Models\PasswordReset;
-use App\Models\PhoneVerification;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;

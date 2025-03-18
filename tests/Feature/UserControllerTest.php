@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Models\UserRole;
 use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -142,21 +140,21 @@ class UserControllerTest extends TestCase
         ]);
     }
 
-     /** @test */
-     public function it_can_enable_user()
-     {
-         $user = User::factory()->create();
- 
-         $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
-             ->postJson(route('users.enable', $user->id));
- 
-         $response->assertStatus(200);
- 
-         $this->assertDatabaseHas('users', [
-             'id' => $user->id,
-             'status' => User::STATUS_ACTIVE,
-         ]);
-     }
+    /** @test */
+    public function it_can_enable_user()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
+            ->postJson(route('users.enable', $user->id));
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'status' => User::STATUS_ACTIVE,
+        ]);
+    }
 
     /** @test */
     public function it_should_fail_if_i_want_to_disable_other_user()

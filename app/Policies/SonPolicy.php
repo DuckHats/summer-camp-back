@@ -7,7 +7,6 @@ use App\Models\User;
 
 class SonPolicy
 {
-    
     public function create(User $user, Son $son): bool
     {
         return $user->id == $son->user_id || $user->isAdmin();

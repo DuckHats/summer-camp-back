@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Helpers\ApiResponse;
 use App\Helpers\ValidationHelper;
-use App\Http\Filters\FilterRules\UserSettingFilter;
 use App\Http\Resources\UserSettingResource;
 use App\Models\UserSetting;
 use Illuminate\Http\Request;

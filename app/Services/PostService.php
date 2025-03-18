@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Helpers\ApiResponse;
 use App\Helpers\ValidationHelper;
-use App\Http\Filters\FilterRules\PostFilter;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;

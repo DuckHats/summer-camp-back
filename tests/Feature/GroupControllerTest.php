@@ -28,7 +28,7 @@ class GroupControllerTest extends TestCase
             [
                 'user_id' => $this->user->id,
                 'key' => 'role',
-                'value' => 'admin'
+                'value' => 'admin',
             ]
         );
 
@@ -53,7 +53,7 @@ class GroupControllerTest extends TestCase
             'profile_picture' => 'image.png',
         ];
 
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->postJson(route('groups.store'), $groupData);
 
         $response->assertStatus(201);
@@ -64,7 +64,7 @@ class GroupControllerTest extends TestCase
     /** @test */
     public function it_validates_required_fields_when_creating_a_group()
     {
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->postJson(route('groups.store'), []);
 
         $response->assertStatus(400);
@@ -75,7 +75,7 @@ class GroupControllerTest extends TestCase
     {
         $group = Group::factory()->create();
 
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->getJson(route('groups.show', $group->id));
 
         $response->assertStatus(200);
@@ -84,7 +84,7 @@ class GroupControllerTest extends TestCase
     /** @test */
     public function it_returns_404_if_group_not_found()
     {
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->getJson(route('groups.show', 999));
 
         $response->assertStatus(404);
@@ -97,7 +97,7 @@ class GroupControllerTest extends TestCase
 
         $updatedData = ['name' => 'Updated Title', 'profile_picture' => 'Updated content'];
 
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->putJson(route('groups.update', $group->id), $updatedData);
 
         $response->assertStatus(200);
@@ -112,7 +112,7 @@ class GroupControllerTest extends TestCase
 
         $patchData = ['name' => 'Partially Updated name'];
 
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->patchJson(route('groups.patch', $group->id), $patchData);
 
         $response->assertStatus(200);
@@ -125,7 +125,7 @@ class GroupControllerTest extends TestCase
     {
         $group = Group::factory()->create();
 
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->deleteJson(route('groups.destroy', $group->id));
 
         $response->assertStatus(204);

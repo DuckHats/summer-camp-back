@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use App\Models\Error;
 use App\Models\Notification;
 use App\Models\Policy;
-use App\Models\User;
 use App\Models\Son;
+use App\Models\User;
 use App\Models\UserSetting;
 use Illuminate\Database\Seeder;
 
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
 
             Error::factory(rand(1, 3))->create([
                 'user_id' => $user->id,
-                'error_code' => 'ERR' . rand(100, 999),
+                'error_code' => 'ERR'.rand(100, 999),
                 'error_message' => 'This is a sample error message.',
                 'occurred_at' => now(),
             ]);
