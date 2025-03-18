@@ -6,6 +6,7 @@ use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSettingController;
+use App\Http\Controllers\SonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,6 +78,15 @@ Route::middleware('throttle:api')->group(function () {
         Route::put('/usettings/{id}', 'UserSettingController@update')->name('user_settings.update')->middleware('auth:sanctum');
         Route::patch('/usettings/{id}', [UserSettingController::class, 'patch'])->name('user_settings.patch')->middleware('auth:sanctum');
         Route::delete('/usettings/{id}', 'UserSettingController@destroy')->name('user_settings.destroy')->middleware('auth:sanctum');
+
+        // Son routes
+        Route::get('/sons', 'SonController@index')->name('sons.index');
+        Route::get('/sons/{id}', 'SonController@show')->name('sons.show');
+
+        Route::post('/sons', 'SonController@store')->name('sons.store')->middleware('auth:sanctum');
+        Route::put('/sons/{id}', 'SonController@update')->name('sons.update')->middleware('auth:sanctum');
+        Route::patch('/sons/{id}', [SonController::class, 'patch'])->name('sons.patch')->middleware('auth:sanctum');
+        Route::delete('/sons/{id}', 'SonController@destroy')->name('sons.destroy')->middleware('auth:sanctum');
 
         // User policy assignment routes
         Route::get('/upolicy', 'PolicyController@index')->name('policy.index');

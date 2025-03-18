@@ -12,8 +12,7 @@ class PostPolicy
      */
     public function create(User $user, Post $post): bool
     {
-        // El usuario puede crear un post solo para sí mismo o si es admin.
-        return $user->id == $post->user_id;
+        return $user->id == $post->user_id || $user->isAdmin();
     }
 
     /**
@@ -21,8 +20,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        // El usuario puede actualizar su propio post o si es admin.
-        return $user->id == $post->user_id;
+        return $user->id == $post->user_id || $user->isAdmin();
     }
 
     /**
@@ -30,7 +28,6 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        // El usuario puede eliminar su propio post o si es admin.
-        return $user->id == $post->user_id;
+        return $user->id == $post->user_id || $user->isAdmin();
     }
 }

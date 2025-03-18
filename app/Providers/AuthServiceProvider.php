@@ -3,11 +3,16 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Models\Group;
 use App\Models\Post;
+use App\Models\Son;
 use App\Models\User;
 use App\Models\UserSetting;
 use App\Policies\PostPolicy;
 use App\Policies\UserPolicy;
+use App\Policies\SonPolicy;
+use App\Policies\GroupPolicy;
 use App\Policies\UserSettingPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -22,6 +27,8 @@ class AuthServiceProvider extends ServiceProvider
         Post::class => PostPolicy::class,
         User::class => UserPolicy::class,
         UserSetting::class => UserSettingPolicy::class,
+        Son::class => SonPolicy::class,
+        Group::class => GroupPolicy::class,
     ];
 
     /**

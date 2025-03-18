@@ -83,4 +83,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PasswordReset::class, 'email', 'email');
     }
+
+    public function isAdmin()
+    {
+        return $this->settings()->where('key', 'role')->where('value', 'admin')->exists();
+    }
 }

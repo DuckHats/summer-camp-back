@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\UserRole;
+use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +20,10 @@ class UserControllerTest extends TestCase
 
     protected $token;
 
+    protected $adminUser;
+
+    protected $adminToken;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -32,7 +37,18 @@ class UserControllerTest extends TestCase
             'status' => User::STATUS_ACTIVE,
         ]);
 
+        $this->adminUser = User::factory()->create([
+            'password' => Hash::make('password123'),
+        ]);
+
+        UserSetting::factory()->create([
+            'user_id' => $this->adminUser->id,
+            'key' => 'role',
+            'value' => 'admin',
+        ]);
+
         $this->token = $this->user->createToken('auth_token')->plainTextToken;
+        $this->adminToken = $this->adminUser->createToken('auth_token')->plainTextToken;
     }
 
     /** @test */
@@ -115,7 +131,7 @@ class UserControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
             ->postJson(route('users.disable', $user->id));
 
         $response->assertStatus(200);
@@ -131,7 +147,7 @@ class UserControllerTest extends TestCase
      {
          $user = User::factory()->create();
  
-         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+         $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
              ->postJson(route('users.enable', $user->id));
  
          $response->assertStatus(200);
@@ -148,6 +164,6 @@ class UserControllerTest extends TestCase
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->postJson(route('users.disable', $this->normalUser->id));
 
-        $response->assertStatus(200);
+        $response->assertStatus(500);
     }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birth_date');
-            $table->unsignedBigInteger('group_id');
+            $table->foreignId('group_id')->nullable()->constrained('groups')->onDelete('set null');
             $table->string('profile_picture_url')->nullable();
             $table->text('profile_extra_info')->nullable();
             $table->string('gender', 50);

@@ -9,16 +9,16 @@ class UserSettingPolicy
 {
     public function create(User $user, UserSetting $userSetting): bool
     {
-        return $user->id == $userSetting->user_id;
+        return $user->id == $userSetting->user_id || $user->isAdmin();
     }
 
     public function update(User $user, UserSetting $userSetting): bool
     {
-        return $user->id == $userSetting->user_id;
+        return $user->id == $userSetting->user_id || $user->isAdmin();
     }
 
     public function delete(User $user, UserSetting $userSetting): bool
     {
-        return $user->id == $userSetting->user_id;
+        return $user->id == $userSetting->user_id || $user->isAdmin();
     }
 }
