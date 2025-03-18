@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SonController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSettingController;
 use Illuminate\Support\Facades\Route;
@@ -78,6 +80,15 @@ Route::middleware('throttle:api')->group(function () {
         Route::patch('/usettings/{id}', [UserSettingController::class, 'patch'])->name('user_settings.patch')->middleware('auth:sanctum');
         Route::delete('/usettings/{id}', 'UserSettingController@destroy')->name('user_settings.destroy')->middleware('auth:sanctum');
 
+        // Son routes
+        Route::get('/sons', 'SonController@index')->name('sons.index');
+        Route::get('/sons/{id}', 'SonController@show')->name('sons.show');
+
+        Route::post('/sons', 'SonController@store')->name('sons.store')->middleware('auth:sanctum');
+        Route::put('/sons/{id}', 'SonController@update')->name('sons.update')->middleware('auth:sanctum');
+        Route::patch('/sons/{id}', [SonController::class, 'patch'])->name('sons.patch')->middleware('auth:sanctum');
+        Route::delete('/sons/{id}', 'SonController@destroy')->name('sons.destroy')->middleware('auth:sanctum');
+
         // User policy assignment routes
         Route::get('/upolicy', 'PolicyController@index')->name('policy.index');
         Route::get('/upolicy/{id}', 'PolicyController@show')->name('policy.show');
@@ -95,5 +106,14 @@ Route::middleware('throttle:api')->group(function () {
         Route::put('/unotification/{id}', 'NotificationController@update')->name('notification.update')->middleware('auth:sanctum');
         Route::patch('/unotification/{id}', [NotificationController::class, 'patch'])->name('notification.patch')->middleware('auth:sanctum');
         Route::delete('/unotification/{id}', 'NotificationController@destroy')->name('notification.destroy')->middleware('auth:sanctum');
+
+        // Group routes
+        Route::get('/groups', 'GroupController@index')->name('groups.index');
+        Route::get('/groups/{id}', 'GroupController@show')->name('groups.show');
+
+        Route::post('/groups', 'GroupController@store')->name('groups.store')->middleware('auth:sanctum');
+        Route::put('/groups/{id}', 'GroupController@update')->name('groups.update')->middleware('auth:sanctum');
+        Route::patch('/groups/{id}', [GroupController::class, 'patch'])->name('groups.patch')->middleware('auth:sanctum');
+        Route::delete('/groups/{id}', 'GroupController@destroy')->name('groups.destroy')->middleware('auth:sanctum');
     });
 });

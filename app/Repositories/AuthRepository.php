@@ -4,9 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Notification;
 use App\Models\Policy;
-use App\Models\UserRole;
 use App\Models\UserSetting;
-use App\Models\UserXp;
 use Illuminate\Support\Facades\Config;
 
 class AuthRepository

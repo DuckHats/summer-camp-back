@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Helpers\ApiResponse;
 use App\Helpers\ValidationHelper;
-use App\Http\Filters\FilterRules\ErrorFilter;
 use App\Http\Resources\ErrorResource;
 use App\Models\Error;
 use Illuminate\Http\Request;

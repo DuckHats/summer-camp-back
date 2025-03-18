@@ -78,7 +78,6 @@ class UserController extends Controller
         return $this->userService->deleteUser($id);
     }
 
-
     /**
      * Return Current authenticate user information.
      *

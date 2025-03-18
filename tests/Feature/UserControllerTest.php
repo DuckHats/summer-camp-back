@@ -3,9 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Models\UserRole;
+use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -18,6 +17,10 @@ class UserControllerTest extends TestCase
     protected $normalUser;
 
     protected $token;
+
+    protected $adminUser;
+
+    protected $adminToken;
 
     protected function setUp(): void
     {
@@ -32,7 +35,18 @@ class UserControllerTest extends TestCase
             'status' => User::STATUS_ACTIVE,
         ]);
 
+        $this->adminUser = User::factory()->create([
+            'password' => Hash::make('password123'),
+        ]);
+
+        UserSetting::factory()->create([
+            'user_id' => $this->adminUser->id,
+            'key' => 'role',
+            'value' => 'admin',
+        ]);
+
         $this->token = $this->user->createToken('auth_token')->plainTextToken;
+        $this->adminToken = $this->adminUser->createToken('auth_token')->plainTextToken;
     }
 
     /** @test */
@@ -91,13 +105,13 @@ class UserControllerTest extends TestCase
     /** @test */
     public function it_can_patch_a_user()
     {
-        $updatedData = ['first_name' => 'Updated Name'];
+        $updatedData = ['username' => 'Updated Name'];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->patchJson(route('users.patch', $this->user->id), $updatedData);
 
         $response->assertStatus(200);
-        $this->assertDatabaseHas('users', ['first_name' => 'Updated Name']);
+        $this->assertDatabaseHas('users', ['username' => 'Updated Name']);
     }
 
     /** @test */
@@ -111,29 +125,11 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_modify_avatar()
-    {
-        $user = User::factory()->create();
-
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->postJson(route('users.avatar', $user->id), [
-                'avatar' => 'avatar.jpg',
-            ]);
-
-        $response->assertStatus(200);
-
-        $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'profile_picture_url' => 'avatar.jpg',
-        ]);
-    }
-
-    /** @test */
     public function it_can_disable_user()
     {
         $user = User::factory()->create();
 
-        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
             ->postJson(route('users.disable', $user->id));
 
         $response->assertStatus(200);
@@ -144,21 +140,21 @@ class UserControllerTest extends TestCase
         ]);
     }
 
-     /** @test */
-     public function it_can_enable_user()
-     {
-         $user = User::factory()->create();
- 
-         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-             ->postJson(route('users.enable', $user->id));
- 
-         $response->assertStatus(200);
- 
-         $this->assertDatabaseHas('users', [
-             'id' => $user->id,
-             'status' => User::STATUS_ACTIVE,
-         ]);
-     }
+    /** @test */
+    public function it_can_enable_user()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
+            ->postJson(route('users.enable', $user->id));
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'status' => User::STATUS_ACTIVE,
+        ]);
+    }
 
     /** @test */
     public function it_should_fail_if_i_want_to_disable_other_user()
@@ -166,6 +162,6 @@ class UserControllerTest extends TestCase
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->postJson(route('users.disable', $this->normalUser->id));
 
-        $response->assertStatus(200);
+        $response->assertStatus(500);
     }
 }

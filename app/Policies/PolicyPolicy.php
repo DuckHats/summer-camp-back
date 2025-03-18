@@ -9,16 +9,16 @@ class PolicyPolicy
 {
     public function create(User $user, Policy $policy): bool
     {
-        return $user->id == $policy->user_id;
+        return $user->id == $policy->user_id || $user->isAdmin();
     }
 
     public function update(User $user, Policy $policy): bool
     {
-        return $user->id == $policy->user_id;
+        return $user->id == $policy->user_id || $user->isAdmin();
     }
 
     public function delete(User $user, Policy $policy): bool
     {
-        return $user->id == $policy->user_id;
+        return $user->id == $policy->user_id || $user->isAdmin();
     }
 }

@@ -9,16 +9,16 @@ class NotificationPolicy
 {
     public function create(User $user, Notification $notification): bool
     {
-        return $user->id == $notification->user_id;
+        return $user->id == $notification->user_id || $user->isAdmin();
     }
 
     public function update(User $user, Notification $notification): bool
     {
-        return $user->id == $notification->user_id;
+        return $user->id == $notification->user_id || $user->isAdmin();
     }
 
     public function delete(User $user, Notification $notification): bool
     {
-        return $user->id == $notification->user_id;
+        return $user->id == $notification->user_id || $user->isAdmin();
     }
 }
