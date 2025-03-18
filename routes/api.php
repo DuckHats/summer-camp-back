@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSettingController;
 use App\Http\Controllers\SonController;
+use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -105,5 +106,14 @@ Route::middleware('throttle:api')->group(function () {
         Route::put('/unotification/{id}', 'NotificationController@update')->name('notification.update')->middleware('auth:sanctum');
         Route::patch('/unotification/{id}', [NotificationController::class, 'patch'])->name('notification.patch')->middleware('auth:sanctum');
         Route::delete('/unotification/{id}', 'NotificationController@destroy')->name('notification.destroy')->middleware('auth:sanctum');
+
+        // Group routes
+        Route::get('/groups', 'GroupController@index')->name('groups.index');
+        Route::get('/groups/{id}', 'GroupController@show')->name('groups.show');
+
+        Route::post('/groups', 'GroupController@store')->name('groups.store')->middleware('auth:sanctum');
+        Route::put('/groups/{id}', 'GroupController@update')->name('groups.update')->middleware('auth:sanctum');
+        Route::patch('/groups/{id}', [GroupController::class, 'patch'])->name('groups.patch')->middleware('auth:sanctum');
+        Route::delete('/groups/{id}', 'GroupController@destroy')->name('groups.destroy')->middleware('auth:sanctum');
     });
 });

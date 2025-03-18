@@ -197,4 +197,18 @@ return [
             'user_id' => 'nullable|exists:users,id',
         ],
     ],
+    'groups' => [
+        'store' => [
+            'name' => 'required|string|max:255',
+            'profile_picture' => 'required|string',
+        ],
+        'update' => [
+            'name' => 'nullable|string|max:255',
+            'profile_picture' => 'nullable|string',
+        ],
+        'patch' => [
+            'name' => 'nullable|string|max:255',
+            'profile_picture' => 'nullable|string',
+        ],
+    ],
 ];
