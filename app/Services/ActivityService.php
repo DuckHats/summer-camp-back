@@ -19,7 +19,7 @@ class ActivityService
     public function getAllActivities(Request $request)
     {
         try {
-            $query = Activity::query();
+            $query = Activity::query()->with(['days']);
             $perPage = min($request->get('per_page', self::ACTIVITY_PER_PAGE), self::MAX_ACTIVITY_PER_PAGE);
             $activities = $query->paginate($perPage);
 
@@ -49,6 +49,8 @@ class ActivityService
                 $activity->days()->sync($validatedData['data']['days']);
             }
 
+            $activity->load(['days']);
+
             return ApiResponse::success(new ActivityResource($activity), 'Activity created successfully.', ApiResponse::CREATED_STATUS);
         } catch (\Throwable $e) {
             Log::error('Error creating activity', ['exception' => $e->getMessage()]);
@@ -60,7 +62,7 @@ class ActivityService
     public function getActivityById(Request $request, $id)
     {
         try {
-            $query = Activity::where('id', $id);
+            $query = Activity::where('id', $id)->with(['days']);
 
             $activity = $query->first();
             if (! $activity) {
@@ -88,6 +90,8 @@ class ActivityService
             if (! $activity) {
                 return ApiResponse::error('NOT_FOUND', 'Activity not found.', [], ApiResponse::NOT_FOUND_STATUS);
             }
+
+            $activity->load(['days']);
 
             Gate::authorize('update', $request->user());
             $activity->update($validatedData['data']);
@@ -156,6 +160,8 @@ class ActivityService
             if (! empty($validatedData['data']['days'])) {
                 $activity->days()->sync($validatedData['data']['days']);
             }
+
+            $activity->load(['days']);
 
             return ApiResponse::success(new ActivityResource($activity), 'Activity partially updated successfully.', ApiResponse::OK_STATUS);
         } catch (\Throwable $e) {

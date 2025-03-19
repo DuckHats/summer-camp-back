@@ -15,4 +15,9 @@ class Group extends Model
     {
         return $this->hasMany(Son::class);
     }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
 }

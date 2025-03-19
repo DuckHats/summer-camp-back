@@ -14,6 +14,7 @@ class GroupResource extends JsonResource
             'name' => $this->name,
             'profile_picture' => $this->profile_picture,
             'sons' => SonResource::collection($this->whenLoaded('sons')),
+            'activities' => ActivityResource::collection($this->whenLoaded('activities')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
