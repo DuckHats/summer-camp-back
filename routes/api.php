@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SonController;
@@ -64,7 +65,7 @@ Route::middleware('throttle:api')->group(function () {
         Route::put('/errors/{id}', 'ErrorController@update')->name('errors.update')->middleware('auth:sanctum');
         Route::delete('/errors/{id}', 'ErrorController@destroy')->name('errors.destroy')->middleware('auth:sanctum');
 
-        // Post routes
+        // Post routes ONLY FOR EXAMPLE
         Route::get('/posts', 'PostController@index')->name('posts.index');
         Route::get('/posts/{id}', 'PostController@show')->name('posts.show');
 
@@ -135,5 +136,14 @@ Route::middleware('throttle:api')->group(function () {
         Route::put('/monitors/{id}', 'MonitorController@update')->name('monitors.update')->middleware('auth:sanctum');
         Route::patch('/monitors/{id}', [MonitorController::class, 'patch'])->name('monitors.patch')->middleware('auth:sanctum');
         Route::delete('/monitors/{id}', 'MonitorController@destroy')->name('monitors.destroy')->middleware('auth:sanctum');
+
+        // Photos routes
+        Route::get('/photos', 'PhotoController@index')->name('photos.index');
+        Route::get('/photos/{id}', 'PhotoController@show')->name('photos.show');
+
+        Route::post('/photos', 'PhotoController@store')->name('photos.store')->middleware('auth:sanctum');
+        Route::put('/photos/{id}', 'PhotoController@update')->name('photos.update')->middleware('auth:sanctum');
+        Route::patch('/photos/{id}', [PhotoController::class, 'patch'])->name('photos.patch')->middleware('auth:sanctum');
+        Route::delete('/photos/{id}', 'PhotoController@destroy')->name('photos.destroy')->middleware('auth:sanctum');
     });
 });

@@ -19,7 +19,7 @@ class GroupService
     public function getAllGroups(Request $request)
     {
         try {
-            $query = Group::query()->with(['sons', 'activities', 'monitor']);
+            $query = Group::query()->with(['sons', 'activities', 'monitor', 'photos']);
             $perPage = min($request->get('per_page', self::GROUP_PER_PAGE), self::MAX_GROUPS_PER_PAGE);
             $groups = $query->paginate($perPage);
 
@@ -42,10 +42,10 @@ class GroupService
 
         try {
             $group = new Group($validatedData['data']);
-            Gate::authorize('create', $group);
+            Gate::authorize('create', $request->user());
             $group->save();
 
-            $group->load(['sons', 'activities', 'monitor']);
+            $group->load(['sons', 'activities', 'monitor', 'photos']);
 
             return ApiResponse::success(new GroupResource($group), 'Group created successfully.', ApiResponse::CREATED_STATUS);
         } catch (\Throwable $e) {
@@ -58,7 +58,7 @@ class GroupService
     public function getGroupById(Request $request, $id)
     {
         try {
-            $query = Group::where('id', $id)->with(['sons', 'activities', 'monitor']);
+            $query = Group::where('id', $id)->with(['sons', 'activities', 'monitor', 'photos']);
 
             $group = $query->first();
             if (! $group) {
@@ -87,10 +87,10 @@ class GroupService
                 return ApiResponse::error('NOT_FOUND', 'Group not found.', [], ApiResponse::NOT_FOUND_STATUS);
             }
 
-            Gate::authorize('update', $group);
+            Gate::authorize('update', $request->user());
             $group->update($validatedData['data']);
 
-            $group->load(['sons', 'activities', 'monitor']);
+            $group->load(['sons', 'activities', 'monitor', 'photos']);
 
             return ApiResponse::success(new GroupResource($group), 'Group updated successfully.', ApiResponse::OK_STATUS);
         } catch (\Throwable $e) {
@@ -100,7 +100,7 @@ class GroupService
         }
     }
 
-    public function deleteGroup($id)
+    public function deleteGroup(Request $request, $id)
     {
         try {
             $group = Group::find($id);
@@ -108,7 +108,7 @@ class GroupService
                 return ApiResponse::error('NOT_FOUND', 'Group not found.', [], ApiResponse::NOT_FOUND_STATUS);
             }
 
-            Gate::authorize('delete', $group);
+            Gate::authorize('delete', $request->user());
             $group->delete();
 
             return ApiResponse::success([], 'Group deleted successfully.', ApiResponse::NO_CONTENT_STATUS);
@@ -133,10 +133,10 @@ class GroupService
                 return ApiResponse::error('VALIDATION_ERROR', 'Invalid parameters provided.', $validatedData['errors'], ApiResponse::INVALID_PARAMETERS_STATUS);
             }
 
-            Gate::authorize('update', $group);
+            Gate::authorize('update', $request->user());
             $group->update($validatedData['data']);
 
-            $group->load(['sons', 'activities', 'monitor']);
+            $group->load(['sons', 'activities', 'monitor', 'photos']);
 
             return ApiResponse::success(new GroupResource($group), 'Group partially updated successfully.', ApiResponse::OK_STATUS);
         } catch (\Throwable $e) {
