@@ -245,5 +245,5 @@ return [
             'group_id' => 'nullable|exists:groups,id',
             'days' => 'nullable|array',
         ],
-    ]
+    ],
 ];

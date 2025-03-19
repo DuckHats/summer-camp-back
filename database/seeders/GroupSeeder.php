@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Group;
 use App\Models\Activity;
 use App\Models\Day;
+use App\Models\Group;
 use Illuminate\Database\Seeder;
 
 class GroupSeeder extends Seeder

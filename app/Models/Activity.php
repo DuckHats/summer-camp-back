@@ -19,7 +19,7 @@ class Activity extends Model
         'description',
         'cover_image',
         'location',
-        'group_id'
+        'group_id',
     ];
 
     public function group()

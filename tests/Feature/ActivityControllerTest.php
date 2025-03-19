@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\Activity;
-use App\Models\User;
-use App\Models\Group;
 use App\Models\Day;
+use App\Models\Group;
+use App\Models\User;
 use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +16,7 @@ class ActivityControllerTest extends TestCase
     use DatabaseTransactions;
 
     protected $user;
+
     protected $token;
 
     protected function setUp(): void
@@ -28,7 +29,7 @@ class ActivityControllerTest extends TestCase
         UserSetting::factory()->create([
             'user_id' => $this->user->id,
             'key' => 'role',
-            'value' => 'admin'
+            'value' => 'admin',
         ]);
 
         $this->token = $this->user->createToken('auth_token')->plainTextToken;
@@ -62,7 +63,7 @@ class ActivityControllerTest extends TestCase
             'days' => $days->pluck('id')->toArray(),
         ];
 
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->postJson(route('activities.store'), $activityData);
 
         $response->assertStatus(201);
@@ -72,7 +73,7 @@ class ActivityControllerTest extends TestCase
     /** @test */
     public function it_validates_required_fields_when_creating_an_activity()
     {
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->postJson(route('activities.store'), []);
 
         $response->assertStatus(400);
@@ -103,7 +104,7 @@ class ActivityControllerTest extends TestCase
 
         $updatedData = ['name' => 'Updated Activity', 'description' => 'Updated description'];
 
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->putJson(route('activities.update', $activity->id), $updatedData);
 
         $response->assertStatus(200);
@@ -117,7 +118,7 @@ class ActivityControllerTest extends TestCase
 
         $patchData = ['name' => 'Partially Updated Activity'];
 
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->patchJson(route('activities.patch', $activity->id), $patchData);
 
         $response->assertStatus(200);
@@ -129,7 +130,7 @@ class ActivityControllerTest extends TestCase
     {
         $activity = Activity::factory()->create();
 
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->deleteJson(route('activities.destroy', $activity->id));
 
         $response->assertStatus(204);

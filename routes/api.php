@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\NotificationController;
@@ -8,7 +9,6 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\SonController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSettingController;
-use App\Http\Controllers\ActivityController;
 use Illuminate\Support\Facades\Route;
 
 /*

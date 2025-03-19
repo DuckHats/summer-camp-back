@@ -44,8 +44,8 @@ class ActivityService
             $activity = new Activity($validatedData['data']);
             Gate::authorize('create', $request->user());
             $activity->save();
-            
-            if (!empty($validatedData['data']['days'])) {
+
+            if (! empty($validatedData['data']['days'])) {
                 $activity->days()->sync($validatedData['data']['days']);
             }
 
@@ -92,7 +92,7 @@ class ActivityService
             Gate::authorize('update', $request->user());
             $activity->update($validatedData['data']);
 
-            if (!empty($validatedData['data']['days'])) {
+            if (! empty($validatedData['data']['days'])) {
                 $activity->days()->sync($validatedData['data']['days']);
             }
 
@@ -153,7 +153,7 @@ class ActivityService
             Gate::authorize('update', $request->user());
             $activity->update($validatedData['data']);
 
-            if (!empty($validatedData['data']['days'])) {
+            if (! empty($validatedData['data']['days'])) {
                 $activity->days()->sync($validatedData['data']['days']);
             }
 

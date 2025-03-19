@@ -34,7 +34,7 @@ class ActivityController extends Controller
         return $this->activityService->updateActivity($request, $id);
     }
 
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         return $this->activityService->deleteActivity($request, $id);
     }

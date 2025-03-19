@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Day;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DayFactory extends Factory
 {
@@ -15,7 +15,7 @@ class DayFactory extends Factory
         static $index = 0;
 
         return [
-            'name' => $days[$index++] ?? 'Día Extra'
+            'name' => $days[$index++] ?? 'Día Extra',
         ];
     }
 }

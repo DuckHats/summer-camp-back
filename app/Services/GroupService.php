@@ -55,7 +55,6 @@ class GroupService
         }
     }
 
-
     public function getGroupById(Request $request, $id)
     {
         try {
@@ -100,7 +99,6 @@ class GroupService
             return ApiResponse::error('UPDATE_FAILED', 'Error while updating group.', ['exception' => $e->getMessage()], ApiResponse::INTERNAL_SERVER_ERROR_STATUS);
         }
     }
-
 
     public function deleteGroup($id)
     {

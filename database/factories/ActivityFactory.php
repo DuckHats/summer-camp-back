@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Activity;
 use App\Models\Group;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ActivityFactory extends Factory
 {

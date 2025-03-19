@@ -10,12 +10,12 @@ use App\Models\Post;
 use App\Models\Son;
 use App\Models\User;
 use App\Models\UserSetting;
+use App\Policies\ActivityPolicy;
 use App\Policies\GroupPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\SonPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\UserSettingPolicy;
-use App\Policies\ActivityPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
