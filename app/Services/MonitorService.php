@@ -42,7 +42,7 @@ class MonitorService
 
         try {
             $monitor = new Monitor($validatedData['data']);
-            Gate::authorize('create', $monitor);
+            Gate::authorize('create', $request->user());
             $monitor->save();
 
             return ApiResponse::success(new MonitorResource($monitor), 'Monitor created successfully.', ApiResponse::CREATED_STATUS);
@@ -85,7 +85,7 @@ class MonitorService
                 return ApiResponse::error('NOT_FOUND', 'Monitor not found.', [], ApiResponse::NOT_FOUND_STATUS);
             }
 
-            Gate::authorize('update', $monitor);
+            Gate::authorize('update', $request->user());
             $monitor->update($validatedData['data']);
 
             return ApiResponse::success(new MonitorResource($monitor), 'Monitor updated successfully.', ApiResponse::OK_STATUS);
@@ -96,7 +96,7 @@ class MonitorService
         }
     }
 
-    public function deleteMonitor($id)
+    public function deleteMonitor(Request $request, $id)
     {
         try {
             $monitor = Monitor::find($id);
@@ -104,7 +104,7 @@ class MonitorService
                 return ApiResponse::error('NOT_FOUND', 'Monitor not found.', [], ApiResponse::NOT_FOUND_STATUS);
             }
 
-            Gate::authorize('delete', $monitor);
+            Gate::authorize('delete', $request->user());
             $monitor->delete();
 
             return ApiResponse::success([], 'Monitor deleted successfully.', ApiResponse::NO_CONTENT_STATUS);
@@ -139,7 +139,7 @@ class MonitorService
                 );
             }
 
-            Gate::authorize('update', $monitor);
+            Gate::authorize('update', $request->user());
             $monitor->update($validatedData['data']);
 
             return ApiResponse::success(new MonitorResource($monitor), 'Monitor partially updated successfully.', ApiResponse::OK_STATUS);

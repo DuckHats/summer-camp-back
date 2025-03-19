@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('profile_picture')->nullable();
-            $table->foreignId('monitor_id')->constrained();
+            $table->foreignId('monitor_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

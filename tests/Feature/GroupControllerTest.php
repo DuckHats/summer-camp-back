@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Group;
+use App\Models\Monitor;
 use App\Models\User;
 use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -51,6 +52,7 @@ class GroupControllerTest extends TestCase
         $groupData = [
             'name' => 'Test Group',
             'profile_picture' => 'image.png',
+            'monitor_id' => Monitor::factory()->create()->id,
         ];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
@@ -95,7 +97,7 @@ class GroupControllerTest extends TestCase
     {
         $group = Group::factory()->create();
 
-        $updatedData = ['name' => 'Updated Title', 'profile_picture' => 'Updated content'];
+        $updatedData = ['name' => 'Updated Title', 'profile_picture' => 'Updated content', 'monitor_id' => Monitor::factory()->create()->id];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->putJson(route('groups.update', $group->id), $updatedData);

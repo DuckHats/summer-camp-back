@@ -34,9 +34,9 @@ class MonitorController extends Controller
         return $this->monitorController->updateMonitor($request, $id);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        return $this->monitorController->deleteMonitor($id);
+        return $this->monitorController->deleteMonitor($request, $id);
     }
 
     public function patch(Request $request, $id)

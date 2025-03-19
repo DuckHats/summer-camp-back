@@ -201,14 +201,19 @@ return [
         'store' => [
             'name' => 'required|string|max:255',
             'profile_picture' => 'required|string',
+            'monitor_id' => 'required|exists:monitors,id',
         ],
         'update' => [
             'name' => 'nullable|string|max:255',
             'profile_picture' => 'nullable|string',
+            'monitor_id' => 'nullable|exists:monitors,id',
+
         ],
         'patch' => [
             'name' => 'nullable|string|max:255',
             'profile_picture' => 'nullable|string',
+            'monitor_id' => 'nullable|exists:monitors,id',
+
         ],
     ],
     'activities' => [
@@ -244,6 +249,29 @@ return [
             'location' => 'nullable|string',
             'group_id' => 'nullable|exists:groups,id',
             'days' => 'nullable|array',
+        ],
+    ],
+    'monitors' => [
+        'store' => [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:monitors,email',
+            'phone' => 'nullable|string|max:20',
+            'profile_picture' => 'nullable|string',
+        ],
+        'update' => [
+            'first_name' => 'nullable|string|max:255',
+            'last_name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|unique:monitors,email,{id}',
+            'phone' => 'nullable|string|max:20',
+            'profile_picture' => 'nullable|string',
+        ],
+        'patch' => [
+            'first_name' => 'nullable|string|max:255',
+            'last_name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|unique:monitors,email,{id}',
+            'phone' => 'nullable|string|max:20',
+            'profile_picture' => 'nullable|string',
         ],
     ],
 ];
