@@ -9,7 +9,7 @@ class Group extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'profile_picture'];
+    protected $fillable = ['name', 'monitor_id', 'profile_picture'];
 
     public function sons()
     {
@@ -19,5 +19,10 @@ class Group extends Model
     public function activities()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    public function monitor()
+    {
+        return $this->belongsTo(Monitor::class);
     }
 }

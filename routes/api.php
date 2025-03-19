@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\PostController;
@@ -125,5 +126,14 @@ Route::middleware('throttle:api')->group(function () {
         Route::put('/activities/{id}', 'ActivityController@update')->name('activities.update')->middleware('auth:sanctum');
         Route::patch('/activities/{id}', [ActivityController::class, 'patch'])->name('activities.patch')->middleware('auth:sanctum');
         Route::delete('/activities/{id}', 'ActivityController@destroy')->name('activities.destroy')->middleware('auth:sanctum');
+
+        // Monitors routes
+        Route::get('/monitors', 'MonitorController@index')->name('monitors.index');
+        Route::get('/monitors/{id}', 'MonitorController@show')->name('monitors.show');
+
+        Route::post('/monitors', 'MonitorController@store')->name('monitors.store')->middleware('auth:sanctum');
+        Route::put('/monitors/{id}', 'MonitorController@update')->name('monitors.update')->middleware('auth:sanctum');
+        Route::patch('/monitors/{id}', [MonitorController::class, 'patch'])->name('monitors.patch')->middleware('auth:sanctum');
+        Route::delete('/monitors/{id}', 'MonitorController@destroy')->name('monitors.destroy')->middleware('auth:sanctum');
     });
 });

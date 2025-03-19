@@ -19,7 +19,7 @@ class GroupService
     public function getAllGroups(Request $request)
     {
         try {
-            $query = Group::query()->with(['sons', 'activities']);
+            $query = Group::query()->with(['sons', 'activities', 'monitor']);
             $perPage = min($request->get('per_page', self::GROUP_PER_PAGE), self::MAX_GROUPS_PER_PAGE);
             $groups = $query->paginate($perPage);
 
@@ -45,7 +45,7 @@ class GroupService
             Gate::authorize('create', $group);
             $group->save();
 
-$group->load(['sons', 'activities']);
+            $group->load(['sons', 'activities', 'monitor']);
 
             return ApiResponse::success(new GroupResource($group), 'Group created successfully.', ApiResponse::CREATED_STATUS);
         } catch (\Throwable $e) {
@@ -58,7 +58,7 @@ $group->load(['sons', 'activities']);
     public function getGroupById(Request $request, $id)
     {
         try {
-            $query = Group::where('id', $id)->with(['sons', 'activities']);
+            $query = Group::where('id', $id)->with(['sons', 'activities', 'monitor']);
 
             $group = $query->first();
             if (! $group) {
@@ -90,7 +90,7 @@ $group->load(['sons', 'activities']);
             Gate::authorize('update', $group);
             $group->update($validatedData['data']);
 
-            $group->load(['sons', 'activities']);
+            $group->load(['sons', 'activities', 'monitor']);
 
             return ApiResponse::success(new GroupResource($group), 'Group updated successfully.', ApiResponse::OK_STATUS);
         } catch (\Throwable $e) {
@@ -136,7 +136,7 @@ $group->load(['sons', 'activities']);
             Gate::authorize('update', $group);
             $group->update($validatedData['data']);
 
-            $group->load(['sons', 'activities']);
+            $group->load(['sons', 'activities', 'monitor']);
 
             return ApiResponse::success(new GroupResource($group), 'Group partially updated successfully.', ApiResponse::OK_STATUS);
         } catch (\Throwable $e) {
