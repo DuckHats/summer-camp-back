@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\Log;
 
 class MonitorService
 {
-    const POST_PER_PAGE = 25;
+    const MONITOR_PER_PAGE = 25;
 
-    const MAX_POSTS_PER_PAGE = 100;
+    const MAX_MONITORS_PER_PAGE = 100;
 
     public function getAllMonitors(Request $request)
     {
         try {
             $query = Monitor::query();
-            $perPage = min($request->get('per_page', self::POST_PER_PAGE), self::MAX_POSTS_PER_PAGE);
+            $perPage = min($request->get('per_page', self::MONITOR_PER_PAGE), self::MAX_MONITORS_PER_PAGE);
             $monitors = $query->paginate($perPage);
 
             return MonitorResource::collection($monitors)

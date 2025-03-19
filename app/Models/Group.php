@@ -25,4 +25,9 @@ class Group extends Model
     {
         return $this->belongsTo(Monitor::class);
     }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
 }

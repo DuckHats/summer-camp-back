@@ -34,9 +34,9 @@ class GroupController extends Controller
         return $this->groupService->updateGroup($request, $id);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        return $this->groupService->deleteGroup($id);
+        return $this->groupService->deleteGroup($request, $id);
     }
 
     public function patch(Request $request, $id)

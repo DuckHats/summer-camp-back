@@ -6,12 +6,16 @@ namespace App\Providers;
 
 use App\Models\Activity;
 use App\Models\Group;
+use App\Models\Monitor;
+use App\Models\Photo;
 use App\Models\Post;
 use App\Models\Son;
 use App\Models\User;
 use App\Models\UserSetting;
 use App\Policies\ActivityPolicy;
 use App\Policies\GroupPolicy;
+use App\Policies\MonitorPolicy;
+use App\Policies\PhotoPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\SonPolicy;
 use App\Policies\UserPolicy;
@@ -32,6 +36,8 @@ class AuthServiceProvider extends ServiceProvider
         Son::class => SonPolicy::class,
         Group::class => GroupPolicy::class,
         Activity::class => ActivityPolicy::class,
+        Monitor::class => MonitorPolicy::class,
+        Photo::class => PhotoPolicy::class,
     ];
 
     /**
