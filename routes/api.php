@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\NotificationController;
@@ -115,5 +116,14 @@ Route::middleware('throttle:api')->group(function () {
         Route::put('/groups/{id}', 'GroupController@update')->name('groups.update')->middleware('auth:sanctum');
         Route::patch('/groups/{id}', [GroupController::class, 'patch'])->name('groups.patch')->middleware('auth:sanctum');
         Route::delete('/groups/{id}', 'GroupController@destroy')->name('groups.destroy')->middleware('auth:sanctum');
+
+        // Activities routes
+        Route::get('/activities', 'ActivityController@index')->name('activities.index');
+        Route::get('/activities/{id}', 'ActivityController@show')->name('activities.show');
+
+        Route::post('/activities', 'ActivityController@store')->name('activities.store')->middleware('auth:sanctum');
+        Route::put('/activities/{id}', 'ActivityController@update')->name('activities.update')->middleware('auth:sanctum');
+        Route::patch('/activities/{id}', [ActivityController::class, 'patch'])->name('activities.patch')->middleware('auth:sanctum');
+        Route::delete('/activities/{id}', 'ActivityController@destroy')->name('activities.destroy')->middleware('auth:sanctum');
     });
 });

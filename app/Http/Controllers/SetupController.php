@@ -40,6 +40,12 @@ class SetupController extends Controller
 
             $token = $user->createToken('auth_token')->plainTextToken;
 
+            UserSetting::create([
+                'user_id' => $user->id,
+                'value' => 'role',
+                'key' => 'admin',
+            ]);
+
             return response($token, 200);
         }
 
