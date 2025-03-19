@@ -15,6 +15,7 @@ class PhotoControllerTest extends TestCase
     use DatabaseTransactions;
 
     protected $user;
+
     protected $token;
 
     protected function setUp(): void
@@ -31,7 +32,7 @@ class PhotoControllerTest extends TestCase
                 'value' => 'admin',
             ]
         );
-        
+
         $this->token = $this->user->createToken('auth_token')->plainTextToken;
     }
 
