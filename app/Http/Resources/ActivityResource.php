@@ -18,7 +18,7 @@ class ActivityResource extends JsonResource
             'cover_image' => $this->cover_image,
             'location' => $this->location,
             'groups' => GroupResource::collection($this->whenLoaded('groups')),
-            'days' => DayResource::collection($this->days),
+            'days' => DayResource::collection($this->whenLoaded('days')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

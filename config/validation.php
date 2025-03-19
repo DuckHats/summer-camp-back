@@ -211,4 +211,42 @@ return [
             'profile_picture' => 'nullable|string',
         ],
     ],
+    'activities' => [
+        'store' => [
+            'name' => 'required|string|max:255',
+            'initial_hour' => 'required|date_format:H:i:s',
+            'final_hour' => 'required|date_format:H:i:s|after:initial_hour',
+            'duration' => 'required|integer|min:1',
+            'description' => 'nullable|string',
+            'cover_image' => 'nullable|string',
+            'location' => 'required|string',
+            'group_id' => 'required|exists:groups,id',
+            'days' => 'required|array',
+            'days.*' => 'required|exists:days,id'
+        ],
+        'update' => [
+            'name' => 'nullable|string|max:255',
+            'initial_hour' => 'nullable|date_format:H:i:s',
+            'final_hour' => 'nullable|date_format:H:i:s|after:initial_hour',
+            'duration' => 'nullable|integer|min:1',
+            'description' => 'nullable|string',
+            'cover_image' => 'nullable|string',
+            'location' => 'nullable|string',
+            'group_id' => 'nullable|exists:groups,id',
+            'days' => 'nullable|array',
+            'days.*' => 'nullable|exists:days,id'
+        ],
+        'patch' => [
+            'name' => 'nullable|string|max:255',
+            'initial_hour' => 'nullable|date_format:H:i:s',
+            'final_hour' => 'nullable|date_format:H:i:s|after:initial_hour',
+            'duration' => 'nullable|integer|min:1',
+            'description' => 'nullable|string',
+            'cover_image' => 'nullable|string',
+            'location' => 'nullable|string',
+            'group_id' => 'nullable|exists:groups,id',
+            'days' => 'nullable|array',
+            'days.*' => 'nullable|exists:days,id'
+        ],
+    ]
 ];
