@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Notification;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Photo;
 
-class NotificationSeeder extends Seeder
+class PhotoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Notification::factory()->count(15)->create();
+        Photo::factory(15)->create();
     }
 }

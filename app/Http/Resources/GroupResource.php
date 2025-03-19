@@ -16,6 +16,7 @@ class GroupResource extends JsonResource
             'monitor' => new MonitorResource($this->whenLoaded('monitor')),
             'sons' => SonResource::collection($this->whenLoaded('sons')),
             'activities' => ActivityResource::collection($this->whenLoaded('activities')),
+            'photos' => PhotoResource::collection($this->whenLoaded('photos')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

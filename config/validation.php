@@ -274,4 +274,24 @@ return [
             'profile_picture' => 'nullable|string',
         ],
     ],
+    'photos' => [
+        'store' => [
+            'title' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'group_id' => 'required|exists:groups,id',
+            'image_url' => 'required|string',
+        ],
+        'update' => [
+            'title' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'group_id' => 'nullable|exists:groups,id',
+            'image_url' => 'nullable|string',
+        ],
+        'patch' => [
+            'title' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'group_id' => 'nullable|exists:groups,id',
+            'image_url' => 'nullable|string',
+        ],
+    ],
 ];

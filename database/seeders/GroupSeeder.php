@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Activity;
 use App\Models\Day;
 use App\Models\Group;
+use App\Models\Photo;
 use Illuminate\Database\Seeder;
 
 class GroupSeeder extends Seeder
@@ -16,6 +17,7 @@ class GroupSeeder extends Seeder
                 $days = Day::inRandomOrder()->take(rand(1, 5))->get();
                 $activity->days()->attach($days);
             });
+            Photo::factory(3)->create(['group_id' => $group->id]);
         });
     }
 }
