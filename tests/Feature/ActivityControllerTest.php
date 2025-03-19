@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Activity;
 use App\Models\User;
+use App\Models\Group;
+use App\Models\Day;
 use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
@@ -23,9 +25,11 @@ class ActivityControllerTest extends TestCase
             'password' => Hash::make('password123'),
         ]);
 
-        UserSetting::factory()->create(['user_id' => $this->user->id,
+        UserSetting::factory()->create([
+            'user_id' => $this->user->id,
             'key' => 'role',
-            'value' => 'admin']);
+            'value' => 'admin'
+        ]);
 
         $this->token = $this->user->createToken('auth_token')->plainTextToken;
     }
@@ -43,6 +47,9 @@ class ActivityControllerTest extends TestCase
     /** @test */
     public function it_can_create_an_activity()
     {
+        $group = Group::factory()->create();
+        $days = Day::factory()->count(3)->create();
+
         $activityData = [
             'name' => 'Test Activity',
             'initial_hour' => '08:00:00',
@@ -50,15 +57,13 @@ class ActivityControllerTest extends TestCase
             'duration' => 2,
             'location' => 'Test Location',
             'description' => 'This is a test activity.',
-            'group_id' => 1,
+            'group_id' => $group->id,
             'cover_image' => 'test.jpg',
-            'days' => [1, 2, 3],
+            'days' => $days->pluck('id')->toArray(),
         ];
 
         $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
             ->postJson(route('activities.store'), $activityData);
-
-        dd($response);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('activities', ['name' => 'Test Activity']);

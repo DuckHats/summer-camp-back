@@ -42,11 +42,11 @@ class ActivityService
 
         try {
             $activity = new Activity($validatedData['data']);
-            Gate::authorize('create', $activity);
+            Gate::authorize('create', $request->user());
             $activity->save();
             
             if (!empty($validatedData['data']['days'])) {
-                $activity->days()->syncWithTimestamps($validatedData['data']['days']);
+                $activity->days()->sync($validatedData['data']['days']);
             }
 
             return ApiResponse::success(new ActivityResource($activity), 'Activity created successfully.', ApiResponse::CREATED_STATUS);
@@ -89,11 +89,11 @@ class ActivityService
                 return ApiResponse::error('NOT_FOUND', 'Activity not found.', [], ApiResponse::NOT_FOUND_STATUS);
             }
 
-            Gate::authorize('update', $activity);
+            Gate::authorize('update', $request->user());
             $activity->update($validatedData['data']);
 
             if (!empty($validatedData['data']['days'])) {
-                $activity->days()->syncWithTimestamps($validatedData['data']['days']);
+                $activity->days()->sync($validatedData['data']['days']);
             }
 
             return ApiResponse::success(new ActivityResource($activity), 'Activity updated successfully.', ApiResponse::OK_STATUS);
@@ -104,7 +104,7 @@ class ActivityService
         }
     }
 
-    public function deleteActivity($id)
+    public function deleteActivity($request, $id)
     {
         try {
             $activity = Activity::find($id);
@@ -112,7 +112,7 @@ class ActivityService
                 return ApiResponse::error('NOT_FOUND', 'Activity not found.', [], ApiResponse::NOT_FOUND_STATUS);
             }
 
-            Gate::authorize('delete', $activity);
+            Gate::authorize('delete', $request->user());
 
             $activity->days()->detach();
 
@@ -150,11 +150,11 @@ class ActivityService
                 );
             }
 
-            Gate::authorize('update', $activity);
+            Gate::authorize('update', $request->user());
             $activity->update($validatedData['data']);
 
             if (!empty($validatedData['data']['days'])) {
-                $activity->days()->syncWithTimestamps($validatedData['data']['days']);
+                $activity->days()->sync($validatedData['data']['days']);
             }
 
             return ApiResponse::success(new ActivityResource($activity), 'Activity partially updated successfully.', ApiResponse::OK_STATUS);

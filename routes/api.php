@@ -118,8 +118,8 @@ Route::middleware('throttle:api')->group(function () {
         Route::delete('/groups/{id}', 'GroupController@destroy')->name('groups.destroy')->middleware('auth:sanctum');
 
         // Activities routes
-        Route::get('/activities', 'GroupController@index')->name('activities.index');
-        Route::get('/activities/{id}', 'GroupController@show')->name('activities.show');
+        Route::get('/activities', 'ActivityController@index')->name('activities.index');
+        Route::get('/activities/{id}', 'ActivityController@show')->name('activities.show');
 
         Route::post('/activities', 'ActivityController@store')->name('activities.store')->middleware('auth:sanctum');
         Route::put('/activities/{id}', 'ActivityController@update')->name('activities.update')->middleware('auth:sanctum');

@@ -222,7 +222,6 @@ return [
             'location' => 'required|string',
             'group_id' => 'required|exists:groups,id',
             'days' => 'required|array',
-            'days.*' => 'required|exists:days,id'
         ],
         'update' => [
             'name' => 'nullable|string|max:255',
@@ -234,7 +233,6 @@ return [
             'location' => 'nullable|string',
             'group_id' => 'nullable|exists:groups,id',
             'days' => 'nullable|array',
-            'days.*' => 'nullable|exists:days,id'
         ],
         'patch' => [
             'name' => 'nullable|string|max:255',
@@ -246,7 +244,6 @@ return [
             'location' => 'nullable|string',
             'group_id' => 'nullable|exists:groups,id',
             'days' => 'nullable|array',
-            'days.*' => 'nullable|exists:days,id'
         ],
     ]
 ];

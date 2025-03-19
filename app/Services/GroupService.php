@@ -19,7 +19,7 @@ class GroupService
     public function getAllGroups(Request $request)
     {
         try {
-            $query = Group::query();
+            $query = Group::query()->with('sons');
             $perPage = min($request->get('per_page', self::GROUP_PER_PAGE), self::MAX_GROUPS_PER_PAGE);
             $groups = $query->paginate($perPage);
 
@@ -45,6 +45,8 @@ class GroupService
             Gate::authorize('create', $group);
             $group->save();
 
+            $group->load('sons');
+
             return ApiResponse::success(new GroupResource($group), 'Group created successfully.', ApiResponse::CREATED_STATUS);
         } catch (\Throwable $e) {
             Log::error('Error creating group', ['exception' => $e->getMessage()]);
@@ -53,12 +55,13 @@ class GroupService
         }
     }
 
+
     public function getGroupById(Request $request, $id)
     {
         try {
             $query = Group::where('id', $id);
 
-            $group = $query->first();
+            $group = $query->with('sons')->first();
             if (! $group) {
                 return ApiResponse::error('NOT_FOUND', 'Group not found.', [], ApiResponse::NOT_FOUND_STATUS);
             }
@@ -88,6 +91,8 @@ class GroupService
             Gate::authorize('update', $group);
             $group->update($validatedData['data']);
 
+            $group->load('sons');
+
             return ApiResponse::success(new GroupResource($group), 'Group updated successfully.', ApiResponse::OK_STATUS);
         } catch (\Throwable $e) {
             Log::error('Error updating group', ['exception' => $e->getMessage()]);
@@ -95,6 +100,7 @@ class GroupService
             return ApiResponse::error('UPDATE_FAILED', 'Error while updating group.', ['exception' => $e->getMessage()], ApiResponse::INTERNAL_SERVER_ERROR_STATUS);
         }
     }
+
 
     public function deleteGroup($id)
     {
@@ -119,39 +125,26 @@ class GroupService
     {
         $group = Group::find($id);
         if (! $group) {
-            return ApiResponse::error(
-                'NOT_FOUND',
-                'Group not found.',
-                [],
-                ApiResponse::NOT_FOUND_STATUS
-            );
+            return ApiResponse::error('NOT_FOUND', 'Group not found.', [], ApiResponse::NOT_FOUND_STATUS);
         }
 
         try {
             $validatedData = ValidationHelper::validateRequest($request, 'groups', 'patch', ['id' => $id]);
 
             if (! $validatedData['success']) {
-                return ApiResponse::error(
-                    'VALIDATION_ERROR',
-                    'Invalid parameters provided.',
-                    $validatedData['errors'],
-                    ApiResponse::INVALID_PARAMETERS_STATUS
-                );
+                return ApiResponse::error('VALIDATION_ERROR', 'Invalid parameters provided.', $validatedData['errors'], ApiResponse::INVALID_PARAMETERS_STATUS);
             }
 
             Gate::authorize('update', $group);
             $group->update($validatedData['data']);
 
+            $group->load('sons');
+
             return ApiResponse::success(new GroupResource($group), 'Group partially updated successfully.', ApiResponse::OK_STATUS);
         } catch (\Throwable $e) {
             Log::error('Error patching group', ['exception' => $e->getMessage()]);
 
-            return ApiResponse::error(
-                'UPDATE_FAILED',
-                'Error while patching group.',
-                ['exception' => $e->getMessage()],
-                ApiResponse::INTERNAL_SERVER_ERROR_STATUS
-            );
+            return ApiResponse::error('UPDATE_FAILED', 'Error while patching group.', ['exception' => $e->getMessage()], ApiResponse::INTERNAL_SERVER_ERROR_STATUS);
         }
     }
 }
