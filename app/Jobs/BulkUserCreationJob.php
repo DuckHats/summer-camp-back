@@ -1,11 +1,10 @@
 <?php
+
 namespace App\Jobs;
 
-use App\Helpers\ApiResponse;
-use App\Models\User;
 use App\Models\Son;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -46,8 +45,8 @@ class BulkUserCreationJob implements ShouldQueue
                     'password' => Hash::make($userData['password']),
                 ]);
 
-                if (!empty($userData['sons'])) {
-                    $sons = array_map(fn($son) => array_merge($son, ['user_id' => $user->id]), $userData['sons']);
+                if (! empty($userData['sons'])) {
+                    $sons = array_map(fn ($son) => array_merge($son, ['user_id' => $user->id]), $userData['sons']);
                     Son::insert($sons);
                 }
             }
