@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Back_Api</title>
+    <title>Api summer_camp</title>
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
     <style>
         /* Estils generals */
         body {

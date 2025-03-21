@@ -3,60 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contraseña Modificada</title>
+    <title>Contrasenya Modificada</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #F1F8E9;
+            color: #2E7D32;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
         .container {
-            background-color: #ffffff;
-            margin: 50px auto;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
         .header {
             text-align: center;
-            padding-bottom: 20px;
-        }
-        .header h1 {
-            color: #333333;
+            background-color: #81C784;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            color: white;
         }
         .content {
-            text-align: center;
-        }
-        .content p {
-            color: #666666;
-            line-height: 1.5;
+            padding: 20px;
         }
         .footer {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #dddddd;
-            margin-top: 20px;
-        }
-        .footer p {
-            color: #999999;
             font-size: 12px;
+            color: #555;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Contraseña Modificada</h1>
+            <h2>Contrasenya modificada amb èxit</h2>
         </div>
         <div class="content">
             <p>Hola,</p>
-            <p>Te informamos que la contraseña de tu cuenta ha sido modificada exitosamente.</p>
-            <p>Si no realizaste este cambio, por favor contacta con nuestro soporte inmediatamente.</p>
+            <p>Hem registrat un canvi en la contrasenya del teu compte. Si has fet aquest canvi, no cal que facis res. Si no has estat tu, contacta amb nosaltres immediatament per protegir la teva informació.</p>
+            <p>Per qualsevol dubte, estem a la teva disposició!</p>
         </div>
         <div class="footer">
-            <p>&copy; {{ date('Y') }} Tu Empresa. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Casal d'Estiu. Tots els drets reservats.</p>
         </div>
     </div>
 </body>
