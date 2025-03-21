@@ -69,6 +69,23 @@ return [
         'avatar' => [
             'avatar' => 'required|string',
         ],
+        'bulkUsers' => [
+            'users' => 'required|array',
+            'users.*.username' => 'required|string|unique:users,username',
+            'users.*.phone' => 'nullable|string',
+            'users.*.email' => 'required|email|unique:users,email',
+            'users.*.status' => 'nullable|integer|in:0,1',
+            'users.*.password' => 'required|string|min:6',
+            'users.*.sons' => 'nullable|array',
+            'users.*.sons.*.dni' => 'required|string|unique:sons,dni',
+            'users.*.sons.*.first_name' => 'required|string',
+            'users.*.sons.*.last_name' => 'required|string',
+            'users.*.sons.*.birth_date' => 'required|date',
+            'users.*.sons.*.group_id' => 'nullable|integer',
+            'users.*.sons.*.profile_picture_url' => 'nullable|string',
+            'users.*.sons.*.profile_extra_info' => 'nullable|string',
+            'users.*.sons.*.gender' => 'nullable|string|in:male,female,other',
+        ],
     ],
 
     'errors' => [

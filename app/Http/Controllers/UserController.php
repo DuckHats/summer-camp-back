@@ -125,4 +125,15 @@ class UserController extends Controller
     {
         return $this->userService->enableUser($request, $id);
     }
+
+    /**
+     * Bulk users.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkUsers(Request $request)
+    {
+        return $this->userService->bulkUsers($request);
+    }
 }

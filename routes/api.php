@@ -57,6 +57,8 @@ Route::middleware('throttle:api')->group(function () {
         Route::post('/users/{id}/disable', [UserController::class, 'disableUser'])->name('users.disable')->middleware('auth:sanctum');
         Route::post('/users/{id}/enable', [UserController::class, 'enableUser'])->name('users.enable')->middleware('auth:sanctum');
 
+        Route::post('/users/bulk', [UserController::class, 'bulkUsers'])->name('users.bulk')->middleware('auth:sanctum');
+
         // Error routes
         Route::get('/errors', 'ErrorController@index')->name('errors.index')->middleware('auth:sanctum');
         Route::get('/errors/{id}', 'ErrorController@show')->name('errors.show')->middleware('auth:sanctum');

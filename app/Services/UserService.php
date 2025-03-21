@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Helpers\ApiResponse;
 use App\Helpers\ValidationHelper;
 use App\Http\Resources\UserResource;
+use App\Jobs\BulkUserCreationJob;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -321,6 +322,25 @@ class UserService
                 ApiResponse::INTERNAL_SERVER_ERROR_STATUS
             );
         }
+    }
+
+    public function bulkUsers(Request $request)
+    {
+
+        $validatedData = ValidationHelper::validateRequest($request, 'users', 'bulkUsers');
+
+        if (! $validatedData['success']) {
+            return ApiResponse::error(
+                'VALIDATION_ERROR',
+                'Invalid parameters provided.',
+                $validatedData['errors'],
+                ApiResponse::INVALID_PARAMETERS_STATUS
+            );
+        }
+
+        BulkUserCreationJob::dispatch($request->input('users'))->onQueue('bulk-processing');
+
+        return ApiResponse::success([], 'Creation in progress.', ApiResponse::ACCEPTED_STATUS);
     }
 
     private function applyRelations($query, Request $request)
