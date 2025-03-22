@@ -2,23 +2,22 @@
 
 namespace App\Policies;
 
-use App\Models\Notification;
 use App\Models\User;
 
 class NotificationPolicy
 {
-    public function create(User $user, Notification $notification): bool
+    public function create(User $user): bool
     {
-        return $user->id == $notification->user_id || $user->isAdmin();
+        return $user->isAdmin();
     }
 
-    public function update(User $user, Notification $notification): bool
+    public function update(User $user): bool
     {
-        return $user->id == $notification->user_id || $user->isAdmin();
+        return $user->isAdmin();
     }
 
-    public function delete(User $user, Notification $notification): bool
+    public function delete(User $user): bool
     {
-        return $user->id == $notification->user_id || $user->isAdmin();
+        return $user->isAdmin();
     }
 }

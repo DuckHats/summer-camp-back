@@ -6,7 +6,7 @@
 return [
     'auth' => [
         'login' => [
-            'email' => 'required|email|exists:users,email',
+            'email' => 'required',
             'password' => 'required',
         ],
         'register' => [

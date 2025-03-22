@@ -16,31 +16,31 @@ class MonitorController extends Controller
 
     public function index(Request $request)
     {
-        return $this->monitorController->getAllMonitors($request);
-    }
-
-    public function store(Request $request)
-    {
-        return $this->monitorController->createMonitor($request);
+        return $this->monitorController->getAll($request);
     }
 
     public function show(Request $request, $id)
     {
-        return $this->monitorController->getMonitorById($request, $id);
+        return $this->monitorController->getById($request, $id);
+    }
+
+    public function store(Request $request)
+    {
+        return $this->monitorController->create($request);
     }
 
     public function update(Request $request, $id)
     {
-        return $this->monitorController->updateMonitor($request, $id);
-    }
-
-    public function destroy(Request $request, $id)
-    {
-        return $this->monitorController->deleteMonitor($request, $id);
+        return $this->monitorController->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->monitorController->patchMonitor($request, $id);
+        return $this->monitorController->patch($request, $id);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        return $this->monitorController->delete($request, $id);
     }
 }

@@ -8,18 +8,24 @@ use App\Models\Activity;
 use App\Models\Group;
 use App\Models\Monitor;
 use App\Models\Photo;
+use App\Models\Policy;
 use App\Models\Post;
 use App\Models\Son;
 use App\Models\User;
+use App\Models\Error;
 use App\Models\UserSetting;
 use App\Policies\ActivityPolicy;
 use App\Policies\GroupPolicy;
 use App\Policies\MonitorPolicy;
+use App\Policies\NotificationPolicy;
 use App\Policies\PhotoPolicy;
+use App\Policies\PolicyPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\SonPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\UserSettingPolicy;
+use App\Policies\ErrorPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -38,6 +44,8 @@ class AuthServiceProvider extends ServiceProvider
         Activity::class => ActivityPolicy::class,
         Monitor::class => MonitorPolicy::class,
         Photo::class => PhotoPolicy::class,
+        Error::class => ErrorPolicy::class,
+        Policy::class => PolicyPolicy::class,
     ];
 
     /**

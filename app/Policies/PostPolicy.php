@@ -2,32 +2,22 @@
 
 namespace App\Policies;
 
-use App\Models\Post;
 use App\Models\User;
 
 class PostPolicy
 {
-    /**
-     * Determine if the user can create a post.
-     */
-    public function create(User $user, Post $post): bool
+    public function create(User $user): bool
     {
-        return $user->id == $post->user_id || $user->isAdmin();
+        return $user->isAdmin();
     }
 
-    /**
-     * Determine if the user can update a post.
-     */
-    public function update(User $user, Post $post): bool
+    public function update(User $user): bool
     {
-        return $user->id == $post->user_id || $user->isAdmin();
+        return $user->isAdmin();
     }
 
-    /**
-     * Determine if the user can delete a post.
-     */
-    public function delete(User $user, Post $post): bool
+    public function delete(User $user): bool
     {
-        return $user->id == $post->user_id || $user->isAdmin();
+        return $user->isAdmin();
     }
 }

@@ -16,31 +16,31 @@ class GroupController extends Controller
 
     public function index(Request $request)
     {
-        return $this->groupService->getAllGroups($request);
+        return $this->groupService->getAll($request);
     }
 
     public function store(Request $request)
     {
-        return $this->groupService->createGroup($request);
+        return $this->groupService->create($request);
     }
 
     public function show(Request $request, $id)
     {
-        return $this->groupService->getGroupById($request, $id);
+        return $this->groupService->getById($request, $id);
     }
 
     public function update(Request $request, $id)
     {
-        return $this->groupService->updateGroup($request, $id);
-    }
-
-    public function destroy(Request $request, $id)
-    {
-        return $this->groupService->deleteGroup($request, $id);
+        return $this->groupService->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->groupService->patchGroup($request, $id);
+        return $this->groupService->patch($request, $id);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        return $this->groupService->delete($request, $id);
     }
 }

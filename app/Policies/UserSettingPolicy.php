@@ -3,22 +3,21 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\UserSetting;
 
 class UserSettingPolicy
 {
-    public function create(User $user, UserSetting $userSetting): bool
+    public function create(User $user): bool
     {
-        return $user->id == $userSetting->user_id || $user->isAdmin();
+        return $user->isAdmin();
     }
 
-    public function update(User $user, UserSetting $userSetting): bool
+    public function update(User $user): bool
     {
-        return $user->id == $userSetting->user_id || $user->isAdmin();
+        return $user->isAdmin();
     }
 
-    public function delete(User $user, UserSetting $userSetting): bool
+    public function delete(User $user): bool
     {
-        return $user->id == $userSetting->user_id || $user->isAdmin();
+        return $user->isAdmin();
     }
 }

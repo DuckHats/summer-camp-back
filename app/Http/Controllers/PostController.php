@@ -16,31 +16,31 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        return $this->postService->getAllPosts($request);
+        return $this->postService->getAll($request);
     }
 
     public function store(Request $request)
     {
-        return $this->postService->createPost($request);
+        return $this->postService->create($request);
     }
 
     public function show(Request $request, $id)
     {
-        return $this->postService->getPostById($request, $id);
+        return $this->postService->getById($request, $id);
     }
 
     public function update(Request $request, $id)
     {
-        return $this->postService->updatePost($request, $id);
-    }
-
-    public function destroy($id)
-    {
-        return $this->postService->deletePost($id);
+        return $this->postService->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->postService->patchPost($request, $id);
+        return $this->postService->patch($request, $id);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        return $this->postService->delete($request, $id);
     }
 }

@@ -14,67 +14,33 @@ class PolicyController extends Controller
         $this->policyService = $policyService;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        return $this->policyService->getPolicy($request);
+        return $this->policyService->getAll($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function show(Request $request, $id)
+    {
+        return $this->policyService->getById($request, $id);
+    }
+
     public function store(Request $request)
     {
-        return $this->policyService->createPolicy($request);
+        return $this->policyService->create($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return $this->policyService->getPolicyById($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        return $this->policyService->updatePolicy($request, $id);
+        return $this->policyService->update($request, $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        return $this->policyService->deletePolicy($id);
-    }
-
-    /**
-     * Partially update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function patch(Request $request, $id)
     {
-        return $this->policyService->patchPolicy($request, $id);
+        return $this->policyService->patch($request, $id);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        return $this->policyService->delete($request, $id);
     }
 }
