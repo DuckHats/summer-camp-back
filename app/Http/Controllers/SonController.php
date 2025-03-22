@@ -16,31 +16,31 @@ class SonController extends Controller
 
     public function index(Request $request)
     {
-        return $this->sonService->getAllSons($request);
+        return $this->sonService->getAll($request);
     }
 
     public function store(Request $request)
     {
-        return $this->sonService->createSon($request);
+        return $this->sonService->create($request);
     }
 
     public function show(Request $request, $id)
     {
-        return $this->sonService->getSonById($request, $id);
+        return $this->sonService->getById($request, $id);
     }
 
     public function update(Request $request, $id)
     {
-        return $this->sonService->updateSon($request, $id);
-    }
-
-    public function destroy($id)
-    {
-        return $this->sonService->deleteSon($id);
+        return $this->sonService->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->sonService->patchSon($request, $id);
+        return $this->sonService->patch($request, $id);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        return $this->sonService->delete($request, $id);
     }
 }

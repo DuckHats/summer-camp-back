@@ -14,67 +14,33 @@ class UserSettingController extends Controller
         $this->userSettingService = $userSettingService;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        return $this->userSettingService->getUserSettings($request);
+        return $this->userSettingService->getAll($request);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function show(Request $request, $id)
+    {
+        return $this->userSettingService->getById($request, $id);
+    }
+
     public function store(Request $request)
     {
-        return $this->userSettingService->createUserSetting($request);
+        return $this->userSettingService->create($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return $this->userSettingService->getUserSettingById($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        return $this->userSettingService->updateUserSetting($request, $id);
+        return $this->userSettingService->update($request, $id);
     }
 
-    /**
-     * Patch the specified resource in storage (partial update).
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function patch(Request $request, $id)
     {
-        return $this->userSettingService->patchUserSetting($request, $id);
+        return $this->userSettingService->patch($request, $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        return $this->userSettingService->deleteUserSetting($id);
+        return $this->userSettingService->delete($request, $id);
     }
 }

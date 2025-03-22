@@ -17,6 +17,11 @@ class UserSettingControllerTest extends TestCase
     {
         parent::setUp();
         $this->user = User::factory()->create();
+        UserSetting::factory()->create([
+            'user_id' => $this->user->id,
+            'key' => 'role',
+            'value' => 'admin',
+        ]);
     }
 
     /** @test */

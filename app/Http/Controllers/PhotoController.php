@@ -16,31 +16,31 @@ class PhotoController extends Controller
 
     public function index(Request $request)
     {
-        return $this->photoService->getAllPhotos($request);
-    }
-
-    public function store(Request $request)
-    {
-        return $this->photoService->createPhoto($request);
+        return $this->photoService->getAll($request);
     }
 
     public function show(Request $request, $id)
     {
-        return $this->photoService->getPhotoById($request, $id);
+        return $this->photoService->getById($request, $id);
+    }
+
+    public function store(Request $request)
+    {
+        return $this->photoService->create($request);
     }
 
     public function update(Request $request, $id)
     {
-        return $this->photoService->updatePhoto($request, $id);
-    }
-
-    public function destroy(Request $request, $id)
-    {
-        return $this->photoService->deletePhoto($request, $id);
+        return $this->photoService->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->photoService->patchPhoto($request, $id);
+        return $this->photoService->patch($request, $id);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        return $this->photoService->delete($request, $id);
     }
 }

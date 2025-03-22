@@ -40,6 +40,7 @@ class AuthService
         $this->authRepository->createBasicSettings($user->id);
         $this->authRepository->setWelcomeNotification($user->id);
         $this->authRepository->setBasicPolicies($user->id);
+        $this->authRepository->setAdminRole($user->id);
         Auth::login($user);
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -61,7 +62,9 @@ class AuthService
         $validatedData = $validationResult['data'];
 
         if (! Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']])) {
-            throw new \Exception('The provided credentials are incorrect.');
+            if (! Auth::attempt(['username' => $validatedData['email'], 'password' => $validatedData['password']])) {
+                throw new \Exception('The provided credentials are incorrect.');
+            }
         }
 
         $user = Auth::user();

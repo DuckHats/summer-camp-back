@@ -31,8 +31,8 @@ class SetupController extends Controller
 
             UserSetting::create([
                 'user_id' => $user->id,
-                'value' => 'role',
-                'key' => 'admin',
+                'key' => 'role',
+                'value' => 'admin',
             ]);
         }
 
@@ -42,8 +42,8 @@ class SetupController extends Controller
 
             UserSetting::create([
                 'user_id' => $user->id,
-                'value' => 'role',
-                'key' => 'admin',
+                'key' => 'role',
+                'value' => 'admin',
             ]);
 
             return response($token, 200);

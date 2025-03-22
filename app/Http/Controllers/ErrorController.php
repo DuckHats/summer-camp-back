@@ -16,26 +16,26 @@ class ErrorController extends Controller
 
     public function index(Request $request)
     {
-        return $this->errorService->getAllErrors($request);
+        return $this->errorService->getAll($request);
+    }
+
+    public function show(Request $request, $id)
+    {
+        return $this->errorService->getById($request, $id);
     }
 
     public function store(Request $request)
     {
-        return $this->errorService->createError($request);
-    }
-
-    public function show($id)
-    {
-        return $this->errorService->getErrorById($id);
+        return $this->errorService->create($request);
     }
 
     public function update(Request $request, $id)
     {
-        return $this->errorService->updateError($request, $id);
+        return $this->errorService->update($request, $id);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        return $this->errorService->deleteError($id);
+        return $this->errorService->delete($request, $id);
     }
 }
