@@ -126,4 +126,30 @@ class AuthRepository
             );
         }
     }
+
+    /**
+     * Set admin role.
+     *
+     * @param  int  $userId
+     * @return void
+     */
+    public function setAdminRole($userId)
+    {
+        try {
+            UserSetting::create([
+                'user_id' => $userId,
+                'key' => 'role',
+                'value' => 'admin',
+            ]);
+        } catch (\Throwable $e) {
+            $this->errorRepository->createError(
+                $e->getMessage(),
+                $e->getCode(),
+                $e->getTraceAsString(),
+                $userId,
+                session()->getId(),
+                now()->toDateTimeString()
+            );
+        }
+    }
 }
