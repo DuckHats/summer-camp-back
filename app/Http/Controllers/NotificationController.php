@@ -33,7 +33,7 @@ class NotificationController extends Controller
     {
         return $this->notificationService->update($request, $id);
     }
-    
+
     public function patch(Request $request, $id)
     {
         return $this->notificationService->patch($request, $id);
@@ -43,5 +43,4 @@ class NotificationController extends Controller
     {
         return $this->notificationService->delete($request, $id);
     }
-
 }

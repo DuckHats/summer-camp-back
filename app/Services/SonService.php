@@ -9,7 +9,7 @@ class SonService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Son();
+        $this->model = new Son;
     }
 
     protected function getRelations(): array

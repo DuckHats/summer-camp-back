@@ -18,7 +18,7 @@ class PhotoController extends Controller
     {
         return $this->photoService->getAll($request);
     }
-    
+
     public function show(Request $request, $id)
     {
         return $this->photoService->getById($request, $id);
@@ -29,12 +29,11 @@ class PhotoController extends Controller
         return $this->photoService->create($request);
     }
 
-
     public function update(Request $request, $id)
     {
         return $this->photoService->update($request, $id);
     }
-    
+
     public function patch(Request $request, $id)
     {
         return $this->photoService->patch($request, $id);
@@ -44,5 +43,4 @@ class PhotoController extends Controller
     {
         return $this->photoService->delete($request, $id);
     }
-
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\ActivityService;
-use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller

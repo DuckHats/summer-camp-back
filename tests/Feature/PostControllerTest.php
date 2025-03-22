@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -24,6 +25,11 @@ class PostControllerTest extends TestCase
         ]);
 
         $this->token = $this->user->createToken('auth_token')->plainTextToken;
+        UserSetting::factory()->create([
+            'user_id' => $this->user->id,
+            'key' => 'role',
+            'value' => 'admin',
+        ]);
     }
 
     /** @test */

@@ -60,8 +60,8 @@ class AuthService
 
         $validatedData = $validationResult['data'];
 
-        if (!Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']])) {
-            if (!Auth::attempt(['username' => $validatedData['email'], 'password' => $validatedData['password']])) {
+        if (! Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']])) {
+            if (! Auth::attempt(['username' => $validatedData['email'], 'password' => $validatedData['password']])) {
                 throw new \Exception('The provided credentials are incorrect.');
             }
         }

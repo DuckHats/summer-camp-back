@@ -33,7 +33,7 @@ class SonController extends Controller
     {
         return $this->sonService->update($request, $id);
     }
-    
+
     public function patch(Request $request, $id)
     {
         return $this->sonService->patch($request, $id);
@@ -43,5 +43,4 @@ class SonController extends Controller
     {
         return $this->sonService->delete($request, $id);
     }
-
 }

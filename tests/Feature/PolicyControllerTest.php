@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Policy;
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -30,6 +31,12 @@ class PolicyControllerTest extends TestCase
         $this->policy = Policy::factory(
             ['user_id' => $this->user->id]
         )->create();
+
+        UserSetting::factory()->create([
+            'user_id' => $this->user->id,
+            'key' => 'role',
+            'value' => 'admin',
+        ]);
     }
 
     /** @test */

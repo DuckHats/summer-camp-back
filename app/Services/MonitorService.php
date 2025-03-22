@@ -9,7 +9,7 @@ class MonitorService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Monitor();
+        $this->model = new Monitor;
     }
 
     protected function getRelations(): array
@@ -26,5 +26,4 @@ class MonitorService extends BaseService
     {
         return [];
     }
-
 }

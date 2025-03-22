@@ -9,7 +9,7 @@ class ErrorService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Error();
+        $this->model = new Error;
     }
 
     protected function getRelations(): array

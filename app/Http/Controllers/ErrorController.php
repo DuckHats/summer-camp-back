@@ -23,7 +23,7 @@ class ErrorController extends Controller
     {
         return $this->errorService->getById($request, $id);
     }
-    
+
     public function store(Request $request)
     {
         return $this->errorService->create($request);

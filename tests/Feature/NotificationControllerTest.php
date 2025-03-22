@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Notification;
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -29,6 +30,12 @@ class NotificationControllerTest extends TestCase
 
         $this->notification = Notification::factory()->create([
             'user_id' => $this->user->id,
+        ]);
+
+        UserSetting::factory()->create([
+            'user_id' => $this->user->id,
+            'key' => 'role',
+            'value' => 'admin',
         ]);
     }
 

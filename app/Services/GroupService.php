@@ -9,7 +9,7 @@ class GroupService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Group();
+        $this->model = new Group;
     }
 
     protected function getRelations(): array

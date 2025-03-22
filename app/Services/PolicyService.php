@@ -9,7 +9,7 @@ class PolicyService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Policy();
+        $this->model = new Policy;
     }
 
     protected function getRelations(): array

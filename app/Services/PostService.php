@@ -9,7 +9,7 @@ class PostService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Post();
+        $this->model = new Post;
     }
 
     protected function getRelations(): array

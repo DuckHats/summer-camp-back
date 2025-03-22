@@ -9,7 +9,7 @@ class PhotoService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Photo();
+        $this->model = new Photo;
     }
 
     protected function getRelations(): array

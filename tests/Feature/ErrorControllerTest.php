@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Error;
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -27,6 +28,12 @@ class ErrorControllerTest extends TestCase
             'password' => Hash::make('password123'),
         ]);
         $this->token = $this->user->createToken('auth_token')->plainTextToken;
+
+        UserSetting::factory()->create([
+            'user_id' => $this->user->id,
+            'key' => 'role',
+            'value' => 'admin',
+        ]);
 
         // Create an error record for testing
         $this->error = Error::factory()->create([

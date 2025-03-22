@@ -9,7 +9,7 @@ class ActivityService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Activity();
+        $this->model = new Activity;
     }
 
     protected function getRelations(): array

@@ -9,7 +9,7 @@ class UserSettingService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new UserSetting();
+        $this->model = new UserSetting;
     }
 
     protected function getRelations(): array

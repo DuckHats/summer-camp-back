@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Group;
 use App\Models\Son;
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -27,6 +28,12 @@ class SonControllerTest extends TestCase
         ]);
 
         $this->group = Group::factory()->create();
+
+        UserSetting::factory()->create([
+            'user_id' => $this->user->id,
+            'key' => 'role',
+            'value' => 'admin',
+        ]);
 
         $this->token = $this->user->createToken('auth_token')->plainTextToken;
     }

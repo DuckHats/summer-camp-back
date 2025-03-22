@@ -9,7 +9,7 @@ class NotificationService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Notification();
+        $this->model = new Notification;
     }
 
     protected function getRelations(): array
@@ -26,5 +26,4 @@ class NotificationService extends BaseService
     {
         return [];
     }
-
 }
