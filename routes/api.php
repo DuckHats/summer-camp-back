@@ -1,7 +1,9 @@
 <?php
 
+use App\Constants\RouteConstants;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\NotificationController;
@@ -28,124 +30,136 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('throttle:api')->group(function () {
 
     Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers'], function () {
-        // Auth system
-        Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
-        Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+        Route::controller(AuthController::class)->group(function () {
+            Route::post(RouteConstants::REGISTER, 'register')->name('auth.register');
+            Route::post(RouteConstants::LOGIN, 'login')->name('auth.login');
 
-        Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth:sanctum');
-        Route::post('/logoutAllSessions', [AuthController::class, 'logoutAllSessions'])->name('auth.logoutAll')->middleware('auth:sanctum');
-        Route::post('/forgot-password', [AuthController::class, 'sendResetCode'])->name('auth.sendResetCode');
-        Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('auth.resetPassword');
+            Route::post(RouteConstants::LOGOUT, 'logout')->name('auth.logout')->middleware('auth:sanctum');
+            Route::post(RouteConstants::LOGOUT_ALL_SESSIONS, 'logoutAllSessions')->name('auth.logoutAll')->middleware('auth:sanctum');
+            Route::post(RouteConstants::FORGOT_PASSWORD, 'sendResetCode')->name('auth.sendResetCode');
+            Route::post(RouteConstants::RESET_PASSWORD, 'resetPassword')->name('auth.resetPassword');
 
-        Route::post('/verify/email', [AuthController::class, 'sendEmailVerificationCode'])->name('auth.sendEmailVerificationCode')->middleware('auth:sanctum');
-        Route::post('/verify/email/confirm', [AuthController::class, 'verifyEmail'])->name('auth.verifyEmail')->middleware('auth:sanctum');
+            Route::post(RouteConstants::VERIFY_EMAIL, 'sendEmailVerificationCode')->name('auth.sendEmailVerificationCode')->middleware('auth:sanctum');
+            Route::post(RouteConstants::VERIFY_EMAIL_CONFIRM, 'verifyEmail')->name('auth.verifyEmail')->middleware('auth:sanctum');
 
-        Route::post('/verify/phone', [AuthController::class, 'sendPhoneVerificationCode'])->name('auth.sendPhoneVerificationCode')->middleware('auth:sanctum');
-        Route::post('/verify/phone/confirm', [AuthController::class, 'verifyPhone'])->name('auth.verifyPhone')->middleware('auth:sanctum');
+            Route::post(RouteConstants::VERIFY_PHONE, 'sendPhoneVerificationCode')->name('auth.sendPhoneVerificationCode')->middleware('auth:sanctum');
+            Route::post(RouteConstants::VERIFY_PHONE_CONFIRM, 'verifyPhone')->name('auth.verifyPhone')->middleware('auth:sanctum');
+        });
 
-        // User routes
-        Route::get('/users', 'UserController@index')->name('users.index');
-        Route::get('/users/me', [UserController::class, 'me'])->name('users.me')->middleware('auth:sanctum');
-        Route::get('/users/{id}', 'UserController@show')->name('users.show');
+        Route::controller(UserController::class)->group(function () {
+            Route::get(RouteConstants::USERS, 'index')->name('users.index');
+            Route::get(RouteConstants::USERS_ME, 'me')->name('users.me')->middleware('auth:sanctum');
+            Route::get(RouteConstants::USERS_DETAIL, 'show')->name('users.show');
 
-        Route::post('/users', 'UserController@store')->name('users.store')->middleware('auth:sanctum');
-        Route::put('/users/{id}', 'UserController@update')->name('users.update')->middleware('auth:sanctum');
-        Route::patch('/users/{id}', [UserController::class, 'patch'])->name('users.patch')->middleware('auth:sanctum');
-        Route::delete('/users/{id}', 'UserController@destroy')->name('users.destroy')->middleware('auth:sanctum');
-        Route::post('/users/{id}/avatar', [UserController::class, 'updateAvatar'])->name('users.avatar')->middleware('auth:sanctum');
+            Route::post(RouteConstants::USERS_CREATE, 'store')->name('users.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::USERS_UPDATE, 'update')->name('users.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::USERS_PATCH, 'patch')->name('users.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::USERS_DESTROY, 'destroy')->name('users.destroy')->middleware('auth:sanctum');
 
-        Route::post('/users/{id}/disable', [UserController::class, 'disableUser'])->name('users.disable')->middleware('auth:sanctum');
-        Route::post('/users/{id}/enable', [UserController::class, 'enableUser'])->name('users.enable')->middleware('auth:sanctum');
+            Route::post(RouteConstants::USERS_AVATAR, 'updateAvatar')->name('users.avatar')->middleware('auth:sanctum');
+            Route::post(RouteConstants::USERS_DISABLE, 'disableUser')->name('users.disable')->middleware('auth:sanctum');
+            Route::post(RouteConstants::USERS_ENABLE, 'enableUser')->name('users.enable')->middleware('auth:sanctum');
 
-        Route::post('/users/bulk', [UserController::class, 'bulkUsers'])->name('users.bulk')->middleware('auth:sanctum');
+            Route::post(RouteConstants::USERS_BULK, 'bulkUsers')->name('users.bulk')->middleware('auth:sanctum');
+        });
 
-        // Error routes
-        Route::get('/errors', 'ErrorController@index')->name('errors.index')->middleware('auth:sanctum');
-        Route::get('/errors/{id}', 'ErrorController@show')->name('errors.show')->middleware('auth:sanctum');
+        Route::controller(ErrorController::class)->group(function () {
+            Route::get(RouteConstants::ERRORS, 'index')->name('errors.index')->middleware('auth:sanctum');
+            Route::get(RouteConstants::ERROR_DETAIL, 'show')->name('errors.show')->middleware('auth:sanctum');
 
-        Route::post('/errors', 'ErrorController@store')->name('errors.store')->middleware('auth:sanctum');
-        Route::put('/errors/{id}', 'ErrorController@update')->name('errors.update')->middleware('auth:sanctum');
-        Route::delete('/errors/{id}', 'ErrorController@destroy')->name('errors.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::ERROR_CREATE, 'store')->name('errors.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::ERROR_UPDATE, 'update')->name('errors.update')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::ERROR_DELETE, 'destroy')->name('errors.destroy')->middleware('auth:sanctum');
+        });
 
-        // Post routes ONLY FOR EXAMPLE
-        Route::get('/posts', 'PostController@index')->name('posts.index');
-        Route::get('/posts/{id}', 'PostController@show')->name('posts.show');
+        Route::controller(PostController::class)->group(function () {
+            Route::get(RouteConstants::POSTS, 'index')->name('posts.index');
+            Route::get(RouteConstants::POST_DETAIL, 'show')->name('posts.show');
 
-        Route::post('/posts', 'PostController@store')->name('posts.store')->middleware('auth:sanctum');
-        Route::put('/posts/{id}', 'PostController@update')->name('posts.update')->middleware('auth:sanctum');
-        Route::patch('/posts/{id}', [PostController::class, 'patch'])->name('posts.patch')->middleware('auth:sanctum');
-        Route::delete('/posts/{id}', 'PostController@destroy')->name('posts.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::POST_CREATE, 'store')->name('posts.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::POST_UPADTE, 'update')->name('posts.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::POST_PATCH, 'patch')->name('posts.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::POST_DELETE, 'destroy')->name('posts.destroy')->middleware('auth:sanctum');
+        });
 
-        // User settings routes
-        Route::get('/usettings', 'UserSettingController@index')->name('user_settings.index');
-        Route::get('/usettings/{id}', 'UserSettingController@show')->name('user_settings.show');
+        Route::controller(UserSettingController::class)->group(function () {
+            Route::get(RouteConstants::USER_SETTINGS, 'index')->name('user_settings.index');
+            Route::get(RouteConstants::USER_SETTING_DETAIL, 'show')->name('user_settings.show');
 
-        Route::post('/usettings', 'UserSettingController@store')->name('user_settings.store')->middleware('auth:sanctum');
-        Route::put('/usettings/{id}', 'UserSettingController@update')->name('user_settings.update')->middleware('auth:sanctum');
-        Route::patch('/usettings/{id}', [UserSettingController::class, 'patch'])->name('user_settings.patch')->middleware('auth:sanctum');
-        Route::delete('/usettings/{id}', 'UserSettingController@destroy')->name('user_settings.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::USER_SETTING_CREATE, 'store')->name('user_settings.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::USER_SETTING_UPDATE, 'update')->name('user_settings.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::USER_SETTING_PATCH, 'patch')->name('user_settings.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::USER_SETTING_DELETE, 'destroy')->name('user_settings.destroy')->middleware('auth:sanctum');
+        });
 
-        // Son routes
-        Route::get('/sons', 'SonController@index')->name('sons.index');
-        Route::get('/sons/{id}', 'SonController@show')->name('sons.show');
+        Route::controller(SonController::class)->group(function () {
+            Route::get(RouteConstants::SONS, 'index')->name('sons.index');
+            Route::get(RouteConstants::SON_DETAIL, 'show')->name('sons.show');
 
-        Route::post('/sons', 'SonController@store')->name('sons.store')->middleware('auth:sanctum');
-        Route::put('/sons/{id}', 'SonController@update')->name('sons.update')->middleware('auth:sanctum');
-        Route::patch('/sons/{id}', [SonController::class, 'patch'])->name('sons.patch')->middleware('auth:sanctum');
-        Route::delete('/sons/{id}', 'SonController@destroy')->name('sons.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::SON_CREATE, 'store')->name('sons.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::SON_UPDATE, 'update')->name('sons.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::SON_PATCH, 'patch')->name('sons.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::SON_DELETE, 'destroy')->name('sons.destroy')->middleware('auth:sanctum');
+        });
 
-        // User policy assignment routes
-        Route::get('/upolicy', 'PolicyController@index')->name('policy.index');
-        Route::get('/upolicy/{id}', 'PolicyController@show')->name('policy.show');
+        Route::controller(PolicyController::class)->group(function () {
+            Route::get(RouteConstants::USER_POLICY, 'index')->name('policy.index');
+            Route::get(RouteConstants::USER_POLICY_DETAIL, 'show')->name('policy.show');
 
-        Route::post('/upolicy', 'PolicyController@store')->name('policy.store')->middleware('auth:sanctum');
-        Route::put('/upolicy/{id}', 'PolicyController@update')->name('policy.update')->middleware('auth:sanctum');
-        Route::patch('/upolicy/{id}', [PolicyController::class, 'patch'])->name('policy.patch')->middleware('auth:sanctum');
-        Route::delete('/upolicy/{id}', 'PolicyController@destroy')->name('policy.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::USER_POLICY_CREATE, 'store')->name('policy.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::USER_POLICY_UPDATE, 'update')->name('policy.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::USER_POLICY_PATCH, 'patch')->name('policy.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::USER_POLICY_DELETE, 'destroy')->name('policy.destroy')->middleware('auth:sanctum');
+        });
 
-        // User notifications assignment routes
-        Route::get('/unotification', 'NotificationController@index')->name('notification.index');
-        Route::get('/unotification/{id}', 'NotificationController@show')->name('notification.show');
+        Route::controller(NotificationController::class)->group(function () {
+            Route::get(RouteConstants::USER_NOTIFICATION, 'index')->name('notification.index');
+            Route::get(RouteConstants::USER_NOTIFICATION_DETAIL, 'show')->name('notification.show');
 
-        Route::post('/unotification', 'NotificationController@store')->name('notification.store')->middleware('auth:sanctum');
-        Route::put('/unotification/{id}', 'NotificationController@update')->name('notification.update')->middleware('auth:sanctum');
-        Route::patch('/unotification/{id}', [NotificationController::class, 'patch'])->name('notification.patch')->middleware('auth:sanctum');
-        Route::delete('/unotification/{id}', 'NotificationController@destroy')->name('notification.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::USER_NOTIFICATION_CREATE, 'store')->name('notification.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::USER_NOTIFICATION_UPDATE, 'update')->name('notification.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::USER_NOTIFICATION_PATCH, 'patch')->name('notification.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::USER_NOTIFICATION_DELETE, 'destroy')->name('notification.destroy')->middleware('auth:sanctum');
+        });
 
-        // Group routes
-        Route::get('/groups', 'GroupController@index')->name('groups.index');
-        Route::get('/groups/{id}', 'GroupController@show')->name('groups.show');
+        Route::controller(GroupController::class)->group(function () {
+            Route::get(RouteConstants::GROUPS, 'index')->name('groups.index');
+            Route::get(RouteConstants::GROUP_DETAIL, 'show')->name('groups.show');
 
-        Route::post('/groups', 'GroupController@store')->name('groups.store')->middleware('auth:sanctum');
-        Route::put('/groups/{id}', 'GroupController@update')->name('groups.update')->middleware('auth:sanctum');
-        Route::patch('/groups/{id}', [GroupController::class, 'patch'])->name('groups.patch')->middleware('auth:sanctum');
-        Route::delete('/groups/{id}', 'GroupController@destroy')->name('groups.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::GROUP_CREATE, 'store')->name('groups.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::GROUP_UPDATE, 'update')->name('groups.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::GROUP_PATCH, 'patch')->name('groups.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::GROUP_DELETE, 'destroy')->name('groups.destroy')->middleware('auth:sanctum');
+        });
 
-        // Activities routes
-        Route::get('/activities', 'ActivityController@index')->name('activities.index');
-        Route::get('/activities/{id}', 'ActivityController@show')->name('activities.show');
+        Route::controller(ActivityController::class)->group(function () {
+            Route::get(RouteConstants::ACTIVITIES, 'index')->name('activities.index');
+            Route::get(RouteConstants::ACTIVITY_DETAIL, 'show')->name('activities.show');
 
-        Route::post('/activities', 'ActivityController@store')->name('activities.store')->middleware('auth:sanctum');
-        Route::put('/activities/{id}', 'ActivityController@update')->name('activities.update')->middleware('auth:sanctum');
-        Route::patch('/activities/{id}', [ActivityController::class, 'patch'])->name('activities.patch')->middleware('auth:sanctum');
-        Route::delete('/activities/{id}', 'ActivityController@destroy')->name('activities.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::ACTIVITY_CREATE, 'store')->name('activities.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::ACTIVITY_UPDATE, 'update')->name('activities.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::ACTIVITY_PATCH, 'patch')->name('activities.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::ACTIVITY_DELETE, 'destroy')->name('activities.destroy')->middleware('auth:sanctum');
+        });
 
-        // Monitors routes
-        Route::get('/monitors', 'MonitorController@index')->name('monitors.index');
-        Route::get('/monitors/{id}', 'MonitorController@show')->name('monitors.show');
+        Route::controller(MonitorController::class)->group(function () {
+            Route::get(RouteConstants::MONITORS, 'index')->name('monitors.index');
+            Route::get(RouteConstants::MONITOR_DETAIL, 'show')->name('monitors.show');
 
-        Route::post('/monitors', 'MonitorController@store')->name('monitors.store')->middleware('auth:sanctum');
-        Route::put('/monitors/{id}', 'MonitorController@update')->name('monitors.update')->middleware('auth:sanctum');
-        Route::patch('/monitors/{id}', [MonitorController::class, 'patch'])->name('monitors.patch')->middleware('auth:sanctum');
-        Route::delete('/monitors/{id}', 'MonitorController@destroy')->name('monitors.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::MONITOR_CREATE, 'store')->name('monitors.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::MONITOR_UPDATE, 'update')->name('monitors.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::MONITOR_PATCH, 'patch')->name('monitors.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::MONITOR_DELETE, 'destroy')->name('monitors.destroy')->middleware('auth:sanctum');
+        });
 
-        // Photos routes
-        Route::get('/photos', 'PhotoController@index')->name('photos.index');
-        Route::get('/photos/{id}', 'PhotoController@show')->name('photos.show');
+        Route::controller(PhotoController::class)->group(function () {
+            Route::get(RouteConstants::PHOTOS, 'index')->name('photos.index');
+            Route::get(RouteConstants::PHOTO_DETAIL, 'show')->name('photos.show');
 
-        Route::post('/photos', 'PhotoController@store')->name('photos.store')->middleware('auth:sanctum');
-        Route::put('/photos/{id}', 'PhotoController@update')->name('photos.update')->middleware('auth:sanctum');
-        Route::patch('/photos/{id}', [PhotoController::class, 'patch'])->name('photos.patch')->middleware('auth:sanctum');
-        Route::delete('/photos/{id}', 'PhotoController@destroy')->name('photos.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::PHOTO_CREATE, 'store')->name('photos.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::PHOTO_UPDATE, 'update')->name('photos.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::PHOTO_PATCH, 'patch')->name('photos.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::PHOTO_DELETE, 'destroy')->name('photos.destroy')->middleware('auth:sanctum');
+        });
     });
 });
