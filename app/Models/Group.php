@@ -11,9 +11,9 @@ class Group extends Model
 
     protected $fillable = ['name', 'monitor_id', 'profile_picture'];
 
-    public function sons()
+    public function childs()
     {
-        return $this->hasMany(Son::class);
+        return $this->hasMany(Child::class);
     }
 
     public function activities()

@@ -76,15 +76,15 @@ return [
             'users.*.email' => 'required|email|unique:users,email',
             'users.*.status' => 'nullable|integer|in:0,1',
             'users.*.password' => 'required|string|min:6',
-            'users.*.sons' => 'nullable|array',
-            'users.*.sons.*.dni' => 'required|string|unique:sons,dni',
-            'users.*.sons.*.first_name' => 'required|string',
-            'users.*.sons.*.last_name' => 'required|string',
-            'users.*.sons.*.birth_date' => 'required|date',
-            'users.*.sons.*.group_id' => 'nullable|integer',
-            'users.*.sons.*.profile_picture_url' => 'nullable|string',
-            'users.*.sons.*.profile_extra_info' => 'nullable|string',
-            'users.*.sons.*.gender' => 'nullable|string|in:male,female,other',
+            'users.*.childs' => 'nullable|array',
+            'users.*.childs.*.dni' => 'required|string|unique:childs,dni',
+            'users.*.childs.*.first_name' => 'required|string',
+            'users.*.childs.*.last_name' => 'required|string',
+            'users.*.childs.*.birth_date' => 'required|date',
+            'users.*.childs.*.group_id' => 'nullable|integer',
+            'users.*.childs.*.profile_picture_url' => 'nullable|string',
+            'users.*.childs.*.profile_extra_info' => 'nullable|string',
+            'users.*.childs.*.gender' => 'nullable|string|in:male,female,other',
         ],
     ],
 
@@ -179,7 +179,7 @@ return [
             'read_at' => 'nullable|date',
         ],
     ],
-    'sons' => [
+    'childs' => [
         'store' => [
             'dni' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',

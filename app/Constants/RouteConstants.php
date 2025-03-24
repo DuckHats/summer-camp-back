@@ -87,18 +87,18 @@ class RouteConstants
 
     const USER_SETTING_DELETE = '/usettings/{id}';
 
-    // Son Routes
-    const SONS = '/sons';
+    // Childs Routes
+    const CHILDS = '/childs';
 
-    const SON_DETAIL = '/sons/{id}';
+    const CHILD_DETAIL = '/childs/{id}';
 
-    const SON_CREATE = '/sons';
+    const CHILD_CREATE = '/childs';
 
-    const SON_UPDATE = '/sons/{id}';
+    const CHILD_UPDATE = '/childs/{id}';
 
-    const SON_PATCH = '/sons/{id}';
+    const CHILD_PATCH = '/childs/{id}';
 
-    const SON_DELETE = '/sons/{id}';
+    const CHILD_DELETE = '/childs/{id}';
 
     // Policy Routes
     const USER_POLICY = '/upolicy';

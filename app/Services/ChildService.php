@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Http\Resources\SonResource;
-use App\Models\Son;
+use App\Http\Resources\ChildResource;
+use App\Models\Child;
 
-class SonService extends BaseService
+class ChildService extends BaseService
 {
     public function __construct()
     {
-        $this->model = new Son;
+        $this->model = new Child;
     }
 
     protected function getRelations(): array
@@ -19,7 +19,7 @@ class SonService extends BaseService
 
     protected function resourceClass()
     {
-        return SonResource::class;
+        return ChildResource::class;
     }
 
     protected function getSyncableRelations(): array

@@ -3,16 +3,16 @@
 namespace Database\Factories;
 
 use App\Models\Group;
-use App\Models\Son;
+use App\Models\Child;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Son>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Child>
  */
-class SonFactory extends Factory
+class ChildFactory extends Factory
 {
-    protected $model = Son::class;
+    protected $model = Child::class;
 
     public function definition(): array
     {

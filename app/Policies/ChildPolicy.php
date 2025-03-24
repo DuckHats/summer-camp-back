@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class SonPolicy
+class ChildPolicy
 {
     public function create(User $user): bool
     {
