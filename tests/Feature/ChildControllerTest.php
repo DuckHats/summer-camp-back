@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Group;
 use App\Models\Child;
+use App\Models\Group;
 use App\Models\User;
 use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
