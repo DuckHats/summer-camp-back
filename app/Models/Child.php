@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Son extends Model
+class Child extends Model
 {
     use HasFactory;
+
+    protected $table = 'childs';
 
     /**
      * The attributes that are mass assignable.
@@ -36,7 +38,7 @@ class Son extends Model
     ];
 
     /**
-     * Get the user (family) that owns the son.
+     * Get the user (family) that owns the child.
      */
     public function user()
     {

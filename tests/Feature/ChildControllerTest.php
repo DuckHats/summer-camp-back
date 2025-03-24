@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Models\Child;
 use App\Models\Group;
-use App\Models\Son;
 use App\Models\User;
 use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class SonControllerTest extends TestCase
+class ChildControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -39,22 +39,22 @@ class SonControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_list_sons()
+    public function it_can_list_childs()
     {
-        Son::factory(10)->create(['user_id' => $this->user->id]);
+        Child::factory(10)->create(['user_id' => $this->user->id]);
 
-        $response = $this->getJson(route('sons.index', ['per_page' => 5]));
+        $response = $this->getJson(route('childs.index', ['per_page' => 5]));
 
         $response->assertStatus(200);
     }
 
     /** @test */
-    public function it_can_create_a_son()
+    public function it_can_create_a_child()
     {
-        $sonData = [
+        $childData = [
             'dni' => '12345678A',
             'first_name' => 'Test',
-            'last_name' => 'Son',
+            'last_name' => 'Child',
             'birth_date' => '2021-01-01',
             'group_id' => $this->group->id,
             'profile_picture_url' => 'https://example.com/image.jpg',
@@ -64,82 +64,82 @@ class SonControllerTest extends TestCase
         ];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->postJson(route('sons.store'), $sonData);
+            ->postJson(route('childs.store'), $childData);
 
         $response->assertStatus(201);
 
-        $this->assertDatabaseHas('sons', $sonData);
+        $this->assertDatabaseHas('childs', $childData);
     }
 
     /** @test */
-    public function it_validates_required_fields_when_creating_a_son()
+    public function it_validates_required_fields_when_creating_a_child()
     {
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->postJson(route('sons.store'), []);
+            ->postJson(route('childs.store'), []);
 
         $response->assertStatus(400);
     }
 
     /** @test */
-    public function it_can_show_a_son()
+    public function it_can_show_a_child()
     {
-        $son = Son::factory()->create(['user_id' => $this->user->id]);
+        $child = Child::factory()->create(['user_id' => $this->user->id]);
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->getJson(route('sons.show', $son->id));
+            ->getJson(route('childs.show', $child->id));
 
         $response->assertStatus(200);
     }
 
     /** @test */
-    public function it_returns_404_if_son_not_found()
+    public function it_returns_404_if_child_not_found()
     {
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->getJson(route('sons.show', 999));
+            ->getJson(route('childs.show', 999));
 
         $response->assertStatus(404);
     }
 
     /** @test */
-    public function it_can_update_a_son()
+    public function it_can_update_a_child()
     {
-        $son = Son::factory()->create(['user_id' => $this->user->id]);
+        $child = Child::factory()->create(['user_id' => $this->user->id]);
 
         $updatedData = ['dni' => '12345678K', 'first_name' => 'Johan'];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->putJson(route('sons.update', $son->id), $updatedData);
+            ->putJson(route('childs.update', $child->id), $updatedData);
 
         $response->assertStatus(200);
 
-        $this->assertDatabaseHas('sons', $updatedData);
+        $this->assertDatabaseHas('childs', $updatedData);
     }
 
     /** @test */
-    public function it_can_partially_update_a_son()
+    public function it_can_partially_update_a_child()
     {
-        $son = Son::factory()->create(['user_id' => $this->user->id]);
+        $child = Child::factory()->create(['user_id' => $this->user->id]);
 
         $patchData = ['dni' => '12345678K'];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->patchJson(route('sons.patch', $son->id), $patchData);
+            ->patchJson(route('childs.patch', $child->id), $patchData);
 
         $response->assertStatus(200);
 
-        $this->assertDatabaseHas('sons', $patchData);
+        $this->assertDatabaseHas('childs', $patchData);
     }
 
     /** @test */
-    public function it_can_delete_a_son()
+    public function it_can_delete_a_child()
     {
-        $son = Son::factory()->create(['user_id' => $this->user->id]);
+        $child = Child::factory()->create(['user_id' => $this->user->id]);
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->deleteJson(route('sons.destroy', $son->id));
+            ->deleteJson(route('childs.destroy', $child->id));
 
         $response->assertStatus(204);
 
-        $this->assertDatabaseMissing('sons', ['id' => $son->id]);
+        $this->assertDatabaseMissing('childs', ['id' => $child->id]);
     }
 }

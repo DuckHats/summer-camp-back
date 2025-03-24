@@ -24,7 +24,7 @@ class UserResource extends JsonResource
             'updated_at' => $this->updated_at,
             'user_settings' => UserSettingResource::collection($this->whenLoaded('settings')),
             'user_policies' => PolicyResource::collection($this->whenLoaded('policies')),
-            'sons' => SonResource::collection($this->whenLoaded('sons')),
+            'childs' => ChildResource::collection($this->whenLoaded('childs')),
         ];
     }
 }

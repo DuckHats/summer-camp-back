@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\Son;
+use App\Models\Child;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -45,9 +45,9 @@ class BulkUserCreationJob implements ShouldQueue
                     'password' => Hash::make($userData['password']),
                 ]);
 
-                if (! empty($userData['sons'])) {
-                    $sons = array_map(fn ($son) => array_merge($son, ['user_id' => $user->id]), $userData['sons']);
-                    Son::insert($sons);
+                if (! empty($userData['childs'])) {
+                    $childs = array_map(fn ($child) => array_merge($child, ['user_id' => $user->id]), $userData['childs']);
+                    Child::insert($childs);
                 }
             }
 

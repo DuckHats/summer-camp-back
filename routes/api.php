@@ -3,6 +3,7 @@
 use App\Constants\RouteConstants;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChildController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\MonitorController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\SonController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSettingController;
 use Illuminate\Support\Facades\Route;
@@ -92,14 +92,14 @@ Route::middleware('throttle:api')->group(function () {
             Route::delete(RouteConstants::USER_SETTING_DELETE, 'destroy')->name('user_settings.destroy')->middleware('auth:sanctum');
         });
 
-        Route::controller(SonController::class)->group(function () {
-            Route::get(RouteConstants::SONS, 'index')->name('sons.index');
-            Route::get(RouteConstants::SON_DETAIL, 'show')->name('sons.show');
+        Route::controller(ChildController::class)->group(function () {
+            Route::get(RouteConstants::CHILDS, 'index')->name('childs.index');
+            Route::get(RouteConstants::CHILD_DETAIL, 'show')->name('childs.show');
 
-            Route::post(RouteConstants::SON_CREATE, 'store')->name('sons.store')->middleware('auth:sanctum');
-            Route::put(RouteConstants::SON_UPDATE, 'update')->name('sons.update')->middleware('auth:sanctum');
-            Route::patch(RouteConstants::SON_PATCH, 'patch')->name('sons.patch')->middleware('auth:sanctum');
-            Route::delete(RouteConstants::SON_DELETE, 'destroy')->name('sons.destroy')->middleware('auth:sanctum');
+            Route::post(RouteConstants::CHILD_CREATE, 'store')->name('childs.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::CHILD_UPDATE, 'update')->name('childs.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::CHILD_PATCH, 'patch')->name('childs.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::CHILD_DELETE, 'destroy')->name('childs.destroy')->middleware('auth:sanctum');
         });
 
         Route::controller(PolicyController::class)->group(function () {

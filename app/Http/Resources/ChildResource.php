@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SonResource extends JsonResource
+class ChildResource extends JsonResource
 {
     public function toArray($request)
     {

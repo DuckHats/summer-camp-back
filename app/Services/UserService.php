@@ -357,8 +357,8 @@ class UserService
             $query->with('policies');
         }
 
-        if ($request->get('with_sons')) {
-            $query->with('sons');
+        if ($request->get('with_childs')) {
+            $query->with('childs');
         }
     }
 }

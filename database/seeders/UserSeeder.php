@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Child;
 use App\Models\Error;
 use App\Models\Notification;
 use App\Models\Policy;
-use App\Models\Son;
 use App\Models\User;
 use App\Models\UserSetting;
 use Illuminate\Database\Seeder;
@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         User::factory(10)->create()->each(function (User $user) {
 
             UserSetting::factory(rand(1, 3))->create(['user_id' => $user->id]);
-            Son::factory(rand(1, 3))->create(['user_id' => $user->id]);
+            Child::factory(rand(1, 3))->create(['user_id' => $user->id]);
 
             Policy::create([
                 'user_id' => $user->id,
