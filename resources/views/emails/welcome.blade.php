@@ -53,7 +53,7 @@
             <h2>Benvingut al Casal d'Estiu!</h2>
         </div>
         <div class="content">
-            <h1>Hola, {{ $user->name }}!</h1>
+            <h1>Hola, {{ $user->username }}!</h1>
             <p>És un plaer donar-te la benvinguda al nostre casal d'estiu! A través de la nostra plataforma, podràs:</p>
             <ul>
                 <li>Seguir les activitats dels teus fills</li>
