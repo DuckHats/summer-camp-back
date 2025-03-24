@@ -48,7 +48,7 @@ class AuthControllerTest extends TestCase
     public function it_can_login_a_user()
     {
         $loginData = [
-            'email' => $this->user->email,
+            'user' => $this->user->email,
             'password' => 'password123',
         ];
 
@@ -61,7 +61,7 @@ class AuthControllerTest extends TestCase
     public function it_should_fail_if_login_with_invalid_credentials()
     {
         $loginData = [
-            'email' => $this->user->email,
+            'user' => $this->user->email,
             'password' => 'wrongpassword',
         ];
 
