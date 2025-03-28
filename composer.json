@@ -9,6 +9,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
+        "laravel/telescope": "^5.6",
         "laravel/tinker": "^2.8",
         "league/csv": "^9.22"
     },
@@ -16,7 +17,6 @@
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.20",
         "laravel/sail": "^1.18",
-        "laravel/telescope": "^5.5",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.1",
