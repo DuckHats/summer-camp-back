@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -9,7 +10,7 @@ class AdminAuth
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->session()->has('admin_authenticated')) {
+        if (! $request->session()->has('admin_authenticated')) {
             return redirect()->route('admin.login');
         }
 

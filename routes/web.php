@@ -21,7 +21,7 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-    
+
     Route::prefix('telescope')->group(function () {
         Route::get('/{any?}', function () {
             abort(403);
