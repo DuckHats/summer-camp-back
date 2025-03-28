@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -10,8 +9,8 @@ class AdminAuth
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session()->has('admin_authenticated')) {
-            return response()->view('auth.admin_login');
+        if (!$request->session()->has('admin_authenticated')) {
+            return redirect()->route('admin.login');
         }
 
         return $next($request);
