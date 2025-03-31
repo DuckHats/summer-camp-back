@@ -136,4 +136,9 @@ class UserController extends Controller
     {
         return $this->userService->bulkUsers($request);
     }
+
+    public function is_admin()
+    {
+        return $this->userService->isAdmin();
+    }
 }

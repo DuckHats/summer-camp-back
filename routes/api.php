@@ -49,6 +49,7 @@ Route::middleware('throttle:api')->group(function () {
         Route::controller(UserController::class)->group(function () {
             Route::get(RouteConstants::USERS, 'index')->name('users.index');
             Route::get(RouteConstants::USERS_ME, 'me')->name('users.me')->middleware('auth:sanctum');
+            Route::get(RouteConstants::USERS_ADMIN_CHECK, 'is_admin')->name('users.adminCheck')->middleware('auth:sanctum');
             Route::get(RouteConstants::USERS_DETAIL, 'show')->name('users.show');
 
             Route::post(RouteConstants::USERS_CREATE, 'store')->name('users.store')->middleware('auth:sanctum');

@@ -48,6 +48,8 @@ class RouteConstants
 
     const USERS_BULK = '/users/bulk';
 
+    const USERS_ADMIN_CHECK = '/users/is_admin';
+
     // Error Routes
     const ERRORS = '/errors';
 
