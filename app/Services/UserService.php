@@ -9,6 +9,7 @@ use App\Jobs\BulkUserCreationJob;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
@@ -341,6 +342,37 @@ class UserService
         BulkUserCreationJob::dispatch($request->input('users'))->onQueue('bulk-processing');
 
         return ApiResponse::success([], 'Creation in progress.', ApiResponse::ACCEPTED_STATUS);
+    }
+
+    public function isAdmin()
+    {
+        try {
+            $requestUser = Auth::user();
+            $user = User::find($requestUser->id);
+            if (! $user) {
+                return ApiResponse::error(
+                    'NOT_FOUND',
+                    'User not found.',
+                    [],
+                    ApiResponse::NOT_FOUND_STATUS
+                );
+            }
+
+            Gate::authorize('isAdmin', $requestUser);
+            if ($user->isAdmin()) {
+                return ApiResponse::success(['isAdmin' => true], 'User is admin.', ApiResponse::OK_STATUS);
+            } else {
+                return ApiResponse::success(['isAdmin' => false], 'User is not admin.', ApiResponse::OK_STATUS);
+            }
+
+        } catch (\Throwable $e) {
+            return ApiResponse::error(
+                'FUNCTION_FAILED',
+                'Error while cheking if user is admin.',
+                ['exception' => $e->getMessage()],
+                ApiResponse::INTERNAL_SERVER_ERROR_STATUS
+            );
+        }
     }
 
     private function applyRelations($query, Request $request)

@@ -30,4 +30,9 @@ class UserPolicy
     {
         return $adminUser->isAdmin();
     }
+
+    public function isAdmin(User $user): bool
+    {
+        return $user->isAdmin();
+    }
 }

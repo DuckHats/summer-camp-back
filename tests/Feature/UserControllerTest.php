@@ -103,6 +103,30 @@ class UserControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_check_for_admin_user()
+    {
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
+            ->getJson(route('users.adminCheck'));
+
+            dd($response);
+
+        $response->assertStatus(200)
+            ->assertJsonFragment(['isAdmin' => true]);   
+    }
+
+    /** @test */
+    public function it_check_for_admin_user_fails()
+    {
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->getJson(route('users.adminCheck'));
+
+            dd($response);
+
+        $response->assertStatus(500)
+            ->assertJsonFragment(['isAdmin' => false]);   
+    }
+
+    /** @test */
     public function it_can_patch_a_user()
     {
         $updatedData = ['username' => 'Updated Name'];

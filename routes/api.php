@@ -61,6 +61,7 @@ Route::middleware('throttle:api')->group(function () {
             Route::post(RouteConstants::USERS_ENABLE, 'enableUser')->name('users.enable')->middleware('auth:sanctum');
 
             Route::post(RouteConstants::USERS_BULK, 'bulkUsers')->name('users.bulk')->middleware('auth:sanctum');
+            Route::get(RouteConstants::USERS_ADMIN_CHECK, 'is_admin')->name('users.adminCheck')->middleware('auth:sanctum');
         });
 
         Route::controller(ErrorController::class)->group(function () {
