@@ -109,7 +109,7 @@ class UserControllerTest extends TestCase
             ->getJson(route('users.adminCheck'));
 
         $response->assertStatus(200)
-            ->assertJsonFragment(['admin' => true]);   
+            ->assertJsonFragment(['admin' => true]);
     }
 
     /** @test */
@@ -119,7 +119,7 @@ class UserControllerTest extends TestCase
             ->getJson(route('users.adminCheck'));
 
         $response->assertStatus(200)
-            ->assertJsonFragment(['admin' => false]);   
+            ->assertJsonFragment(['admin' => false]);
     }
 
     /** @test */

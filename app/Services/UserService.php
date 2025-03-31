@@ -8,8 +8,8 @@ use App\Http\Resources\UserResource;
 use App\Jobs\BulkUserCreationJob;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UserService
 {
