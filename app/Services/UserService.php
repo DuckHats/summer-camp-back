@@ -13,18 +13,13 @@ use Illuminate\Support\Facades\Gate;
 
 class UserService
 {
-    const USER_PER_PAGE = 25;
-
-    const MAX_USERS_PER_PAGE = 100;
-
     public function getUsers(Request $request)
     {
         try {
             $query = User::query();
             $this->applyRelations($query, $request);
 
-            $perPage = min($request->get('per_page', self::USER_PER_PAGE), self::MAX_USERS_PER_PAGE);
-            $users = $query->paginate($perPage);
+            $users = $query->get();
 
             return UserResource::collection($users)->additional([
                 'status' => 'success',
