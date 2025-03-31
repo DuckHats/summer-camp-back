@@ -358,11 +358,10 @@ class UserService
                 );
             }
 
-            Gate::authorize('isAdmin', $requestUser);
             if ($user->isAdmin()) {
-                return ApiResponse::success(['isAdmin' => true], 'User is admin.', ApiResponse::OK_STATUS);
+                return ApiResponse::success(['admin' => true], 'User is admin.', ApiResponse::OK_STATUS);
             } else {
-                return ApiResponse::success(['isAdmin' => false], 'User is not admin.', ApiResponse::OK_STATUS);
+                return ApiResponse::success(['admin' => false], 'User is not admin.', ApiResponse::OK_STATUS);
             }
 
         } catch (\Throwable $e) {

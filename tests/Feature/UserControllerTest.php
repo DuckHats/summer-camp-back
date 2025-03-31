@@ -108,10 +108,8 @@ class UserControllerTest extends TestCase
         $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
             ->getJson(route('users.adminCheck'));
 
-            dd($response);
-
         $response->assertStatus(200)
-            ->assertJsonFragment(['isAdmin' => true]);   
+            ->assertJsonFragment(['admin' => true]);   
     }
 
     /** @test */
@@ -120,10 +118,8 @@ class UserControllerTest extends TestCase
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->getJson(route('users.adminCheck'));
 
-            dd($response);
-
-        $response->assertStatus(500)
-            ->assertJsonFragment(['isAdmin' => false]);   
+        $response->assertStatus(200)
+            ->assertJsonFragment(['admin' => false]);   
     }
 
     /** @test */
