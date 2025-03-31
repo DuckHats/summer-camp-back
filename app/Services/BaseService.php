@@ -16,10 +16,6 @@ abstract class BaseService implements ServiceInterface
 
     protected Model $model;
 
-    protected $min_per_page = 250;
-
-    protected $max_per_page = 3000;
-
     public function getAll(Request $request)
     {
         try {
@@ -30,8 +26,7 @@ abstract class BaseService implements ServiceInterface
                 $query->with($relations);
             }
 
-            $perPage = min($request->get('per_page', $this->min_per_page), $this->max_per_page);
-            $items = $query->paginate($perPage);
+            $items = $query->get();
 
             return ($this->resourceClass())::collection($items)
                 ->additional(['status' => 'success', 'message' => 'List retrieved successfully.', 'code' => ApiResponse::OK_STATUS]);
