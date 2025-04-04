@@ -97,6 +97,8 @@ Route::middleware('throttle:api')->group(function () {
             Route::get(RouteConstants::CHILDS, 'index')->name('childs.index');
             Route::get(RouteConstants::CHILD_DETAIL, 'show')->name('childs.show');
 
+            Route::get(RouteConstants::CHILD_INSPECT, 'inspect')->name('childs.inspect');
+
             Route::post(RouteConstants::CHILD_CREATE, 'store')->name('childs.store')->middleware('auth:sanctum');
             Route::put(RouteConstants::CHILD_UPDATE, 'update')->name('childs.update')->middleware('auth:sanctum');
             Route::patch(RouteConstants::CHILD_PATCH, 'patch')->name('childs.patch')->middleware('auth:sanctum');

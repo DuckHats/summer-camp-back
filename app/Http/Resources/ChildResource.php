@@ -6,9 +6,17 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ChildResource extends JsonResource
 {
+    private $fullDetails;
+
+    public function __construct($resource, $fullDetails = false)
+    {
+        parent::__construct($resource);
+        $this->fullDetails = $fullDetails;
+    }
+
     public function toArray($request)
     {
-        return [
+        $data = [
             'id' => $this->id,
             'user_id' => $this->user_id,
             'dni' => $this->dni,
@@ -22,5 +30,14 @@ class ChildResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+
+        if ($this->fullDetails) {
+            $data['user'] = new UserResource($this->whenLoaded('user'));
+            $data['group'] = new GroupResource($this->whenLoaded('group'));
+            $data['activities'] = ActivityResource::collection(optional($this->group)->activities);
+            $data['photos'] = PhotoResource::collection(optional($this->group)->photos);
+        }
+
+        return $data;
     }
 }

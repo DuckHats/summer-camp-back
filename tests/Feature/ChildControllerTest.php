@@ -91,6 +91,25 @@ class ChildControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function it_can_inspect_a_child()
+    {
+        $child = Child::factory()->create(['user_id' => $this->user->id]);
+
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->getJson(route('childs.inspect', $child->id));
+
+        $response->assertStatus(200);
+    }
+
+    public function it_should_fail_if_child_not_exists_on_inspect()
+    {
+
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->getJson(route('childs.inspect', 999));
+
+        $response->assertStatus(404);
+    }
+
     /** @test */
     public function it_returns_404_if_child_not_found()
     {

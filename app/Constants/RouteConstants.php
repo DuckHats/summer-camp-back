@@ -94,6 +94,8 @@ class RouteConstants
 
     const CHILD_DETAIL = '/childs/{id}';
 
+    const CHILD_INSPECT = '/childs/{id}/inspect';
+
     const CHILD_CREATE = '/childs';
 
     const CHILD_UPDATE = '/childs/{id}';
