@@ -96,6 +96,8 @@ class RouteConstants
 
     const CHILD_INSPECT = '/childs/{id}/inspect';
 
+    const CHILD_MULTIPLE_INSPECT = '/childs/bulk/inspect';
+
     const CHILD_CREATE = '/childs';
 
     const CHILD_UPDATE = '/childs/{id}';

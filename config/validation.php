@@ -213,6 +213,10 @@ return [
             'gender' => 'nullable|string',
             'user_id' => 'nullable|exists:users,id',
         ],
+        'multiple_inspect' => [
+            'children_ids' => 'required|array',
+            'children_ids.*' => 'integer|exists:childs,id',
+        ],
     ],
     'groups' => [
         'store' => [
