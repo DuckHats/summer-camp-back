@@ -48,4 +48,9 @@ class ChildController extends Controller
     {
         return $this->childService->inspectChild($request, $id);
     }
+
+    public function multipleInspect(Request $request)
+    {
+        return $this->childService->multipleInspect($request);
+    }
 }

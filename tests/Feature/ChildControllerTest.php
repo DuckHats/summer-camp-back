@@ -101,11 +101,35 @@ class ChildControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function it_can_inspect_multiple_a_child()
+    {
+        $child1 = Child::factory()->create(['user_id' => $this->user->id]);
+        $child2 = Child::factory()->create(['user_id' => $this->user->id]);
+        $child3 = Child::factory()->create(['user_id' => $this->user->id]);
+
+        $childIds = [$child1->id, $child2->id, $child3->id];
+
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->getJson(route('childs.multipleInspect', $childIds));
+
+        $response->assertStatus(200);
+    }
+
     public function it_should_fail_if_child_not_exists_on_inspect()
     {
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->getJson(route('childs.inspect', 999));
+
+        $response->assertStatus(404);
+    }
+
+    public function it_should_fail_if_child_not_exists_on_multiple_inspect()
+    {
+        $childIds = [9999, 9998];
+
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->getJson(route('childs.multipleInspect', $childIds));
 
         $response->assertStatus(404);
     }

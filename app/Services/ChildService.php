@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\ApiResponse;
 use App\Http\Resources\ChildResource;
+use App\Helpers\ValidationHelper;
 use App\Models\Child;
 
 class ChildService extends BaseService
@@ -54,6 +55,53 @@ class ChildService extends BaseService
             return ApiResponse::error(
                 'FETCH_FAILED',
                 'Error while retrieving Child.',
+                ['exception' => $e->getMessage()],
+                ApiResponse::INTERNAL_SERVER_ERROR_STATUS
+            );
+        }
+    }
+
+    public function multipleInspect($request)
+    {
+        try {
+            $validatedData = ValidationHelper::validateRequest($request, 'childs', 'multiple_inspect');
+
+            if (! $validatedData['success']) {
+                return ApiResponse::error(
+                    'VALIDATION_ERROR',
+                    'Invalid parameters provided.',
+                    $validatedData['errors'],
+                    ApiResponse::INVALID_PARAMETERS_STATUS
+                );
+            }
+
+            $children = Child::with([
+                'user',
+                'group.monitor',
+                'group.activities.days',
+                'group.photos',
+            ])->whereIn('id', $request->children_ids)->get();
+
+            if ($children->isEmpty()) {
+                return ApiResponse::error(
+                    'NOT_FOUND',
+                    'No children found.',
+                    [],
+                    ApiResponse::NOT_FOUND_STATUS
+                );
+            }
+
+            $childrenResources = ChildResource::collection($children);
+
+            return ApiResponse::success(
+                $childrenResources,
+                'Children inspect retrieved successfully.',
+                ApiResponse::OK_STATUS
+            );
+        } catch (\Throwable $e) {
+            return ApiResponse::error(
+                'FETCH_FAILED',
+                'Error while retrieving children.',
                 ['exception' => $e->getMessage()],
                 ApiResponse::INTERNAL_SERVER_ERROR_STATUS
             );
