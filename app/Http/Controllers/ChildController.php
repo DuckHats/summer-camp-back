@@ -43,4 +43,9 @@ class ChildController extends Controller
     {
         return $this->childService->delete($request, $id);
     }
+
+    public function inspect(Request $request, $id)
+    {
+        return $this->childService->inspectChild($request, $id);
+    }
 }
