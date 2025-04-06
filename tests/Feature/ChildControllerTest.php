@@ -110,7 +110,7 @@ class ChildControllerTest extends TestCase
         $childIds = [$child1->id, $child2->id, $child3->id];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->getJson(route('childs.multipleInspect', $childIds));
+            ->postJson(route('childs.multipleInspect', $childIds));
 
         $response->assertStatus(200);
     }
@@ -129,7 +129,7 @@ class ChildControllerTest extends TestCase
         $childIds = [9999, 9998];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
-            ->getJson(route('childs.multipleInspect', $childIds));
+            ->postJson(route('childs.multipleInspect', $childIds));
 
         $response->assertStatus(404);
     }
