@@ -13,12 +13,8 @@ class Activity extends Model
 
     protected $fillable = [
         'name',
-        'initial_hour',
-        'final_hour',
-        'duration',
         'description',
         'cover_image',
-        'location',
         'group_id',
     ];
 
@@ -27,8 +23,8 @@ class Activity extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function days()
+    public function scheduledActivities()
     {
-        return $this->belongsToMany(Day::class)->withTimestamps();
+        return $this->hasMany(ScheduledActivity::class);
     }
 }

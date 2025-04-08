@@ -14,7 +14,7 @@ class ActivityService extends BaseService
 
     protected function getRelations(): array
     {
-        return ['days'];
+        return ['scheduledActivities'];
     }
 
     protected function resourceClass()
@@ -24,6 +24,6 @@ class ActivityService extends BaseService
 
     protected function getSyncableRelations(): array
     {
-        return ['days'];
+        return ['scheduledActivities'];
     }
 }
