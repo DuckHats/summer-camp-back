@@ -10,9 +10,9 @@ class UserSettingPolicy
     {
         return $user->isAdmin();
     }
-    public function view(User $user, User $settingUser): bool
+    public function view(): bool
     {
-        return $user == $user || $user->isAdmin();
+        return true;
     }
     public function create(User $user): bool
     {

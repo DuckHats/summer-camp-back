@@ -10,9 +10,9 @@ class PhotoPolicy
     {
         return $user->isAdmin();
     }
-    public function view(User $user): bool
+    public function view(): bool
     {
-        return $user->isAdmin() || $user == $user;
+        return true;
     }
 
     public function create(User $user): bool

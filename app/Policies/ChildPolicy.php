@@ -12,7 +12,7 @@ class ChildPolicy
     }
     public function view(User $user, $child): bool
     {
-        return $user->isAdmin() || $user->id === $child->parent_id;
+        return $user->isAdmin() || $user->id == $child->user_id;
     }
 
     public function create(User $user): bool

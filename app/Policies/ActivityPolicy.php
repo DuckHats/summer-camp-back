@@ -10,9 +10,9 @@ class ActivityPolicy
     {
         return $user->isAdmin();
     }
-    public function view(User $requestUser, User $user): bool
+    public function view(): bool
     {
-        return $user->isAdmin() || $user->id == $requestUser->id;
+        return true;
     }
 
     public function create(User $user): bool
