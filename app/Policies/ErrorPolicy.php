@@ -6,6 +6,15 @@ use App\Models\User;
 
 class ErrorPolicy
 {
+    public function viewAll(User $user): bool
+    {
+        return $user->isAdmin();
+    }
+    public function view(User $user, $error): bool
+    {
+        return $user->isAdmin();
+    }
+
     public function create(User $user): bool
     {
         return $user->isAdmin();

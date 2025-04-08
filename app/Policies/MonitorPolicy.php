@@ -6,6 +6,16 @@ use App\Models\User;
 
 class MonitorPolicy
 {
+    public function viewAll(User $user): bool
+    {
+        return $user->isAdmin();
+    }
+    public function view(User $user, $monitor): bool
+    {
+        // Always return true
+        return $user->isAdmin() || $user == $user;
+    }
+
     public function create(User $user): bool
     {
         return $user->isAdmin();
