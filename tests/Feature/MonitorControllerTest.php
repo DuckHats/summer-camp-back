@@ -52,6 +52,7 @@ class MonitorControllerTest extends TestCase
             'email' => 'john.doe@example.com',
             'phone' => '1234567890',
             'profile_picture' => 'profile.jpg',
+            'extra_info' => 'Some extra information about the monitor.',
         ];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
@@ -102,6 +103,7 @@ class MonitorControllerTest extends TestCase
             'email' => 'updated.email@example.com',
             'phone' => '0987654321',
             'profile_picture' => 'updated_profile.jpg',
+            'extra_info' => 'Updated extra information about the monitor.',
         ];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
