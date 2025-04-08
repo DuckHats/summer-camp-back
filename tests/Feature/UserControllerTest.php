@@ -54,7 +54,8 @@ class UserControllerTest extends TestCase
     {
         User::factory(5)->create();
 
-        $response = $this->getJson(route('users.index'));
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
+            ->getJson(route('users.index'));
 
         $response->assertStatus(200);
     }
@@ -89,7 +90,8 @@ class UserControllerTest extends TestCase
     /** @test */
     public function it_can_show_a_user()
     {
-        $response = $this->getJson(route('users.show', $this->user->id));
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
+            ->getJson(route('users.show', $this->user->id));
 
         $response->assertStatus(200);
     }
@@ -97,7 +99,8 @@ class UserControllerTest extends TestCase
     /** @test */
     public function it_returns_404_if_user_not_found()
     {
-        $response = $this->getJson(route('users.show', 999));
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->adminToken)
+            ->getJson(route('users.show', 9999));
 
         $response->assertStatus(404);
     }

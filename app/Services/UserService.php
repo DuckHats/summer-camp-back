@@ -18,8 +18,10 @@ class UserService
         try {
             $query = User::query();
             $this->applyRelations($query, $request);
-
+            
             $users = $query->get();
+            
+            Gate::authorize('viewAll', $request->user());
 
             return UserResource::collection($users)->additional([
                 'status' => 'success',
@@ -67,6 +69,7 @@ class UserService
     public function getUserById(Request $request, $id)
     {
         try {
+            Gate::authorize('view', $request->user());
             $user = User::where('id', $id);
             $this->applyRelations($user, $request);
 

@@ -5,17 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 
 class PolicyPolicy
-{
-    public function viewAll(User $user): bool
-    {
-        return $user->isAdmin();
-    }
-    public function view(): bool
-    {
-        return true;
-    }
-
-    public function create(User $user): bool
+{   public function create(User $user): bool
     {
         return $user->isAdmin();
     }
