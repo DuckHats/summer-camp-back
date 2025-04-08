@@ -279,6 +279,7 @@ return [
             'email' => 'required|email|unique:monitors,email',
             'phone' => 'nullable|string|max:20',
             'profile_picture' => 'nullable|string',
+            'extra_info' => 'nullable|string',
         ],
         'update' => [
             'first_name' => 'nullable|string|max:255',
@@ -286,6 +287,7 @@ return [
             'email' => 'nullable|email|unique:monitors,email,{id}',
             'phone' => 'nullable|string|max:20',
             'profile_picture' => 'nullable|string',
+            'extra_info' => 'nullable|string',
         ],
         'patch' => [
             'first_name' => 'nullable|string|max:255',
@@ -293,6 +295,7 @@ return [
             'email' => 'nullable|email|unique:monitors,email,{id}',
             'phone' => 'nullable|string|max:20',
             'profile_picture' => 'nullable|string',
+            'extra_info' => 'nullable|string',
         ],
     ],
     'photos' => [

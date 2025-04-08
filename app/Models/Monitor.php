@@ -14,6 +14,7 @@ class Monitor extends Model
         'last_name',
         'email',
         'phone',
+        'extra_info',
         'profile_picture',
     ];
 
