@@ -36,6 +36,7 @@ class ChildService extends BaseService
                 'user',
                 'group.monitor',
                 'group.scheduledActivities',
+                'group.scheduledActivities.activity',
                 'group.photos',
             ])->find($id);
 
@@ -79,6 +80,7 @@ class ChildService extends BaseService
                 'user',
                 'group.monitor',
                 'group.scheduledActivities',
+                'group.scheduledActivities.activity',
                 'group.photos',
             ])->whereIn('id', $request->children_ids)->get();
 

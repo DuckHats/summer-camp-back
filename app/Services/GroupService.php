@@ -14,7 +14,7 @@ class GroupService extends BaseService
 
     protected function getRelations(): array
     {
-        return ['childs', 'scheduledActivities', 'monitor', 'photos'];
+        return ['childs', 'scheduledActivities', 'monitor', 'photos', 'scheduledActivities.activity'];
     }
 
     protected function resourceClass()
@@ -24,6 +24,6 @@ class GroupService extends BaseService
 
     protected function getSyncableRelations(): array
     {
-        return ['scheduledActivities', 'photos'];
+        return ['scheduledActivities', 'photos', 'scheduledActivities.activity'];
     }
 }
