@@ -11,6 +11,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ScheduledActivityController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserSettingController;
 use Illuminate\Support\Facades\Route;
@@ -164,6 +165,16 @@ Route::middleware('throttle:api')->group(function () {
             Route::put(RouteConstants::PHOTO_UPDATE, 'update')->name('photos.update')->middleware('auth:sanctum');
             Route::patch(RouteConstants::PHOTO_PATCH, 'patch')->name('photos.patch')->middleware('auth:sanctum');
             Route::delete(RouteConstants::PHOTO_DELETE, 'destroy')->name('photos.destroy')->middleware('auth:sanctum');
+        });
+
+        Route::controller(ScheduledActivityController::class)->group(function () {
+            Route::get(RouteConstants::SCHEDULED_ACTIVITIES, 'index')->name('scheduled_activities.index');
+            Route::get(RouteConstants::SCHEDULED_ACTIVITY_DETAIL, 'show')->name('scheduled_activities.show');
+
+            Route::post(RouteConstants::SCHEDULED_ACTIVITY_CREATE, 'store')->name('scheduled_activities.store')->middleware('auth:sanctum');
+            Route::put(RouteConstants::SCHEDULED_ACTIVITY_UPDATE, 'update')->name('scheduled_activities.update')->middleware('auth:sanctum');
+            Route::patch(RouteConstants::SCHEDULED_ACTIVITY_PATCH, 'patch')->name('scheduled_activities.patch')->middleware('auth:sanctum');
+            Route::delete(RouteConstants::SCHEDULED_ACTIVITY_DELETE, 'destroy')->name('scheduled_activities.destroy')->middleware('auth:sanctum');
         });
     });
 });

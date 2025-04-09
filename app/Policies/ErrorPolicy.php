@@ -10,6 +10,7 @@ class ErrorPolicy
     {
         return $user->isAdmin();
     }
+
     public function view(User $user): bool
     {
         return $user->isAdmin();

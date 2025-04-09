@@ -11,6 +11,7 @@ class ScheduledActivity extends Model
 
     protected $fillable = [
         'activity_id',
+        'group_id',
         'initial_date',
         'final_date',
         'initial_hour',
@@ -21,5 +22,10 @@ class ScheduledActivity extends Model
     public function activity()
     {
         return $this->belongsTo(Activity::class);
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
     }
 }

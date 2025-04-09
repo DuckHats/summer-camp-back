@@ -16,9 +16,9 @@ class Group extends Model
         return $this->hasMany(Child::class);
     }
 
-    public function activities()
+    public function scheduledActivities()
     {
-        return $this->hasMany(Activity::class);
+        return $this->hasMany(ScheduledActivity::class);
     }
 
     public function monitor()

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('scheduled_activities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('activity_id')->constrained()->onDelete('cascade');
+            $table->foreignId('group_id')->constrained()->onDelete('cascade');
             $table->date('initial_date');
             $table->date('final_date')->nullable();
             $table->time('initial_hour');

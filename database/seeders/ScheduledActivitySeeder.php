@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Activity;
 use App\Models\ScheduledActivity;
+use Illuminate\Database\Seeder;
 
 class ScheduledActivitySeeder extends Seeder
 {

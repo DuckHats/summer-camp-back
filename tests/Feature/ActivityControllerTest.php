@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Activity;
-use App\Models\Day;
-use App\Models\Group;
 use App\Models\User;
 use App\Models\UserSetting;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -48,19 +46,11 @@ class ActivityControllerTest extends TestCase
     /** @test */
     public function it_can_create_an_activity()
     {
-        $group = Group::factory()->create();
-        $days = Day::factory()->count(3)->create();
 
         $activityData = [
             'name' => 'Test Activity',
-            'initial_hour' => '08:00:00',
-            'final_hour' => '10:00:00',
-            'duration' => 2,
-            'location' => 'Test Location',
             'description' => 'This is a test activity.',
-            'group_id' => $group->id,
             'cover_image' => 'test.jpg',
-            'days' => $days->pluck('id')->toArray(),
         ];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)

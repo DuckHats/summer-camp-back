@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Activity;
+use App\Models\Group;
 use App\Models\ScheduledActivity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,7 +17,8 @@ class ScheduledActivityFactory extends Factory
         $endDate = (clone $startDate)->modify('+1 hour');
 
         return [
-            'activity_id' => Activity::factory(),
+            'activity_id' => Activity::factory()->create()->id,
+            'group_id' => Group::factory()->create()->id,
             'initial_date' => $startDate->format('Y-m-d'),
             'final_date' => $endDate->format('Y-m-d'),
             'initial_hour' => $startDate->format('H:i:s'),
@@ -25,4 +27,3 @@ class ScheduledActivityFactory extends Factory
         ];
     }
 }
-

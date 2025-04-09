@@ -15,13 +15,7 @@ class Activity extends Model
         'name',
         'description',
         'cover_image',
-        'group_id',
     ];
-
-    public function group()
-    {
-        return $this->belongsTo(Group::class);
-    }
 
     public function scheduledActivities()
     {

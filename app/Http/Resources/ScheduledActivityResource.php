@@ -10,6 +10,10 @@ class ScheduledActivityResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'activity_id' => $this->activity_id,
+            'activity' => new ActivityResource($this->whenLoaded('activity')),
+            'group_id' => $this->group_id,
+            'group' => new GroupResource($this->whenLoaded('group')),
             'initial_date' => $this->initial_date,
             'final_date' => $this->final_date,
             'initial_hour' => $this->initial_hour,

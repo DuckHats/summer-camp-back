@@ -18,9 +18,9 @@ class UserService
         try {
             $query = User::query();
             $this->applyRelations($query, $request);
-            
+
             $users = $query->get();
-            
+
             Gate::authorize('viewAll', $request->user());
 
             return UserResource::collection($users)->additional([

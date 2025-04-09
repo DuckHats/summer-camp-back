@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class ChildPolicy
+class ScheduledActivityPolicy
 {
     public function create(User $user): bool
     {

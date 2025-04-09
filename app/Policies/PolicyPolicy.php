@@ -5,7 +5,8 @@ namespace App\Policies;
 use App\Models\User;
 
 class PolicyPolicy
-{   public function create(User $user): bool
+{
+    public function create(User $user): bool
     {
         return $user->isAdmin();
     }

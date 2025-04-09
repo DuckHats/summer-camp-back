@@ -10,6 +10,7 @@ class UserPolicy
     {
         return $user->isAdmin();
     }
+
     public function view(User $user, User $requestUser): bool
     {
         return $user->id == $requestUser->id || $user->isAdmin();
