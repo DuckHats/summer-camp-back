@@ -35,7 +35,7 @@ class ChildService extends BaseService
             $child = Child::with([
                 'user',
                 'group.monitor',
-                'group.activities.days',
+                'group.scheduledActivities',
                 'group.photos',
             ])->find($id);
 
@@ -78,7 +78,7 @@ class ChildService extends BaseService
             $children = Child::with([
                 'user',
                 'group.monitor',
-                'group.activities.days',
+                'group.scheduledActivities',
                 'group.photos',
             ])->whereIn('id', $request->children_ids)->get();
 
