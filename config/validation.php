@@ -186,7 +186,7 @@ return [
             'last_name' => 'required|string|max:255',
             'birth_date' => 'required|date',
             'group_id' => 'required|exists:groups,id',
-            'profile_picture_url' => 'nullable|string',
+            'profile_picture_url' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'profile_extra_info' => 'nullable|string',
             'gender' => 'required|string',
             'user_id' => 'required|exists:users,id',
@@ -197,7 +197,7 @@ return [
             'last_name' => 'nullable|string|max:255',
             'birth_date' => 'nullable|date',
             'group_id' => 'nullable|exists:groups,id',
-            'profile_picture_url' => 'nullable|string',
+            'profile_picture_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'profile_extra_info' => 'nullable|string',
             'gender' => 'nullable|string',
             'user_id' => 'nullable|exists:users,id',
@@ -208,7 +208,7 @@ return [
             'last_name' => 'nullable|string|max:255',
             'birth_date' => 'nullable|date',
             'group_id' => 'nullable|exists:groups,id',
-            'profile_picture_url' => 'nullable|string',
+            'profile_picture_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'profile_extra_info' => 'nullable|string',
             'gender' => 'nullable|string',
             'user_id' => 'nullable|exists:users,id',
@@ -221,18 +221,18 @@ return [
     'groups' => [
         'store' => [
             'name' => 'required|string|max:255',
-            'profile_picture' => 'required|string',
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'monitor_id' => 'required|exists:monitors,id',
         ],
         'update' => [
             'name' => 'nullable|string|max:255',
-            'profile_picture' => 'nullable|string',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'monitor_id' => 'nullable|exists:monitors,id',
 
         ],
         'patch' => [
             'name' => 'nullable|string|max:255',
-            'profile_picture' => 'nullable|string',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'monitor_id' => 'nullable|exists:monitors,id',
 
         ],
@@ -262,7 +262,7 @@ return [
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:monitors,email',
             'phone' => 'nullable|string|max:20',
-            'profile_picture' => 'nullable|string',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'extra_info' => 'nullable|string',
         ],
         'update' => [
@@ -270,7 +270,7 @@ return [
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:monitors,email,{id}',
             'phone' => 'nullable|string|max:20',
-            'profile_picture' => 'nullable|string',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'extra_info' => 'nullable|string',
         ],
         'patch' => [
@@ -278,7 +278,7 @@ return [
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:monitors,email,{id}',
             'phone' => 'nullable|string|max:20',
-            'profile_picture' => 'nullable|string',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'extra_info' => 'nullable|string',
         ],
     ],
@@ -287,19 +287,19 @@ return [
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'group_id' => 'required|exists:groups,id',
-            'image_url' => 'required|string',
+            'image_url' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ],
         'update' => [
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'group_id' => 'nullable|exists:groups,id',
-            'image_url' => 'nullable|string',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ],
         'patch' => [
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'group_id' => 'nullable|exists:groups,id',
-            'image_url' => 'nullable|string',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ],
     ],
     'scheduled_activities' => [

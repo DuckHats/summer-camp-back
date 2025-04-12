@@ -46,8 +46,11 @@ class ActivityService extends BaseService
 
             if ($request->hasFile('cover_image')) {
                 $image = $request->file('cover_image');
-                $imagePath = $image->store('cover_images', 'public');
-                $data['cover_image'] = env('APP_URL') . 'storage/' . $imagePath;
+
+                $uniqueFileName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('cover_images', $uniqueFileName, 'public');
+                $data['cover_image'] = env('APP_URL') . 'storage/cover_images/' . $uniqueFileName;
+
             }
 
             $item = $this->model->create($data);
