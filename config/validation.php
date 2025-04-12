@@ -241,17 +241,19 @@ return [
         'store' => [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'cover_image' => 'nullable|string',
+            'cover_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ],
         'update' => [
             'name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'cover_image' => 'nullable|string',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+
         ],
         'patch' => [
             'name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'cover_image' => 'nullable|string',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+
         ],
     ],
     'monitors' => [
