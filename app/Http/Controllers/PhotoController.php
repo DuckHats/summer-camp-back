@@ -26,17 +26,17 @@ class PhotoController extends Controller
 
     public function store(Request $request)
     {
-        return $this->photoService->createPhotoWithImage($request);
+        return $this->photoService->create($request, 'image_url');
     }
 
     public function update(Request $request, $id)
     {
-        return $this->photoService->update($request, $id);
+        return $this->photoService->update($request, $id, 'image_url');
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->photoService->patch($request, $id);
+        return $this->photoService->patch($request, $id, 'image_url');
     }
 
     public function destroy(Request $request, $id)

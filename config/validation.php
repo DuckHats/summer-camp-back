@@ -262,7 +262,7 @@ return [
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:monitors,email',
             'phone' => 'nullable|string|max:20',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'extra_info' => 'nullable|string',
         ],
         'update' => [

@@ -21,7 +21,7 @@ class GroupController extends Controller
 
     public function store(Request $request)
     {
-        return $this->groupService->createGroupWithImage($request);
+        return $this->groupService->create($request, 'profile_picture');
     }
 
     public function show(Request $request, $id)
@@ -31,12 +31,12 @@ class GroupController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->groupService->update($request, $id);
+        return $this->groupService->update($request, $id, 'profile_picture');
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->groupService->patch($request, $id);
+        return $this->groupService->patch($request, $id, 'profile_picture');
     }
 
     public function destroy(Request $request, $id)

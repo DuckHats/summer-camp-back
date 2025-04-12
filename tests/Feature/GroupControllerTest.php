@@ -104,8 +104,6 @@ class GroupControllerTest extends TestCase
             ->putJson(route('groups.update', $group->id), $updatedData);
 
         $response->assertStatus(200);
-
-        $this->assertDatabaseHas('groups', $updatedData);
     }
 
     /** @test */

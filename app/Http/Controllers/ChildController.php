@@ -21,7 +21,7 @@ class ChildController extends Controller
 
     public function store(Request $request)
     {
-        return $this->childService->createChildWithImage($request);
+        return $this->childService->create($request, 'profile_picture_url');
     }
 
     public function show(Request $request, $id)
@@ -31,12 +31,12 @@ class ChildController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->childService->update($request, $id);
+        return $this->childService->update($request, $id, 'profile_picture_url');
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->childService->patch($request, $id);
+        return $this->childService->patch($request, $id, 'profile_picture_url');
     }
 
     public function destroy(Request $request, $id)

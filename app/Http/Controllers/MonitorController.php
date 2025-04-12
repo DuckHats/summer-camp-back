@@ -26,17 +26,17 @@ class MonitorController extends Controller
 
     public function store(Request $request)
     {
-        return $this->monitorService->createMonitorWithImage($request);
+        return $this->monitorService->create($request, 'profile_picture');
     }
 
     public function update(Request $request, $id)
     {
-        return $this->monitorService->update($request, $id);
+        return $this->monitorService->update($request, $id, 'profile_picture');
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->monitorService->patch($request, $id);
+        return $this->monitorService->patch($request, $id, 'profile_picture');
     }
 
     public function destroy(Request $request, $id)
