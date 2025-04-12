@@ -61,7 +61,7 @@ abstract class BaseService implements ServiceInterface
         }
     }
 
-    public function create(Request $request)
+    public function create(Request $request, string $imageFieldName = 'image_url')
     {
         if (! $this->isAuthorized('create')) {
             return ApiResponse::error('UNAUTHORIZED', 'No tens permisos.', [], ApiResponse::FORBIDDEN_STATUS);
@@ -74,8 +74,11 @@ abstract class BaseService implements ServiceInterface
         }
 
         try {
-            $item = $this->model->create($validatedData['data']);
-            $this->syncRelations($item, $validatedData['data']);
+            $data = $validatedData['data'];
+            $data = $this->handleImageUpload($request, $data, $imageFieldName);
+
+            $item = $this->model->create($data);
+            $this->syncRelations($item, $data);
             $item->load($this->getRelations());
 
             return ApiResponse::success(new ($this->resourceClass())($item), 'Item created successfully.', ApiResponse::CREATED_STATUS);
@@ -166,6 +169,18 @@ abstract class BaseService implements ServiceInterface
 
             return ApiResponse::error('DELETE_FAILED', 'Error while deleting item.', ['exception' => $e->getMessage()], ApiResponse::INTERNAL_SERVER_ERROR_STATUS);
         }
+    }
+
+    protected function handleImageUpload(Request $request, array $data, string $imageFieldName)
+    {
+        if ($request->hasFile($imageFieldName)) {
+            $image = $request->file($imageFieldName);
+            $uniqueFileName = uniqid().'_'.time().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('pictures', $uniqueFileName, 'public');
+            $data[$imageFieldName] = env('APP_URL').'storage/pictures/'.$uniqueFileName;
+        }
+
+        return $data;
     }
 
     protected function isAuthorized(string $ability, $model = null)

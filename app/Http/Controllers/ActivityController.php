@@ -26,7 +26,7 @@ class ActivityController extends Controller
 
     public function store(Request $request)
     {
-        return $this->activityService->create($request);
+        return $this->activityService->create($request, 'cover_image');
     }
 
     public function update(Request $request, $id)

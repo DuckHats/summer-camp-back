@@ -7,40 +7,40 @@ use Illuminate\Http\Request;
 
 class MonitorController extends Controller
 {
-    private $monitorController;
+    private $monitorService;
 
-    public function __construct(MonitorService $monitorController)
+    public function __construct(MonitorService $monitorService)
     {
-        $this->monitorController = $monitorController;
+        $this->monitorService = $monitorService;
     }
 
     public function index(Request $request)
     {
-        return $this->monitorController->getAll($request);
+        return $this->monitorService->getAll($request);
     }
 
     public function show(Request $request, $id)
     {
-        return $this->monitorController->getById($request, $id);
+        return $this->monitorService->getById($request, $id);
     }
 
     public function store(Request $request)
     {
-        return $this->monitorController->create($request);
+        return $this->monitorService->create($request, 'profile_picture');
     }
 
     public function update(Request $request, $id)
     {
-        return $this->monitorController->update($request, $id);
+        return $this->monitorService->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->monitorController->patch($request, $id);
+        return $this->monitorService->patch($request, $id);
     }
 
     public function destroy(Request $request, $id)
     {
-        return $this->monitorController->delete($request, $id);
+        return $this->monitorService->delete($request, $id);
     }
 }

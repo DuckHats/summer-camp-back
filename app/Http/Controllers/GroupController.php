@@ -21,7 +21,7 @@ class GroupController extends Controller
 
     public function store(Request $request)
     {
-        return $this->groupService->create($request);
+        return $this->groupService->create($request, 'profile_picture');
     }
 
     public function show(Request $request, $id)

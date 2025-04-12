@@ -14,13 +14,8 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->time('initial_hour');
-            $table->time('final_hour');
-            $table->integer('duration');
             $table->text('description')->nullable();
             $table->string('cover_image')->nullable();
-            $table->string('location');
-            $table->foreignId('group_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

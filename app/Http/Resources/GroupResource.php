@@ -15,7 +15,7 @@ class GroupResource extends JsonResource
             'profile_picture' => $this->profile_picture,
             'monitor' => new MonitorResource($this->whenLoaded('monitor')),
             'childs' => ChildResource::collection($this->whenLoaded('childs')),
-            'activities' => ActivityResource::collection($this->whenLoaded('activities')),
+            'scheduledActivities' => ScheduledActivityResource::collection($this->whenLoaded('scheduledActivities')),
             'photos' => PhotoResource::collection($this->whenLoaded('photos')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

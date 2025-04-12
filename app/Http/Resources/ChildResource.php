@@ -34,7 +34,7 @@ class ChildResource extends JsonResource
         if ($this->fullDetails) {
             $data['user'] = new UserResource($this->whenLoaded('user'));
             $data['group'] = new GroupResource($this->whenLoaded('group'));
-            $data['activities'] = ActivityResource::collection(optional($this->group)->activities);
+            $data['scheduledActivities'] = new ScheduledActivityResource($this->whenLoaded('scheduledActivities'));
             $data['photos'] = PhotoResource::collection(optional($this->group)->photos);
         }
 

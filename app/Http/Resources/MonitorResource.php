@@ -20,6 +20,7 @@ class MonitorResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'extra_info' => $this->extra_info,
             'profile_picture' => $this->profile_picture,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),

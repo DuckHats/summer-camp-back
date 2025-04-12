@@ -21,7 +21,7 @@ class ChildController extends Controller
 
     public function store(Request $request)
     {
-        return $this->childService->create($request);
+        return $this->childService->create($request, 'profile_picture_url');
     }
 
     public function show(Request $request, $id)

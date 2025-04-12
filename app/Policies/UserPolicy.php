@@ -6,6 +6,16 @@ use App\Models\User;
 
 class UserPolicy
 {
+    public function viewAll(User $user): bool
+    {
+        return $user->isAdmin();
+    }
+
+    public function view(User $user, User $requestUser): bool
+    {
+        return $user->id == $requestUser->id || $user->isAdmin();
+    }
+
     public function create(User $user, User $requestUser): bool
     {
         return $user->id == $requestUser->id || $user->isAdmin();

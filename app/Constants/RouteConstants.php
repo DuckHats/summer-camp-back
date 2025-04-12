@@ -183,4 +183,18 @@ class RouteConstants
     const PHOTO_PATCH = '/photos/{id}';
 
     const PHOTO_DELETE = '/photos/{id}';
+
+    // Scheduled Activity Routes
+
+    const SCHEDULED_ACTIVITIES = '/scheduled-activities';
+
+    const SCHEDULED_ACTIVITY_DETAIL = '/scheduled-activities/{id}';
+
+    const SCHEDULED_ACTIVITY_CREATE = '/scheduled-activities';
+
+    const SCHEDULED_ACTIVITY_UPDATE = '/scheduled-activities/{id}';
+
+    const SCHEDULED_ACTIVITY_PATCH = '/scheduled-activities/{id}';
+
+    const SCHEDULED_ACTIVITY_DELETE = '/scheduled-activities/{id}';
 }
