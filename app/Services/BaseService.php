@@ -175,9 +175,9 @@ abstract class BaseService implements ServiceInterface
     {
         if ($request->hasFile($imageFieldName)) {
             $image = $request->file($imageFieldName);
-            $uniqueFileName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+            $uniqueFileName = uniqid().'_'.time().'.'.$image->getClientOriginalExtension();
             $image->storeAs('pictures', $uniqueFileName, 'public');
-            $data[$imageFieldName] = env('APP_URL') . 'storage/pictures/' . $uniqueFileName;
+            $data[$imageFieldName] = env('APP_URL').'storage/pictures/'.$uniqueFileName;
         }
 
         return $data;
