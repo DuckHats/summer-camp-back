@@ -197,7 +197,7 @@ return [
             'last_name' => 'nullable|string|max:255',
             'birth_date' => 'nullable|date',
             'group_id' => 'nullable|exists:groups,id',
-            'profile_picture_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'profile_picture_url' => 'nullable',
             'profile_extra_info' => 'nullable|string',
             'gender' => 'nullable|string',
             'user_id' => 'nullable|exists:users,id',
@@ -208,7 +208,7 @@ return [
             'last_name' => 'nullable|string|max:255',
             'birth_date' => 'nullable|date',
             'group_id' => 'nullable|exists:groups,id',
-            'profile_picture_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'profile_picture_url' => 'nullable',
             'profile_extra_info' => 'nullable|string',
             'gender' => 'nullable|string',
             'user_id' => 'nullable|exists:users,id',
@@ -226,13 +226,13 @@ return [
         ],
         'update' => [
             'name' => 'nullable|string|max:255',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'profile_picture' => 'nullable',
             'monitor_id' => 'nullable|exists:monitors,id',
 
         ],
         'patch' => [
             'name' => 'nullable|string|max:255',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'profile_picture' => 'nullable',
             'monitor_id' => 'nullable|exists:monitors,id',
 
         ],
@@ -246,13 +246,13 @@ return [
         'update' => [
             'name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'cover_image' => 'nullable',
 
         ],
         'patch' => [
             'name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'cover_image' => 'nullable',
 
         ],
     ],
@@ -270,7 +270,7 @@ return [
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:monitors,email,{id}',
             'phone' => 'nullable|string|max:20',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'profile_picture' => 'nullable',
             'extra_info' => 'nullable|string',
         ],
         'patch' => [
@@ -278,7 +278,7 @@ return [
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:monitors,email,{id}',
             'phone' => 'nullable|string|max:20',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'profile_picture' => 'nullable',
             'extra_info' => 'nullable|string',
         ],
     ],
@@ -293,13 +293,13 @@ return [
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'group_id' => 'nullable|exists:groups,id',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image_url' => 'nullable',
         ],
         'patch' => [
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'group_id' => 'nullable|exists:groups,id',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image_url' => 'nullable',
         ],
     ],
     'scheduled_activities' => [

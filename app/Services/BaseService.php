@@ -89,7 +89,7 @@ abstract class BaseService implements ServiceInterface
         }
     }
 
-    public function update(Request $request, $id, string $imageFieldName = 'image_url')
+    public function update(Request $request, $id)
     {
         $item = $this->model->find($id);
         if (! $item) {
@@ -107,11 +107,8 @@ abstract class BaseService implements ServiceInterface
         }
 
         try {
-            $data = $validatedData['data'];
-            $data = $this->handleImageUpload($request, $data, $imageFieldName);
-
-            $item->update($data);
-            $this->syncRelations($item, $data);
+            $item->update($validatedData['data']);
+            $this->syncRelations($item, $validatedData['data']);
             $item->load($this->getRelations());
 
             return ApiResponse::success(new ($this->resourceClass())($item), 'Item updated successfully.', ApiResponse::OK_STATUS);
@@ -122,7 +119,7 @@ abstract class BaseService implements ServiceInterface
         }
     }
 
-    public function patch(Request $request, $id, string $imageFieldName = 'image_url')
+    public function patch(Request $request, $id)
     {
         $item = $this->model->find($id);
         if (! $item) {
@@ -140,11 +137,8 @@ abstract class BaseService implements ServiceInterface
         }
 
         try {
-            $data = $validatedData['data'];
-            $data = $this->handleImageUpload($request, $data, $imageFieldName);
-
-            $item->update($data);
-            $this->syncRelations($item, $data);
+            $item->update($validatedData['data']);
+            $this->syncRelations($item, $validatedData['data']);
             $item->load($this->getRelations());
 
             return ApiResponse::success(new ($this->resourceClass())($item), 'Item updated successfully.', ApiResponse::OK_STATUS);
@@ -181,9 +175,9 @@ abstract class BaseService implements ServiceInterface
     {
         if ($request->hasFile($imageFieldName)) {
             $image = $request->file($imageFieldName);
-            $uniqueFileName = uniqid().'_'.time().'.'.$image->getClientOriginalExtension();
+            $uniqueFileName = uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('pictures', $uniqueFileName, 'public');
-            $data[$imageFieldName] = env('APP_URL').'storage/pictures/'.$uniqueFileName;
+            $data[$imageFieldName] = env('APP_URL') . 'storage/pictures/' . $uniqueFileName;
         }
 
         return $data;

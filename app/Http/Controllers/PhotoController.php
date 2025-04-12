@@ -31,12 +31,12 @@ class PhotoController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->photoService->update($request, $id, 'image_url');
+        return $this->photoService->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->photoService->patch($request, $id, 'image_url');
+        return $this->photoService->patch($request, $id);
     }
 
     public function destroy(Request $request, $id)

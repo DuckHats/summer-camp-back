@@ -94,11 +94,9 @@ class GroupControllerTest extends TestCase
     /** @test */
     public function it_can_update_a_group()
     {
-        $fakeImage = \Illuminate\Http\UploadedFile::fake()->image('cover.jpg');
-
         $group = Group::factory()->create();
 
-        $updatedData = ['name' => 'Updated Title', 'profile_picture' => $fakeImage, 'monitor_id' => Monitor::factory()->create()->id];
+        $updatedData = ['name' => 'Updated Title', 'profile_picture' => 'image.jpg', 'monitor_id' => Monitor::factory()->create()->id];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->putJson(route('groups.update', $group->id), $updatedData);

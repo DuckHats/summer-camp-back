@@ -31,12 +31,12 @@ class GroupController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->groupService->update($request, $id, 'profile_picture');
+        return $this->groupService->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->groupService->patch($request, $id, 'profile_picture');
+        return $this->groupService->patch($request, $id);
     }
 
     public function destroy(Request $request, $id)

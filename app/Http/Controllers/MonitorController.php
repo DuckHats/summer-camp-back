@@ -31,12 +31,12 @@ class MonitorController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->monitorService->update($request, $id, 'profile_picture');
+        return $this->monitorService->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->monitorService->patch($request, $id, 'profile_picture');
+        return $this->monitorService->patch($request, $id);
     }
 
     public function destroy(Request $request, $id)

@@ -94,7 +94,6 @@ class MonitorControllerTest extends TestCase
     /** @test */
     public function it_can_update_a_monitor()
     {
-        $fakeImage = \Illuminate\Http\UploadedFile::fake()->image('updated_profile.jpg');
         $monitor = Monitor::factory()->create();
 
         $updatedData = [
@@ -102,7 +101,7 @@ class MonitorControllerTest extends TestCase
             'last_name' => 'Updated Last',
             'email' => 'updated.email@example.com',
             'phone' => '0987654321',
-            'profile_picture' => $fakeImage,
+            'profile_picture' => 'updated_image.jpg',
             'extra_info' => 'Updated extra information about the monitor.',
         ];
 

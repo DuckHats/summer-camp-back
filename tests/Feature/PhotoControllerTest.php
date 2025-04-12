@@ -96,11 +96,9 @@ class PhotoControllerTest extends TestCase
     /** @test */
     public function it_can_update_a_photo()
     {
-        $fakeImage = \Illuminate\Http\UploadedFile::fake()->image('profile.jpg');
-
         $photo = Photo::factory()->create();
 
-        $updatedData = ['title' => 'Updated Photo', 'description' => 'Updated description', 'group_id' => Group::factory()->create()->id, 'image_url' => $fakeImage];
+        $updatedData = ['title' => 'Updated Photo', 'description' => 'Updated description', 'group_id' => Group::factory()->create()->id, 'image_url' => 'updated_image.jpg'];
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->putJson(route('photos.update', $photo->id), $updatedData);

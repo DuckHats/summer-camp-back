@@ -31,12 +31,12 @@ class ChildController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->childService->update($request, $id, 'profile_picture_url');
+        return $this->childService->update($request, $id);
     }
 
     public function patch(Request $request, $id)
     {
-        return $this->childService->patch($request, $id, 'profile_picture_url');
+        return $this->childService->patch($request, $id);
     }
 
     public function destroy(Request $request, $id)
