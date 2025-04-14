@@ -175,6 +175,7 @@ Route::middleware('throttle:api')->group(function () {
             Route::get(RouteConstants::SCHEDULED_ACTIVITY_DETAIL, 'show')->name('scheduled_activities.show');
 
             Route::post(RouteConstants::SCHEDULED_ACTIVITY_CREATE, 'store')->name('scheduled_activities.store')->middleware('auth:sanctum');
+            Route::post(RouteConstants::SCHEDULED_ACTIVITY_BULK, 'bulkScheduledActivities')->name('scheduled_activities.bulk')->middleware('auth:sanctum');
             Route::put(RouteConstants::SCHEDULED_ACTIVITY_UPDATE, 'update')->name('scheduled_activities.update')->middleware('auth:sanctum');
             Route::patch(RouteConstants::SCHEDULED_ACTIVITY_PATCH, 'patch')->name('scheduled_activities.patch')->middleware('auth:sanctum');
             Route::delete(RouteConstants::SCHEDULED_ACTIVITY_DELETE, 'destroy')->name('scheduled_activities.destroy')->middleware('auth:sanctum');

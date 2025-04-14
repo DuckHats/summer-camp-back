@@ -353,5 +353,16 @@ return [
             'final_hour' => 'nullable|date_format:H:i:s',
             'location' => 'nullable|string|max:255',
         ],
+        'bulkScheduledActivities' => [
+            'scheduled_activities' => 'required|array',
+            'scheduled_activities.*.activity_id' => 'required|exists:activities,id',
+            'scheduled_activities.*.group_id' => 'required|exists:groups,id',
+            'scheduled_activities.*.initial_date' => 'required|date',
+            'scheduled_activities.*.final_date' => 'required|date|after_or_equal:scheduled_activities.*.initial_date',
+            'scheduled_activities.*.initial_hour' => 'required|date_format:H:i',
+            'scheduled_activities.*.final_hour' => 'required|date_format:H:i|after:scheduled_activities.*.initial_hour',
+            'scheduled_activities.*.location' => 'required|string|max:255',
+
+        ],
     ],
 ];

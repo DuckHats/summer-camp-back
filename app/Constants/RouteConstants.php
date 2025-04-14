@@ -198,6 +198,8 @@ class RouteConstants
 
     const SCHEDULED_ACTIVITY_CREATE = '/scheduled-activities';
 
+    const SCHEDULED_ACTIVITY_BULK = '/scheduled-activities/bulk';
+
     const SCHEDULED_ACTIVITY_UPDATE = '/scheduled-activities/{id}';
 
     const SCHEDULED_ACTIVITY_PATCH = '/scheduled-activities/{id}';

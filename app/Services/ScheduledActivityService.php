@@ -4,6 +4,10 @@ namespace App\Services;
 
 use App\Http\Resources\ScheduledActivityResource;
 use App\Models\ScheduledActivity;
+use App\Jobs\BulkScheduledActivityCreationJob;
+use App\Helpers\ValidationHelper;
+use App\Helpers\ApiResponse;
+use Illuminate\Http\Request;
 
 class ScheduledActivityService extends BaseService
 {
@@ -25,5 +29,23 @@ class ScheduledActivityService extends BaseService
     protected function getSyncableRelations(): array
     {
         return ['activity'];
+    }
+
+    public function bulkScheduledActivities(Request $request)
+    {
+        $validatedData = ValidationHelper::validateRequest($request, 'scheduled_activities', 'bulkScheduledActivities');
+
+        if (! $validatedData['success']) {
+            return ApiResponse::error(
+                'VALIDATION_ERROR',
+                'Invalid parameters provided.',
+                $validatedData['errors'],
+                ApiResponse::INVALID_PARAMETERS_STATUS
+            );
+        }
+
+        BulkScheduledActivityCreationJob::dispatch($request->input('scheduled_activities'))->onQueue('bulk-processing');
+
+        return ApiResponse::success([], 'Scheduled activities creation in progress.', ApiResponse::ACCEPTED_STATUS);
     }
 }
