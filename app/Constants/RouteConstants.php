@@ -139,6 +139,8 @@ class RouteConstants
 
     const GROUP_CREATE = '/groups';
 
+    const GROUP_BULK = '/groups/bulk';
+
     const GROUP_UPDATE = '/groups/{id}';
 
     const GROUP_PATCH = '/groups/{id}';

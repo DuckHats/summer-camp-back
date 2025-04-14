@@ -236,6 +236,13 @@ return [
             'monitor_id' => 'nullable|exists:monitors,id',
 
         ],
+        'bulkGroups' => [
+            'groups' => 'required|array',
+            'groups.*.name' => 'required|string|max:255',
+            'groups.*.monitor_id' => 'nullable|exists:monitors,id',
+            'groups.*.profile_picture' => 'nullable|url',
+
+        ],
     ],
     'activities' => [
         'store' => [

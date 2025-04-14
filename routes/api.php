@@ -132,6 +132,7 @@ Route::middleware('throttle:api')->group(function () {
             Route::get(RouteConstants::GROUP_DETAIL, 'show')->name('groups.show');
 
             Route::post(RouteConstants::GROUP_CREATE, 'store')->name('groups.store')->middleware('auth:sanctum');
+            Route::post(RouteConstants::GROUP_BULK, 'bulkGroups')->name('groups.bulk')->middleware('auth:sanctum');
             Route::put(RouteConstants::GROUP_UPDATE, 'update')->name('groups.update')->middleware('auth:sanctum');
             Route::patch(RouteConstants::GROUP_PATCH, 'patch')->name('groups.patch')->middleware('auth:sanctum');
             Route::delete(RouteConstants::GROUP_DELETE, 'destroy')->name('groups.destroy')->middleware('auth:sanctum');

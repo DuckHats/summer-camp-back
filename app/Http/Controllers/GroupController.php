@@ -24,6 +24,11 @@ class GroupController extends Controller
         return $this->groupService->create($request, 'profile_picture');
     }
 
+    public function bulkGroups(Request $request)
+    {
+        return $this->groupService->bulkGroups($request);
+    }
+
     public function show(Request $request, $id)
     {
         return $this->groupService->getById($request, $id);
