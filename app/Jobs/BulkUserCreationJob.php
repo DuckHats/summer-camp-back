@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Helpers\EmailHelper;
+use App\Mail\WelcomeMail;
 use App\Models\Child;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -53,6 +55,11 @@ class BulkUserCreationJob implements ShouldQueue
 
             DB::commit();
             Log::info('Bulk user creation completed successfully.');
+            Log::info('Let send the email to the user');
+            foreach ($this->users as $userData) {
+                Log::info('Send email to user: '.$userData['email']);
+                EmailHelper::sendEmail($user->email, WelcomeMail::class, [$user]);
+            }
 
         } catch (\Throwable $e) {
             DB::rollBack();

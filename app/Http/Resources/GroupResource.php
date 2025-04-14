@@ -13,10 +13,13 @@ class GroupResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'profile_picture' => $this->profile_picture,
-            'monitor' => new MonitorResource($this->whenLoaded('monitor')),
-            'childs' => ChildResource::collection($this->whenLoaded('childs')),
-            'scheduledActivities' => ScheduledActivityResource::collection($this->whenLoaded('scheduledActivities')),
-            'photos' => PhotoResource::collection($this->whenLoaded('photos')),
+            'monitor' => $this->whenLoaded('monitor', fn () => new MonitorResource($this->monitor)),
+            'childs' => $this->whenLoaded('childs', fn () => ChildResource::collection($this->childs ?? collect())
+            ),
+            'scheduledActivities' => $this->whenLoaded('scheduledActivities', fn () => ScheduledActivityResource::collection($this->scheduledActivities ?? collect())
+            ),
+            'photos' => $this->whenLoaded('photos', fn () => PhotoResource::collection($this->photos ?? collect())
+            ),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -139,6 +139,8 @@ class RouteConstants
 
     const GROUP_CREATE = '/groups';
 
+    const GROUP_BULK = '/groups/bulk';
+
     const GROUP_UPDATE = '/groups/{id}';
 
     const GROUP_PATCH = '/groups/{id}';
@@ -152,6 +154,8 @@ class RouteConstants
 
     const ACTIVITY_CREATE = '/activities';
 
+    const ACTIVITY_BULK = '/activities/bulk';
+
     const ACTIVITY_UPDATE = '/activities/{id}';
 
     const ACTIVITY_PATCH = '/activities/{id}';
@@ -164,6 +168,8 @@ class RouteConstants
     const MONITOR_DETAIL = '/monitors/{id}';
 
     const MONITOR_CREATE = '/monitors';
+
+    const MONITOR_BULK = '/monitors/bulk';
 
     const MONITOR_UPDATE = '/monitors/{id}';
 
@@ -191,6 +197,8 @@ class RouteConstants
     const SCHEDULED_ACTIVITY_DETAIL = '/scheduled-activities/{id}';
 
     const SCHEDULED_ACTIVITY_CREATE = '/scheduled-activities';
+
+    const SCHEDULED_ACTIVITY_BULK = '/scheduled-activities/bulk';
 
     const SCHEDULED_ACTIVITY_UPDATE = '/scheduled-activities/{id}';
 

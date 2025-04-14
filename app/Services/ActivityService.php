@@ -2,8 +2,12 @@
 
 namespace App\Services;
 
+use App\Helpers\ApiResponse;
+use App\Helpers\ValidationHelper;
 use App\Http\Resources\ActivityResource;
+use App\Jobs\BulkActivityCreationJob;
 use App\Models\Activity;
+use Illuminate\Http\Request;
 
 class ActivityService extends BaseService
 {
@@ -25,5 +29,23 @@ class ActivityService extends BaseService
     protected function getSyncableRelations(): array
     {
         return ['scheduledActivities'];
+    }
+
+    public function bulkActivities(Request $request)
+    {
+        $validatedData = ValidationHelper::validateRequest($request, 'activities', 'bulkActivities');
+
+        if (! $validatedData['success']) {
+            return ApiResponse::error(
+                'VALIDATION_ERROR',
+                'Invalid parameters provided.',
+                $validatedData['errors'],
+                ApiResponse::INVALID_PARAMETERS_STATUS
+            );
+        }
+
+        BulkActivityCreationJob::dispatch($request->input('activities'))->onQueue('bulk-processing');
+
+        return ApiResponse::success([], 'Activity creation in progress.', ApiResponse::ACCEPTED_STATUS);
     }
 }

@@ -29,6 +29,11 @@ class ScheduledActivityController extends Controller
         return $this->scheduledActivityService->create($request);
     }
 
+    public function bulkScheduledActivities(Request $request)
+    {
+        return $this->scheduledActivityService->bulkScheduledActivities($request);
+    }
+
     public function update(Request $request, $id)
     {
         return $this->scheduledActivityService->update($request, $id);

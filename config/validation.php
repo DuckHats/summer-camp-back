@@ -236,6 +236,13 @@ return [
             'monitor_id' => 'nullable|exists:monitors,id',
 
         ],
+        'bulkGroups' => [
+            'groups' => 'required|array',
+            'groups.*.name' => 'required|string|max:255',
+            'groups.*.monitor_id' => 'nullable|exists:monitors,id',
+            'groups.*.profile_picture' => 'nullable|url',
+
+        ],
     ],
     'activities' => [
         'store' => [
@@ -253,6 +260,13 @@ return [
             'name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'cover_image' => 'nullable',
+
+        ],
+        'bulkActivities' => [
+            'activities' => 'required|array',
+            'activities.*.name' => 'required|string|max:255',
+            'activities.*.description' => 'nullable|string',
+            'activities.*.cover_image' => 'nullable|url',
 
         ],
     ],
@@ -280,6 +294,15 @@ return [
             'phone' => 'nullable|string|max:20',
             'profile_picture' => 'nullable',
             'extra_info' => 'nullable|string',
+        ],
+        'bulkMonitors' => [
+            'monitors' => 'required|array',
+            'monitors.*.first_name' => 'required|string|max:255',
+            'monitors.*.last_name' => 'required|string|max:255',
+            'monitors.*.email' => 'required|email|unique:monitors,email',
+            'monitors.*.phone' => 'nullable|string|max:20',
+            'monitors.*.extra_info' => 'nullable|string',
+            'monitors.*.profile_picture' => 'nullable|url',
         ],
     ],
     'photos' => [
@@ -329,6 +352,17 @@ return [
             'initial_hour' => 'nullable|date_format:H:i:s',
             'final_hour' => 'nullable|date_format:H:i:s',
             'location' => 'nullable|string|max:255',
+        ],
+        'bulkScheduledActivities' => [
+            'scheduled_activities' => 'required|array',
+            'scheduled_activities.*.activity_id' => 'required|exists:activities,id',
+            'scheduled_activities.*.group_id' => 'required|exists:groups,id',
+            'scheduled_activities.*.initial_date' => 'required|date',
+            'scheduled_activities.*.final_date' => 'required|date|after_or_equal:scheduled_activities.*.initial_date',
+            'scheduled_activities.*.initial_hour' => 'required|date_format:H:i',
+            'scheduled_activities.*.final_hour' => 'required|date_format:H:i|after:scheduled_activities.*.initial_hour',
+            'scheduled_activities.*.location' => 'required|string|max:255',
+
         ],
     ],
 ];

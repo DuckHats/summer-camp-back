@@ -29,6 +29,11 @@ class MonitorController extends Controller
         return $this->monitorService->create($request, 'profile_picture');
     }
 
+    public function bulkMonitors(Request $request)
+    {
+        return $this->monitorService->bulkMonitors($request);
+    }
+
     public function update(Request $request, $id)
     {
         return $this->monitorService->update($request, $id);
