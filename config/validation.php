@@ -262,6 +262,13 @@ return [
             'cover_image' => 'nullable',
 
         ],
+        'bulkActivities' => [
+            'activities' => 'required|array',
+            'activities.*.name' => 'required|string|max:255',
+            'activities.*.description' => 'nullable|string',
+            'activities.*.cover_image' => 'nullable|url',
+
+        ],
     ],
     'monitors' => [
         'store' => [
@@ -287,6 +294,15 @@ return [
             'phone' => 'nullable|string|max:20',
             'profile_picture' => 'nullable',
             'extra_info' => 'nullable|string',
+        ],
+        'bulkMonitors' => [
+            'monitors' => 'required|array',
+            'monitors.*.first_name' => 'required|string|max:255',
+            'monitors.*.last_name' => 'required|string|max:255',
+            'monitors.*.email' => 'required|email|unique:monitors,email',
+            'monitors.*.phone' => 'nullable|string|max:20',
+            'monitors.*.extra_info' => 'nullable|string',
+            'monitors.*.profile_picture' => 'nullable|url',
         ],
     ],
     'photos' => [

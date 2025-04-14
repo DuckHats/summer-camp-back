@@ -29,6 +29,11 @@ class ActivityController extends Controller
         return $this->activityService->create($request, 'cover_image');
     }
 
+    public function bulkActivities(Request $request)
+    {
+        return $this->activityService->bulkActivities($request);
+    }
+
     public function update(Request $request, $id)
     {
         return $this->activityService->update($request, $id);

@@ -154,6 +154,8 @@ class RouteConstants
 
     const ACTIVITY_CREATE = '/activities';
 
+    const ACTIVITY_BULK = '/activities/bulk';
+
     const ACTIVITY_UPDATE = '/activities/{id}';
 
     const ACTIVITY_PATCH = '/activities/{id}';
@@ -166,6 +168,8 @@ class RouteConstants
     const MONITOR_DETAIL = '/monitors/{id}';
 
     const MONITOR_CREATE = '/monitors';
+
+    const MONITOR_BULK = '/monitors/bulk';
 
     const MONITOR_UPDATE = '/monitors/{id}';
 

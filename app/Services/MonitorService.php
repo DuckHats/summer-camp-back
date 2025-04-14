@@ -4,6 +4,10 @@ namespace App\Services;
 
 use App\Http\Resources\MonitorResource;
 use App\Models\Monitor;
+use App\Helpers\ValidationHelper;
+use App\Jobs\BulkMonitorCreationJob;
+use App\Helpers\ApiResponse;
+use Illuminate\Http\Request;
 
 class MonitorService extends BaseService
 {
@@ -25,5 +29,23 @@ class MonitorService extends BaseService
     protected function getSyncableRelations(): array
     {
         return [];
+    }
+
+    public function bulkMonitors(Request $request)
+    {
+        $validatedData = ValidationHelper::validateRequest($request, 'monitors', 'bulkMonitors');
+
+        if (! $validatedData['success']) {
+            return ApiResponse::error(
+                'VALIDATION_ERROR',
+                'Invalid parameters provided.',
+                $validatedData['errors'],
+                ApiResponse::INVALID_PARAMETERS_STATUS
+            );
+        }
+
+        BulkMonitorCreationJob::dispatch($request->input('monitors'))->onQueue('bulk-processing');
+
+        return ApiResponse::success([], 'Monitor creation in progress.', ApiResponse::ACCEPTED_STATUS);
     }
 }
