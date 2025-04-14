@@ -13,7 +13,9 @@ class ActivityResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'cover_image' => $this->cover_image,
-            'scheduled_activities' => ScheduledActivityResource::collection($this->whenLoaded('scheduledActivities')),
+            'scheduled_activities' => $this->whenLoaded('scheduledActivities', fn() => 
+                ScheduledActivityResource::collection($this->scheduledActivities ?? collect())
+            ),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -22,9 +22,15 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user_settings' => UserSettingResource::collection($this->whenLoaded('settings')),
-            'user_policies' => PolicyResource::collection($this->whenLoaded('policies')),
-            'childs' => ChildResource::collection($this->whenLoaded('childs')),
+            'user_settings' => $this->whenLoaded('settings', fn() =>
+                UserSettingResource::collection($this->settings ?? collect())
+            ),
+            'user_policies' => $this->whenLoaded('policies', fn() =>
+                PolicyResource::collection($this->policies ?? collect())
+            ),
+            'childs' => $this->whenLoaded('childs', fn() =>
+                ChildResource::collection($this->childs ?? collect())
+            ),
         ];
     }
 }
