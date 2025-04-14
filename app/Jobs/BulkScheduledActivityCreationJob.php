@@ -50,7 +50,7 @@ class BulkScheduledActivityCreationJob implements ShouldQueue
         } catch (\Throwable $e) {
             DB::rollBack();
             Log::error('Error processing BulkScheduledActivityCreationJob', [
-                'exception' => $e->getMessage()
+                'exception' => $e->getMessage(),
             ]);
         }
     }

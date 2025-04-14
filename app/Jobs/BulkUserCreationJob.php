@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Helpers\EmailHelper;
+use App\Mail\WelcomeMail;
 use App\Models\Child;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -12,9 +14,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use App\Helpers\EmailHelper;
-use App\Mail\PasswordChangedMail;
-use App\Mail\WelcomeMail;
+
 class BulkUserCreationJob implements ShouldQueue
 {
     // Per executar el worker: php artisan queue:work --queue=bulk-processing,user-creation
@@ -57,7 +57,7 @@ class BulkUserCreationJob implements ShouldQueue
             Log::info('Bulk user creation completed successfully.');
             Log::info('Let send the email to the user');
             foreach ($this->users as $userData) {
-                Log::info('Send email to user: ' . $userData['email']);
+                Log::info('Send email to user: '.$userData['email']);
                 EmailHelper::sendEmail($user->email, WelcomeMail::class, [$user]);
             }
 

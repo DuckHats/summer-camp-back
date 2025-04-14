@@ -32,10 +32,9 @@ class ChildResource extends JsonResource
         ];
 
         if ($this->fullDetails) {
-            $data['user'] = $this->whenLoaded('user', fn() => new UserResource($this->user));
-            $data['group'] = $this->whenLoaded('group', fn() => new GroupResource($this->group));
-            $data['scheduledActivities'] = $this->whenLoaded('scheduledActivities', fn() => 
-                ScheduledActivityResource::collection($this->scheduledActivities ?? collect())
+            $data['user'] = $this->whenLoaded('user', fn () => new UserResource($this->user));
+            $data['group'] = $this->whenLoaded('group', fn () => new GroupResource($this->group));
+            $data['scheduledActivities'] = $this->whenLoaded('scheduledActivities', fn () => ScheduledActivityResource::collection($this->scheduledActivities ?? collect())
             );
             $data['photos'] = optional($this->group)?->relationLoaded('photos')
                 ? PhotoResource::collection($this->group->photos ?? collect())

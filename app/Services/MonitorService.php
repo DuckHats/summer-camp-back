@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Http\Resources\MonitorResource;
-use App\Models\Monitor;
-use App\Helpers\ValidationHelper;
-use App\Jobs\BulkMonitorCreationJob;
 use App\Helpers\ApiResponse;
+use App\Helpers\ValidationHelper;
+use App\Http\Resources\MonitorResource;
+use App\Jobs\BulkMonitorCreationJob;
+use App\Models\Monitor;
 use Illuminate\Http\Request;
 
 class MonitorService extends BaseService

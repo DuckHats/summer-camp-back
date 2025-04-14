@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Http\Resources\ScheduledActivityResource;
-use App\Models\ScheduledActivity;
-use App\Jobs\BulkScheduledActivityCreationJob;
-use App\Helpers\ValidationHelper;
 use App\Helpers\ApiResponse;
+use App\Helpers\ValidationHelper;
+use App\Http\Resources\ScheduledActivityResource;
+use App\Jobs\BulkScheduledActivityCreationJob;
+use App\Models\ScheduledActivity;
 use Illuminate\Http\Request;
 
 class ScheduledActivityService extends BaseService

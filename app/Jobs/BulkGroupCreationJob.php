@@ -46,7 +46,7 @@ class BulkGroupCreationJob implements ShouldQueue
         } catch (\Throwable $e) {
             DB::rollBack();
             Log::error('Error processing BulkGroupCreationJob', [
-                'exception' => $e->getMessage()
+                'exception' => $e->getMessage(),
             ]);
         }
     }

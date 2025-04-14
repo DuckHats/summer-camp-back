@@ -49,7 +49,7 @@ class BulkMonitorCreationJob implements ShouldQueue
         } catch (\Throwable $e) {
             DB::rollBack();
             Log::error('Error processing BulkMonitorCreationJob', [
-                'exception' => $e->getMessage()
+                'exception' => $e->getMessage(),
             ]);
         }
     }

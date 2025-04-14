@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Http\Resources\ActivityResource;
-use App\Models\Activity;
-use App\Jobs\BulkActivityCreationJob;
-use App\Helpers\ValidationHelper;
 use App\Helpers\ApiResponse;
+use App\Helpers\ValidationHelper;
+use App\Http\Resources\ActivityResource;
+use App\Jobs\BulkActivityCreationJob;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 class ActivityService extends BaseService
