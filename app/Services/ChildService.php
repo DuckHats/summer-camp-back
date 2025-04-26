@@ -82,7 +82,9 @@ class ChildService extends BaseService
                 'group.scheduledActivities',
                 'group.scheduledActivities.activity',
                 'group.photos',
-            ])->whereIn('id', $request->children_ids)->get();
+            ])->whereIn('id', $request->children_ids)
+                ->orderByRaw('FIELD(id, '.implode(',', $request->children_ids).')')
+                ->get();
 
             if ($children->isEmpty()) {
                 return ApiResponse::error(
@@ -93,7 +95,9 @@ class ChildService extends BaseService
                 );
             }
 
-            $childrenResources = ChildResource::collection($children);
+            $childrenResources = $children->map(function ($child) {
+                return new ChildResource($child, true);
+            });
 
             return ApiResponse::success(
                 $childrenResources,
