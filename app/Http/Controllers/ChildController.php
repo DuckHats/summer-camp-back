@@ -39,6 +39,11 @@ class ChildController extends Controller
         return $this->childService->patch($request, $id);
     }
 
+    public function uploadImage(Request $request, $id)
+    {
+        return $this->childService->uploadImage($request, $id, 'profile_picture_url');
+    }
+
     public function destroy(Request $request, $id)
     {
         return $this->childService->delete($request, $id);

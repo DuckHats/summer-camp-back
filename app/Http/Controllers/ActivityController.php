@@ -44,6 +44,11 @@ class ActivityController extends Controller
         return $this->activityService->patch($request, $id);
     }
 
+    public function uploadImage(Request $request, $id)
+    {
+        return $this->activityService->uploadImage($request, $id, 'cover_image');
+    }
+
     public function destroy(Request $request, $id)
     {
         return $this->activityService->delete($request, $id);

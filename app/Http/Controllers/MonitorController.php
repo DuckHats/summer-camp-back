@@ -44,6 +44,11 @@ class MonitorController extends Controller
         return $this->monitorService->patch($request, $id);
     }
 
+    public function uploadImage(Request $request, $id)
+    {
+        return $this->monitorService->uploadImage($request, $id, 'profile_picture');
+    }
+
     public function destroy(Request $request, $id)
     {
         return $this->monitorService->delete($request, $id);

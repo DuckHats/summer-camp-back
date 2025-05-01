@@ -44,6 +44,11 @@ class GroupController extends Controller
         return $this->groupService->patch($request, $id);
     }
 
+    public function uploadImage(Request $request, $id)
+    {
+        return $this->groupService->uploadImage($request, $id, 'profile_picture');
+    }
+
     public function destroy(Request $request, $id)
     {
         return $this->groupService->delete($request, $id);

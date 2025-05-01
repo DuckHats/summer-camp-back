@@ -149,6 +149,34 @@ abstract class BaseService implements ServiceInterface
         }
     }
 
+    public function uploadImage(Request $request, $id, string $imageFieldName)
+    {
+        $item = $this->model->find($id);
+        if (! $item) {
+            return ApiResponse::error('NOT_FOUND', 'Item not found.', [], ApiResponse::NOT_FOUND_STATUS);
+        }
+
+        if (! $this->isAuthorized('update', $item)) {
+            return ApiResponse::error('UNAUTHORIZED', 'No tens permisos.', [], ApiResponse::FORBIDDEN_STATUS);
+        }
+
+        if (! $request->hasFile($imageFieldName)) {
+            return ApiResponse::error('NO_FILE', "No file found in field '$imageFieldName'.", [], ApiResponse::INVALID_PARAMETERS_STATUS);
+        }
+
+        try {
+            $data = [];
+            $data = $this->handleImageUpload($request, $data, $imageFieldName);
+            $item->update([$imageFieldName => $data[$imageFieldName]]);
+
+            return ApiResponse::success(new ($this->resourceClass())($item), 'Image uploaded and field updated.', ApiResponse::OK_STATUS);
+        } catch (\Throwable $e) {
+            Log::error('Error uploading image', ['exception' => $e->getMessage()]);
+
+            return ApiResponse::error('UPLOAD_FAILED', 'Error while uploading image.', ['exception' => $e->getMessage()], ApiResponse::INTERNAL_SERVER_ERROR_STATUS);
+        }
+    }
+
     public function delete(Request $request, $id)
     {
         $item = $this->model->find($id);

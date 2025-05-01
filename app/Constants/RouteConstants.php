@@ -104,6 +104,8 @@ class RouteConstants
 
     const CHILD_PATCH = '/childs/{id}';
 
+    const CHILD_UPLOAD_IMAGE = '/childs/{id}/upload-image';
+
     const CHILD_DELETE = '/childs/{id}';
 
     // Policy Routes
@@ -145,6 +147,8 @@ class RouteConstants
 
     const GROUP_PATCH = '/groups/{id}';
 
+    const GROUP_UPLOAD_IMAGE = '/groups/{id}/upload-image';
+
     const GROUP_DELETE = '/groups/{id}';
 
     // Activity Routes
@@ -160,6 +164,8 @@ class RouteConstants
 
     const ACTIVITY_PATCH = '/activities/{id}';
 
+    const ACTIVITY_UPLOAD_IMAGE = '/activities/{id}/upload-image';
+
     const ACTIVITY_DELETE = '/activities/{id}';
 
     // Monitor Routes
@@ -174,6 +180,8 @@ class RouteConstants
     const MONITOR_UPDATE = '/monitors/{id}';
 
     const MONITOR_PATCH = '/monitors/{id}';
+
+    const MONITOR_UPLOAD_IMAGE = '/monitors/{id}/upload-image';
 
     const MONITOR_DELETE = '/monitors/{id}';
 

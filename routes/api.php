@@ -104,6 +104,7 @@ Route::middleware('throttle:api')->group(function () {
             Route::post(RouteConstants::CHILD_CREATE, 'store')->name('childs.store')->middleware('auth:sanctum');
             Route::put(RouteConstants::CHILD_UPDATE, 'update')->name('childs.update')->middleware('auth:sanctum');
             Route::patch(RouteConstants::CHILD_PATCH, 'patch')->name('childs.patch')->middleware('auth:sanctum');
+            Route::post(RouteConstants::CHILD_UPLOAD_IMAGE, 'uploadImage')->name('childs.uploadImage')->middleware('auth:sanctum');
             Route::delete(RouteConstants::CHILD_DELETE, 'destroy')->name('childs.destroy')->middleware('auth:sanctum');
         });
 
@@ -135,6 +136,7 @@ Route::middleware('throttle:api')->group(function () {
             Route::post(RouteConstants::GROUP_BULK, 'bulkGroups')->name('groups.bulk')->middleware('auth:sanctum');
             Route::put(RouteConstants::GROUP_UPDATE, 'update')->name('groups.update')->middleware('auth:sanctum');
             Route::patch(RouteConstants::GROUP_PATCH, 'patch')->name('groups.patch')->middleware('auth:sanctum');
+            Route::post(RouteConstants::GROUP_UPLOAD_IMAGE, 'uploadImage')->name('groups.uploadImage')->middleware('auth:sanctum');
             Route::delete(RouteConstants::GROUP_DELETE, 'destroy')->name('groups.destroy')->middleware('auth:sanctum');
         });
 
@@ -146,6 +148,8 @@ Route::middleware('throttle:api')->group(function () {
             Route::post(RouteConstants::ACTIVITY_BULK, 'bulkActivities')->name('activities.bulk')->middleware('auth:sanctum');
             Route::put(RouteConstants::ACTIVITY_UPDATE, 'update')->name('activities.update')->middleware('auth:sanctum');
             Route::patch(RouteConstants::ACTIVITY_PATCH, 'patch')->name('activities.patch')->middleware('auth:sanctum');
+            Route::post(RouteConstants::ACTIVITY_UPLOAD_IMAGE, 'uploadImage')->name('activities.uploadImage')->middleware('auth:sanctum');
+
             Route::delete(RouteConstants::ACTIVITY_DELETE, 'destroy')->name('activities.destroy')->middleware('auth:sanctum');
         });
 
@@ -157,6 +161,7 @@ Route::middleware('throttle:api')->group(function () {
             Route::post(RouteConstants::MONITOR_BULK, 'bulkMonitors')->name('monitors.bulk')->middleware('auth:sanctum');
             Route::put(RouteConstants::MONITOR_UPDATE, 'update')->name('monitors.update')->middleware('auth:sanctum');
             Route::patch(RouteConstants::MONITOR_PATCH, 'patch')->name('monitors.patch')->middleware('auth:sanctum');
+            Route::post(RouteConstants::MONITOR_UPLOAD_IMAGE, 'uploadImage')->name('monitors.uploadImage')->middleware('auth:sanctum');
             Route::delete(RouteConstants::MONITOR_DELETE, 'destroy')->name('monitors.destroy')->middleware('auth:sanctum');
         });
 
