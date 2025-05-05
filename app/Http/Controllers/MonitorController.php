@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Monitor;
+use App\Services\ExportService;
 use App\Services\MonitorService;
 use Illuminate\Http\Request;
 
@@ -52,5 +54,11 @@ class MonitorController extends Controller
     public function destroy(Request $request, $id)
     {
         return $this->monitorService->delete($request, $id);
+    }
+
+    public function export(Request $request)
+    {
+        $exportService = new ExportService(new Monitor);
+        return $exportService->export($request);
     }
 }

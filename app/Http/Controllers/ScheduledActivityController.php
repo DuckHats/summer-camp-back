@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ScheduledActivity;
+use App\Services\ExportService;
 use App\Services\ScheduledActivityService;
 use Illuminate\Http\Request;
 
@@ -47,5 +49,11 @@ class ScheduledActivityController extends Controller
     public function destroy(Request $request, $id)
     {
         return $this->scheduledActivityService->delete($request, $id);
+    }
+
+    public function export(Request $request)
+    {
+        $exportService = new ExportService(new ScheduledActivity);
+        return $exportService->export($request);
     }
 }

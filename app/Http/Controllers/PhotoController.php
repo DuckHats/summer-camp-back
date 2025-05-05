@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Photo;
+use App\Services\ExportService;
 use App\Services\PhotoService;
 use Illuminate\Http\Request;
 
@@ -42,5 +44,11 @@ class PhotoController extends Controller
     public function destroy(Request $request, $id)
     {
         return $this->photoService->delete($request, $id);
+    }
+
+    public function export(Request $request)
+    {
+        $exportService = new ExportService(new Photo);
+        return $exportService->export($request);
     }
 }
