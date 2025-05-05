@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child;
+use App\Services\ExportService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -140,5 +142,12 @@ class UserController extends Controller
     public function is_admin()
     {
         return $this->userService->isAdmin();
+    }
+
+    public function export(Request $request)
+    {
+        $exportService = new ExportService(new Child);
+
+        return $exportService->export($request);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child;
 use App\Services\ChildService;
+use App\Services\ExportService;
 use Illuminate\Http\Request;
 
 class ChildController extends Controller
@@ -57,5 +59,12 @@ class ChildController extends Controller
     public function multipleInspect(Request $request)
     {
         return $this->childService->multipleInspect($request);
+    }
+
+    public function export(Request $request)
+    {
+        $exportService = new ExportService(new Child);
+
+        return $exportService->export($request);
     }
 }

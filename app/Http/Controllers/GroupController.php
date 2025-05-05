@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
+use App\Services\ExportService;
 use App\Services\GroupService;
 use Illuminate\Http\Request;
 
@@ -52,5 +54,12 @@ class GroupController extends Controller
     public function destroy(Request $request, $id)
     {
         return $this->groupService->delete($request, $id);
+    }
+
+    public function export(Request $request)
+    {
+        $exportService = new ExportService(new Group);
+
+        return $exportService->export($request);
     }
 }

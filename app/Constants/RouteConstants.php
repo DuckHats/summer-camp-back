@@ -28,6 +28,8 @@ class RouteConstants
     // User Routes
     const USERS = '/users';
 
+    const USERS_EXPORT = '/users/export';
+
     const USERS_ME = '/users/me';
 
     const USERS_DETAIL = '/users/{id}';
@@ -92,6 +94,8 @@ class RouteConstants
     // Childs Routes
     const CHILDS = '/childs';
 
+    const CHILDS_EXPORT = '/childs/export';
+
     const CHILD_DETAIL = '/childs/{id}';
 
     const CHILD_INSPECT = '/childs/{id}/inspect';
@@ -137,6 +141,8 @@ class RouteConstants
     // Group Routes
     const GROUPS = '/groups';
 
+    const GROUPS_EXPORT = '/groups/export';
+
     const GROUP_DETAIL = '/groups/{id}';
 
     const GROUP_CREATE = '/groups';
@@ -153,6 +159,8 @@ class RouteConstants
 
     // Activity Routes
     const ACTIVITIES = '/activities';
+
+    const ACTIVITIES_EXPORT = '/activities/export';
 
     const ACTIVITY_DETAIL = '/activities/{id}';
 
@@ -171,6 +179,8 @@ class RouteConstants
     // Monitor Routes
     const MONITORS = '/monitors';
 
+    const MONITORS_EXPORT = '/monitors/export';
+
     const MONITOR_DETAIL = '/monitors/{id}';
 
     const MONITOR_CREATE = '/monitors';
@@ -188,6 +198,8 @@ class RouteConstants
     // Photo Routes
     const PHOTOS = '/photos';
 
+    const PHOTOS_EXPORT = '/photos/export';
+
     const PHOTO_DETAIL = '/photos/{id}';
 
     const PHOTO_CREATE = '/photos';
@@ -201,6 +213,8 @@ class RouteConstants
     // Scheduled Activity Routes
 
     const SCHEDULED_ACTIVITIES = '/scheduled-activities';
+
+    const SCHEDULED_ACTIVITIES_EXPORT = '/scheduled-activities/export';
 
     const SCHEDULED_ACTIVITY_DETAIL = '/scheduled-activities/{id}';
 

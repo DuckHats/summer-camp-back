@@ -50,6 +50,8 @@ Route::middleware('throttle:api')->group(function () {
         Route::controller(UserController::class)->group(function () {
             Route::get(RouteConstants::USERS, 'index')->name('users.index')->middleware('auth:sanctum');
             Route::get(RouteConstants::USERS_ME, 'me')->name('users.me')->middleware('auth:sanctum');
+            Route::get(RouteConstants::USERS_EXPORT, 'export')->name('users.export')->middleware('auth:sanctum');
+
             Route::get(RouteConstants::USERS_ADMIN_CHECK, 'is_admin')->name('users.adminCheck')->middleware('auth:sanctum');
             Route::get(RouteConstants::USERS_DETAIL, 'show')->name('users.show')->middleware('auth:sanctum');
 
@@ -96,6 +98,8 @@ Route::middleware('throttle:api')->group(function () {
 
         Route::controller(ChildController::class)->group(function () {
             Route::get(RouteConstants::CHILDS, 'index')->name('childs.index');
+            Route::get(RouteConstants::CHILDS_EXPORT, 'export')->name('childs.export');
+
             Route::get(RouteConstants::CHILD_DETAIL, 'show')->name('childs.show');
 
             Route::post(RouteConstants::CHILD_MULTIPLE_INSPECT, 'multipleInspect')->name('childs.multipleInspect');
@@ -130,6 +134,8 @@ Route::middleware('throttle:api')->group(function () {
 
         Route::controller(GroupController::class)->group(function () {
             Route::get(RouteConstants::GROUPS, 'index')->name('groups.index');
+            Route::get(RouteConstants::GROUPS_EXPORT, 'export')->name('groups.export');
+
             Route::get(RouteConstants::GROUP_DETAIL, 'show')->name('groups.show');
 
             Route::post(RouteConstants::GROUP_CREATE, 'store')->name('groups.store')->middleware('auth:sanctum');
@@ -142,6 +148,7 @@ Route::middleware('throttle:api')->group(function () {
 
         Route::controller(ActivityController::class)->group(function () {
             Route::get(RouteConstants::ACTIVITIES, 'index')->name('activities.index');
+            Route::get(RouteConstants::ACTIVITIES_EXPORT, 'export')->name('activities.export');
             Route::get(RouteConstants::ACTIVITY_DETAIL, 'show')->name('activities.show');
 
             Route::post(RouteConstants::ACTIVITY_CREATE, 'store')->name('activities.store')->middleware('auth:sanctum');
@@ -155,6 +162,8 @@ Route::middleware('throttle:api')->group(function () {
 
         Route::controller(MonitorController::class)->group(function () {
             Route::get(RouteConstants::MONITORS, 'index')->name('monitors.index');
+            Route::get(RouteConstants::MONITORS_EXPORT, 'export')->name('monitors.export');
+
             Route::get(RouteConstants::MONITOR_DETAIL, 'show')->name('monitors.show');
 
             Route::post(RouteConstants::MONITOR_CREATE, 'store')->name('monitors.store')->middleware('auth:sanctum');
@@ -167,6 +176,8 @@ Route::middleware('throttle:api')->group(function () {
 
         Route::controller(PhotoController::class)->group(function () {
             Route::get(RouteConstants::PHOTOS, 'index')->name('photos.index');
+            Route::get(RouteConstants::PHOTOS_EXPORT, 'export')->name('photos.export');
+
             Route::get(RouteConstants::PHOTO_DETAIL, 'show')->name('photos.show');
 
             Route::post(RouteConstants::PHOTO_CREATE, 'store')->name('photos.store')->middleware('auth:sanctum');
@@ -177,6 +188,8 @@ Route::middleware('throttle:api')->group(function () {
 
         Route::controller(ScheduledActivityController::class)->group(function () {
             Route::get(RouteConstants::SCHEDULED_ACTIVITIES, 'index')->name('scheduled_activities.index');
+            Route::get(RouteConstants::SCHEDULED_ACTIVITIES_EXPORT, 'export')->name('scheduled_activities.export');
+
             Route::get(RouteConstants::SCHEDULED_ACTIVITY_DETAIL, 'show')->name('scheduled_activities.show');
 
             Route::post(RouteConstants::SCHEDULED_ACTIVITY_CREATE, 'store')->name('scheduled_activities.store')->middleware('auth:sanctum');
