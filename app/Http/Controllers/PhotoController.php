@@ -49,6 +49,7 @@ class PhotoController extends Controller
     public function export(Request $request)
     {
         $exportService = new ExportService(new Photo);
+
         return $exportService->export($request);
     }
 }

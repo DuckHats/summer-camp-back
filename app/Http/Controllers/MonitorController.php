@@ -59,6 +59,7 @@ class MonitorController extends Controller
     public function export(Request $request)
     {
         $exportService = new ExportService(new Monitor);
+
         return $exportService->export($request);
     }
 }

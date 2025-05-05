@@ -54,6 +54,7 @@ class ScheduledActivityController extends Controller
     public function export(Request $request)
     {
         $exportService = new ExportService(new ScheduledActivity);
+
         return $exportService->export($request);
     }
 }

@@ -94,7 +94,7 @@ class RouteConstants
     // Childs Routes
     const CHILDS = '/childs';
 
-    const CHILDS_EXPORT  = '/childs/export';
+    const CHILDS_EXPORT = '/childs/export';
 
     const CHILD_DETAIL = '/childs/{id}';
 

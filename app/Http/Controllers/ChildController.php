@@ -64,6 +64,7 @@ class ChildController extends Controller
     public function export(Request $request)
     {
         $exportService = new ExportService(new Child);
+
         return $exportService->export($request);
     }
 }

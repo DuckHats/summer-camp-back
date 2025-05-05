@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Services\ActivityService;
 use App\Services\ExportService;
 use Illuminate\Http\Request;
-use App\Models\Activity;
 
 class ActivityController extends Controller
 {
@@ -59,6 +59,7 @@ class ActivityController extends Controller
     public function export(Request $request)
     {
         $exportService = new ExportService(new Activity);
+
         return $exportService->export($request);
     }
 }
