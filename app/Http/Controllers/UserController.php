@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Child;
+use App\Models\User;
 use App\Services\ExportService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -146,7 +147,7 @@ class UserController extends Controller
 
     public function export(Request $request)
     {
-        $exportService = new ExportService(new Child);
+        $exportService = new ExportService(new User);
 
         return $exportService->export($request);
     }
