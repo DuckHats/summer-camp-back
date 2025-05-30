@@ -150,12 +150,12 @@ class ChildService extends BaseService
             $childrenData = [];
             foreach ($children as $child) {
                 $childData = $child->toArray();
-                
+
                 $activitiesByDay = [];
                 if ($child->group && $child->group->scheduledActivities) {
                     foreach ($child->group->scheduledActivities as $scheduledActivity) {
                         $date = $scheduledActivity->initial_date;
-                        if (!isset($activitiesByDay[$date])) {
+                        if (! isset($activitiesByDay[$date])) {
                             $activitiesByDay[$date] = [];
                         }
 
@@ -166,16 +166,16 @@ class ChildService extends BaseService
                             'id' => $activity->id,
                             'name' => $activity->name,
                             'description' => $activity->description,
-                            'instructor' => $monitor ? $monitor->first_name . ' ' . $monitor->last_name : null,
+                            'instructor' => $monitor ? $monitor->first_name.' '.$monitor->last_name : null,
                             'initial_hour' => $scheduledActivity->initial_hour,
                             'final_hour' => $scheduledActivity->final_hour,
                             'location' => $scheduledActivity->location,
-                            'cover_image' => $activity->cover_image
+                            'cover_image' => $activity->cover_image,
                         ];
                     }
                 }
                 ksort($activitiesByDay);
-                
+
                 $childData['group']['scheduled_activities'] = $activitiesByDay;
                 $childrenData[] = $childData;
             }

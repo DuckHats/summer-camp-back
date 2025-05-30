@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Helpers\ApiResponse;
 use App\Helpers\ValidationHelper;
-use App\Http\Resources\ScheduledActivityResource;
 use App\Http\Resources\OptimizedScheduledActivityResource;
+use App\Http\Resources\ScheduledActivityResource;
 use App\Jobs\BulkScheduledActivityCreationJob;
 use App\Models\ScheduledActivity;
 use Illuminate\Http\Request;
@@ -56,13 +56,13 @@ class ScheduledActivityService extends BaseService
             $scheduledActivities = ScheduledActivity::with([
                 'activity',
                 'group.monitor',
-                'group.childs.user'
+                'group.childs.user',
             ])->get();
 
             $optimizedData = [];
             foreach ($scheduledActivities as $scheduledActivity) {
                 $date = $scheduledActivity->initial_date;
-                if (!isset($optimizedData[$date])) {
+                if (! isset($optimizedData[$date])) {
                     $optimizedData[$date] = [];
                 }
 

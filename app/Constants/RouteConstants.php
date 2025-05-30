@@ -232,5 +232,4 @@ class RouteConstants
 
     // Optimized Scheduled Activities Routes
     const SCHEDULED_ACTIVITIES_OPTIMIZED = '/scheduled_activities/optimized';
-
 }
