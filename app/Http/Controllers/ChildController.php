@@ -61,6 +61,11 @@ class ChildController extends Controller
         return $this->childService->multipleInspect($request);
     }
 
+    public function getActivitiesByDay(Request $request)
+    {
+        return $this->childService->getActivitiesByDay($request);
+    }
+
     public function export(Request $request)
     {
         $exportService = new ExportService(new Child);

@@ -103,6 +103,7 @@ Route::middleware('throttle:api')->group(function () {
             Route::get(RouteConstants::CHILD_DETAIL, 'show')->name('childs.show');
 
             Route::post(RouteConstants::CHILD_MULTIPLE_INSPECT, 'multipleInspect')->name('childs.multipleInspect');
+            Route::post(RouteConstants::CHILD_ACTIVITIES_BY_DAY, 'getActivitiesByDay')->name('childs.activitiesByDay');
             Route::get(RouteConstants::CHILD_INSPECT, 'inspect')->name('childs.inspect');
 
             Route::post(RouteConstants::CHILD_CREATE, 'store')->name('childs.store')->middleware('auth:sanctum');
@@ -197,6 +198,8 @@ Route::middleware('throttle:api')->group(function () {
             Route::put(RouteConstants::SCHEDULED_ACTIVITY_UPDATE, 'update')->name('scheduled_activities.update')->middleware('auth:sanctum');
             Route::patch(RouteConstants::SCHEDULED_ACTIVITY_PATCH, 'patch')->name('scheduled_activities.patch')->middleware('auth:sanctum');
             Route::delete(RouteConstants::SCHEDULED_ACTIVITY_DELETE, 'destroy')->name('scheduled_activities.destroy')->middleware('auth:sanctum');
+
+            Route::get(RouteConstants::SCHEDULED_ACTIVITIES_OPTIMIZED, 'getOptimizedActivities')->name('scheduled_activities.optimized');
         });
     });
 });

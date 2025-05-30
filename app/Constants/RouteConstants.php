@@ -102,6 +102,8 @@ class RouteConstants
 
     const CHILD_MULTIPLE_INSPECT = '/childs/bulk/inspect';
 
+    const CHILD_ACTIVITIES_BY_DAY = '/childs/activities-by-day';
+
     const CHILD_CREATE = '/childs';
 
     const CHILD_UPDATE = '/childs/{id}';
@@ -227,4 +229,8 @@ class RouteConstants
     const SCHEDULED_ACTIVITY_PATCH = '/scheduled-activities/{id}';
 
     const SCHEDULED_ACTIVITY_DELETE = '/scheduled-activities/{id}';
+
+    // Optimized Scheduled Activities Routes
+    const SCHEDULED_ACTIVITIES_OPTIMIZED = '/scheduled_activities/optimized';
+
 }
