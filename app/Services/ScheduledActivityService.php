@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\ApiResponse;
 use App\Helpers\ValidationHelper;
+use App\Http\Resources\OptimizedScheduledActivityResource;
 use App\Http\Resources\ScheduledActivityResource;
 use App\Jobs\BulkScheduledActivityCreationJob;
 use App\Models\ScheduledActivity;
@@ -47,5 +48,41 @@ class ScheduledActivityService extends BaseService
         BulkScheduledActivityCreationJob::dispatch($request->input('scheduled_activities'))->onQueue('bulk-processing');
 
         return ApiResponse::success([], 'Scheduled activities creation in progress.', ApiResponse::ACCEPTED_STATUS);
+    }
+
+    public function getOptimizedActivities($request)
+    {
+        try {
+            $scheduledActivities = ScheduledActivity::with([
+                'activity',
+                'group.monitor',
+                'group.childs.user',
+            ])->get();
+
+            $optimizedData = [];
+            foreach ($scheduledActivities as $scheduledActivity) {
+                $date = $scheduledActivity->initial_date;
+                if (! isset($optimizedData[$date])) {
+                    $optimizedData[$date] = [];
+                }
+
+                $optimizedData[$date][] = new OptimizedScheduledActivityResource($scheduledActivity);
+            }
+
+            ksort($optimizedData);
+
+            return ApiResponse::success(
+                $optimizedData,
+                'Optimized activities retrieved successfully.',
+                ApiResponse::OK_STATUS
+            );
+        } catch (\Throwable $e) {
+            return ApiResponse::error(
+                'FETCH_FAILED',
+                'Error while retrieving optimized activities.',
+                ['exception' => $e->getMessage()],
+                ApiResponse::INTERNAL_SERVER_ERROR_STATUS
+            );
+        }
     }
 }

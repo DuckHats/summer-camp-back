@@ -113,4 +113,85 @@ class ChildService extends BaseService
             );
         }
     }
+
+    public function getActivitiesByDay($request)
+    {
+        try {
+            $validatedData = ValidationHelper::validateRequest($request, 'childs', 'multiple_inspect');
+
+            if (! $validatedData['success']) {
+                return ApiResponse::error(
+                    'VALIDATION_ERROR',
+                    'Invalid parameters provided.',
+                    $validatedData['errors'],
+                    ApiResponse::INVALID_PARAMETERS_STATUS
+                );
+            }
+
+            $children = Child::with([
+                'user',
+                'group.monitor',
+                'group.scheduledActivities',
+                'group.scheduledActivities.activity',
+                'group.photos',
+            ])->whereIn('id', $request->children_ids)
+                ->orderByRaw('FIELD(id, '.implode(',', $request->children_ids).')')
+                ->get();
+
+            if ($children->isEmpty()) {
+                return ApiResponse::error(
+                    'NOT_FOUND',
+                    'No children found.',
+                    [],
+                    ApiResponse::NOT_FOUND_STATUS
+                );
+            }
+
+            $childrenData = [];
+            foreach ($children as $child) {
+                $childData = $child->toArray();
+
+                $activitiesByDay = [];
+                if ($child->group && $child->group->scheduledActivities) {
+                    foreach ($child->group->scheduledActivities as $scheduledActivity) {
+                        $date = $scheduledActivity->initial_date;
+                        if (! isset($activitiesByDay[$date])) {
+                            $activitiesByDay[$date] = [];
+                        }
+
+                        $activity = $scheduledActivity->activity;
+                        $monitor = $child->group->monitor;
+
+                        $activitiesByDay[$date][] = [
+                            'id' => $activity->id,
+                            'name' => $activity->name,
+                            'description' => $activity->description,
+                            'instructor' => $monitor ? $monitor->first_name.' '.$monitor->last_name : null,
+                            'initial_hour' => $scheduledActivity->initial_hour,
+                            'final_hour' => $scheduledActivity->final_hour,
+                            'location' => $scheduledActivity->location,
+                            'cover_image' => $activity->cover_image,
+                        ];
+                    }
+                }
+                ksort($activitiesByDay);
+
+                $childData['group']['scheduled_activities'] = $activitiesByDay;
+                $childrenData[] = $childData;
+            }
+
+            return ApiResponse::success(
+                $childrenData,
+                'Children activities by day retrieved successfully.',
+                ApiResponse::OK_STATUS
+            );
+        } catch (\Throwable $e) {
+            return ApiResponse::error(
+                'FETCH_FAILED',
+                'Error while retrieving children activities.',
+                ['exception' => $e->getMessage()],
+                ApiResponse::INTERNAL_SERVER_ERROR_STATUS
+            );
+        }
+    }
 }

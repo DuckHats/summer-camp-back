@@ -57,4 +57,9 @@ class ScheduledActivityController extends Controller
 
         return $exportService->export($request);
     }
+
+    public function getOptimizedActivities(Request $request)
+    {
+        return $this->scheduledActivityService->getOptimizedActivities($request);
+    }
 }
