@@ -21,7 +21,7 @@ class MonitorFactory extends Factory
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,
             'phone' => $this->faker->phoneNumber,
-            'profile_picture' => $this->faker->imageUrl(200, 200, 'people', true),
+            'profile_picture' => 'https://picsum.photos/600',
             'extra_info' => $this->faker->paragraph,
         ];
     }

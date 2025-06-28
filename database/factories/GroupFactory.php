@@ -14,7 +14,7 @@ class GroupFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'profile_picture' => $this->faker->imageUrl(200, 200, 'people', true),
+            'profile_picture' => 'https://picsum.photos/600',
             'monitor_id' => Monitor::factory(),
         ];
     }

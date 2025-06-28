@@ -21,7 +21,7 @@ class PhotoFactory extends Factory
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'group_id' => Group::factory(),
-            'image_url' => $this->faker->imageUrl(),
+            'image_url' => 'https://picsum.photos/800',
         ];
     }
 }

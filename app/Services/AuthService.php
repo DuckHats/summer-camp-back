@@ -40,7 +40,9 @@ class AuthService
         $this->authRepository->createBasicSettings($user->id);
         $this->authRepository->setWelcomeNotification($user->id);
         $this->authRepository->setBasicPolicies($user->id);
-        $this->authRepository->setAdminRole($user->id);
+        if (isset($fields['email']) && $fields['email'] == config('user.admin_email')) {
+            $this->authRepository->setAdminRole($user->id);
+        }
         Auth::login($user);
         $token = $user->createToken('auth_token')->plainTextToken;
 

@@ -16,7 +16,7 @@ class ActivityFactory extends Factory
         return [
             'name' => $this->faker->sentence(3),
             'description' => $this->faker->paragraph(),
-            'cover_image' => $this->faker->imageUrl(),
+            'cover_image' => 'https://picsum.photos/800',
         ];
     }
 }

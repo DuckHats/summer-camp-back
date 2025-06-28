@@ -23,7 +23,7 @@ class ChildFactory extends Factory
             'last_name' => $this->faker->lastName,
             'birth_date' => $this->faker->date(),
             'group_id' => Group::factory(),
-            'profile_picture_url' => $this->faker->imageUrl(640, 480),
+            'profile_picture_url' => 'https://picsum.photos/600',
             'profile_extra_info' => $this->faker->paragraph,
             'gender' => $this->faker->randomElement(['male', 'female', 'other']),
             'user_id' => User::factory(),
